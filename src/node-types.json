@@ -1,5 +1,20 @@
 [
   {
+    "type": "charseq_size",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "constvar_declaration",
     "named": true,
     "fields": {
@@ -66,7 +81,17 @@
   {
     "type": "primitive_type",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "charseq_size",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "register_attr",
@@ -133,6 +158,14 @@
     }
   },
   {
+    "type": "(",
+    "named": false
+  },
+  {
+    "type": ")",
+    "named": false
+  },
+  {
     "type": "*",
     "named": false
   },
@@ -153,7 +186,15 @@
     "named": false
   },
   {
+    "type": "addressint",
+    "named": false
+  },
+  {
     "type": "boolean",
+    "named": false
+  },
+  {
+    "type": "char",
     "named": false
   },
   {
@@ -173,8 +214,40 @@
     "named": true
   },
   {
+    "type": "int",
+    "named": false
+  },
+  {
+    "type": "int1",
+    "named": false
+  },
+  {
+    "type": "int2",
+    "named": false
+  },
+  {
+    "type": "int4",
+    "named": false
+  },
+  {
     "type": "line_comment",
     "named": true
+  },
+  {
+    "type": "nat",
+    "named": false
+  },
+  {
+    "type": "nat1",
+    "named": false
+  },
+  {
+    "type": "nat2",
+    "named": false
+  },
+  {
+    "type": "nat4",
+    "named": false
   },
   {
     "type": "opaque",
@@ -185,7 +258,23 @@
     "named": false
   },
   {
+    "type": "real",
+    "named": false
+  },
+  {
+    "type": "real4",
+    "named": false
+  },
+  {
+    "type": "real8",
+    "named": false
+  },
+  {
     "type": "register",
+    "named": false
+  },
+  {
+    "type": "string",
     "named": false
   },
   {

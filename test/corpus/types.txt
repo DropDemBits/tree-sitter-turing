@@ -1,0 +1,108 @@
+================================================================================
+primitive ty - simple
+================================================================================
+
+type a : boolean
+type a : addressint
+type a : int
+type a : int1
+type a : int2
+type a : int4
+type a : nat
+type a : nat1
+type a : nat2
+type a : nat4
+type a : real
+type a : real4
+type a : real8
+type a : char
+type a : string
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (type_declaration
+    (identifier)
+    (primitive_type))
+  (type_declaration
+    (identifier)
+    (primitive_type))
+  (type_declaration
+    (identifier)
+    (primitive_type))
+  (type_declaration
+    (identifier)
+    (primitive_type))
+  (type_declaration
+    (identifier)
+    (primitive_type))
+  (type_declaration
+    (identifier)
+    (primitive_type))
+  (type_declaration
+    (identifier)
+    (primitive_type))
+  (type_declaration
+    (identifier)
+    (primitive_type))
+  (type_declaration
+    (identifier)
+    (primitive_type))
+  (type_declaration
+    (identifier)
+    (primitive_type))
+  (type_declaration
+    (identifier)
+    (primitive_type))
+  (type_declaration
+    (identifier)
+    (primitive_type))
+  (type_declaration
+    (identifier)
+    (primitive_type))
+  (type_declaration
+    (identifier)
+    (primitive_type))
+  (type_declaration
+    (identifier)
+    (primitive_type)))
+
+================================================================================
+primitive ty - const sized
+================================================================================
+
+type a : char(a)
+type a : string(a)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (type_declaration
+    (identifier)
+    (primitive_type
+      (charseq_size
+        (identifier))))
+  (type_declaration
+    (identifier)
+    (primitive_type
+      (charseq_size
+        (identifier)))))
+
+================================================================================
+primitive ty - dyn sized
+================================================================================
+
+type a : char(*)
+type a : string(*)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (type_declaration
+    (identifier)
+    (primitive_type
+      (charseq_size)))
+  (type_declaration
+    (identifier)
+    (primitive_type
+      (charseq_size))))

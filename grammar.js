@@ -70,7 +70,29 @@ module.exports = grammar({
 
     primitive_type: $ => choice(
       'boolean',
-      //
+      'addressint',
+      'int',
+      'int1',
+      'int2',
+      'int4',
+      'nat',
+      'nat1',
+      'nat2',
+      'nat4',
+      'real',
+      'real4',
+      'real8',
+      seq('char', optional($.charseq_size)),
+      seq('string', optional($.charseq_size)),
+    ),
+
+    charseq_size: $ => seq(
+      '(',
+      choice(
+        '*', // ???: may want to treat as a "from end" atom, since that's also used for ranges
+        $._expression
+      ),
+      ')'
     ),
 
     forward_type: $ => 'forward',
