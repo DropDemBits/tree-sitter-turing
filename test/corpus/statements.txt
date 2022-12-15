@@ -1,0 +1,104 @@
+================================================================================
+constvar declaration - full
+================================================================================
+
+const a : boolean := b
+var a : boolean := b
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (constvar_declaration
+    name: (identifier)
+    type_spec: (primitive_type)
+    initializer: (identifier))
+  (constvar_declaration
+    name: (identifier)
+    type_spec: (primitive_type)
+    initializer: (identifier)))
+
+================================================================================
+constvar declaration - type only
+================================================================================
+
+const a : boolean
+var a : boolean
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (constvar_declaration
+    (identifier)
+    (primitive_type))
+  (constvar_declaration
+    (identifier)
+    (primitive_type)))
+
+================================================================================
+constvar declaration - init only
+================================================================================
+
+const a := b
+var a := b
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (constvar_declaration
+    (identifier)
+    (identifier))
+  (constvar_declaration
+    (identifier)
+    (identifier)))
+
+================================================================================
+constvar declaration - missing both
+================================================================================
+
+const a
+var a
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (constvar_declaration
+    (identifier))
+  (constvar_declaration
+    (identifier)))
+
+================================================================================
+constvar declaration - register attr
+================================================================================
+
+const register a
+var register a
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (constvar_declaration
+    (register_attr)
+    (identifier))
+  (constvar_declaration
+    (register_attr)
+    (identifier)))
+
+================================================================================
+constvar declaration - attr ordering
+================================================================================
+
+const pervasive register a
+var register pervasive a
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (constvar_declaration
+    (pervasive_attr)
+    (register_attr)
+    (identifier))
+  (constvar_declaration
+    (register_attr)
+    (identifier))
+  (ERROR
+    (identifier)))
