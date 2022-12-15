@@ -1,7 +1,7 @@
 module.exports = grammar({
   name: 'turing',
-  
-  extras: $ => [/\s/, $.line_comment, /* $.block_comment */ ],
+
+  extras: $ => [/\s/, $.line_comment, /* $.block_comment */],
 
   inline: $ => [$._statements],
 
@@ -13,7 +13,7 @@ module.exports = grammar({
       optional('unit'),
       repeat($._statement),
     ),
-    
+
     line_comment: $ => token(seq(
       '%', /.*/
     )),
@@ -22,6 +22,7 @@ module.exports = grammar({
       choice(
         // Declarations //
         $.constvar_declaration,
+        $.type_declaration,
 
         // Simple statements //
 
@@ -44,6 +45,14 @@ module.exports = grammar({
       )),
     ),
 
+    type_declaration: $ => seq(
+      'type',
+      optional($.pervasive_attr),
+      field('name', $.identifier),
+      ':',
+      field('type_spec', $._type),
+    ),
+
     _macro_directive: $ => choice(
       // TODO
     ),
@@ -55,6 +64,7 @@ module.exports = grammar({
 
     _type: $ => choice(
       $.primitive_type,
+      $.forward_type,
       // TODO
     ),
 
@@ -62,6 +72,8 @@ module.exports = grammar({
       'boolean',
       //
     ),
+
+    forward_type: $ => 'forward',
 
     // Attrs //
     pervasive_attr: $ => choice('pervasive', '*'),
@@ -86,7 +98,7 @@ module.exports = grammar({
 
 // - Range exprs should be hoisted into the precedence tree
 //   - Auto creates span covering the bounds, don't have to make one
-// - AllExpr is an atom, but can keep same logic 
+// - AllExpr is an atom, but can keep same logic
 //   - Why not "allow" `all + 1` and reject it later? Would mean that we'd have to check that all is in a valid position,
 //     but eh...
 

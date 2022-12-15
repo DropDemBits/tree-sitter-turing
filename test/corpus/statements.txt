@@ -102,3 +102,52 @@ var register pervasive a
     (identifier))
   (ERROR
     (identifier)))
+
+================================================================================
+type declaration - full
+================================================================================
+
+type a : boolean
+type a : forward
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (type_declaration
+    name: (identifier)
+    type_spec: (primitive_type))
+  (type_declaration
+    name: (identifier)
+    type_spec: (forward_type)))
+
+================================================================================
+type declaration - pervasive
+================================================================================
+
+type pervasive a : boolean
+type * a : boolean
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (type_declaration
+    (pervasive_attr)
+    (identifier)
+    (primitive_type))
+  (type_declaration
+    (pervasive_attr)
+    (identifier)
+    (primitive_type)))
+
+================================================================================
+type declaration - missing colon
+================================================================================
+
+type a boolean
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (ERROR
+    (identifier)
+    (identifier)))

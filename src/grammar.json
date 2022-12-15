@@ -51,6 +51,10 @@
             {
               "type": "SYMBOL",
               "name": "constvar_declaration"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "type_declaration"
             }
           ]
         },
@@ -168,6 +172,47 @@
         }
       ]
     },
+    "type_declaration": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "type"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "pervasive_attr"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "FIELD",
+          "name": "type_spec",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_type"
+          }
+        }
+      ]
+    },
     "_macro_directive": {
       "type": "CHOICE",
       "members": []
@@ -187,6 +232,10 @@
         {
           "type": "SYMBOL",
           "name": "primitive_type"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "forward_type"
         }
       ]
     },
@@ -198,6 +247,10 @@
           "value": "boolean"
         }
       ]
+    },
+    "forward_type": {
+      "type": "STRING",
+      "value": "forward"
     },
     "pervasive_attr": {
       "type": "CHOICE",
