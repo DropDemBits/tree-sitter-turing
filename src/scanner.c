@@ -29,9 +29,8 @@ void tree_sitter_turing_external_scanner_deserialize(void *payload,
                                                      const char *buffer,
                                                      unsigned length) {}
 
-bool tree_sitter_my_language_external_scanner_scan(void *payload,
-                                                   TSLexer *lexer,
-                                                   const bool *valid_symbols) {
+bool tree_sitter_turing_external_scanner_scan(void *payload, TSLexer *lexer,
+                                              const bool *valid_symbols) {
   // checking against `valid_symbols[REAL_LITERAL]` so that we don't eat content
   // during recovery
   if (valid_symbols[STRING_CONTENT] && !valid_symbols[REAL_LITERAL]) {
