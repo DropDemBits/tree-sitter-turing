@@ -8,10 +8,10 @@
 #define LANGUAGE_VERSION 13
 #define STATE_COUNT 51
 #define LARGE_STATE_COUNT 2
-#define SYMBOL_COUNT 48
+#define SYMBOL_COUNT 51
 #define ALIAS_COUNT 0
-#define TOKEN_COUNT 36
-#define EXTERNAL_TOKEN_COUNT 0
+#define TOKEN_COUNT 39
+#define EXTERNAL_TOKEN_COUNT 3
 #define FIELD_COUNT 3
 #define MAX_ALIAS_SEQUENCE_LENGTH 8
 #define PRODUCTION_ID_COUNT 13
@@ -52,18 +52,21 @@ enum {
   anon_sym_register = 33,
   anon_sym_cheat = 34,
   anon_sym_opaque = 35,
-  sym_source_file = 36,
-  sym__statement = 37,
-  sym_constvar_declaration = 38,
-  sym_type_declaration = 39,
-  sym__expression = 40,
-  sym__type = 41,
-  sym_primitive_type = 42,
-  sym_charseq_size = 43,
-  sym_forward_type = 44,
-  sym_pervasive_attr = 45,
-  sym_register_attr = 46,
-  aux_sym_source_file_repeat1 = 47,
+  sym_block_comment = 36,
+  sym_string_content = 37,
+  sym_real_literal = 38,
+  sym_source_file = 39,
+  sym__statement = 40,
+  sym_constvar_declaration = 41,
+  sym_type_declaration = 42,
+  sym__expression = 43,
+  sym__type = 44,
+  sym_primitive_type = 45,
+  sym_charseq_size = 46,
+  sym_forward_type = 47,
+  sym_pervasive_attr = 48,
+  sym_register_attr = 49,
+  aux_sym_source_file_repeat1 = 50,
 };
 
 static const char * const ts_symbol_names[] = {
@@ -103,6 +106,9 @@ static const char * const ts_symbol_names[] = {
   [anon_sym_register] = "register",
   [anon_sym_cheat] = "cheat",
   [anon_sym_opaque] = "opaque",
+  [sym_block_comment] = "block_comment",
+  [sym_string_content] = "string_content",
+  [sym_real_literal] = "real_literal",
   [sym_source_file] = "source_file",
   [sym__statement] = "_statement",
   [sym_constvar_declaration] = "constvar_declaration",
@@ -154,6 +160,9 @@ static const TSSymbol ts_symbol_map[] = {
   [anon_sym_register] = anon_sym_register,
   [anon_sym_cheat] = anon_sym_cheat,
   [anon_sym_opaque] = anon_sym_opaque,
+  [sym_block_comment] = sym_block_comment,
+  [sym_string_content] = sym_string_content,
+  [sym_real_literal] = sym_real_literal,
   [sym_source_file] = sym_source_file,
   [sym__statement] = sym__statement,
   [sym_constvar_declaration] = sym_constvar_declaration,
@@ -312,6 +321,18 @@ static const TSSymbolMetadata ts_symbol_metadata[] = {
   [anon_sym_opaque] = {
     .visible = true,
     .named = false,
+  },
+  [sym_block_comment] = {
+    .visible = true,
+    .named = true,
+  },
+  [sym_string_content] = {
+    .visible = true,
+    .named = true,
+  },
+  [sym_real_literal] = {
+    .visible = true,
+    .named = true,
   },
   [sym_source_file] = {
     .visible = true,
@@ -846,7 +867,7 @@ static bool ts_lex_keywords(TSLexer *lexer, TSStateId state) {
 }
 
 static const TSLexMode ts_lex_modes[STATE_COUNT] = {
-  [0] = {.lex_state = 0},
+  [0] = {.lex_state = 0, .external_lex_state = 1},
   [1] = {.lex_state = 0},
   [2] = {.lex_state = 0},
   [3] = {.lex_state = 0},
@@ -899,6 +920,26 @@ static const TSLexMode ts_lex_modes[STATE_COUNT] = {
   [50] = {.lex_state = 0},
 };
 
+enum {
+  ts_external_token_block_comment = 0,
+  ts_external_token_string_content = 1,
+  ts_external_token_real_literal = 2,
+};
+
+static const TSSymbol ts_external_scanner_symbol_map[EXTERNAL_TOKEN_COUNT] = {
+  [ts_external_token_block_comment] = sym_block_comment,
+  [ts_external_token_string_content] = sym_string_content,
+  [ts_external_token_real_literal] = sym_real_literal,
+};
+
+static const bool ts_external_scanner_states[2][EXTERNAL_TOKEN_COUNT] = {
+  [1] = {
+    [ts_external_token_block_comment] = true,
+    [ts_external_token_string_content] = true,
+    [ts_external_token_real_literal] = true,
+  },
+};
+
 static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
   [0] = {
     [ts_builtin_sym_end] = ACTIONS(1),
@@ -937,6 +978,9 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_register] = ACTIONS(1),
     [anon_sym_cheat] = ACTIONS(1),
     [anon_sym_opaque] = ACTIONS(1),
+    [sym_block_comment] = ACTIONS(1),
+    [sym_string_content] = ACTIONS(1),
+    [sym_real_literal] = ACTIONS(1),
   },
   [1] = {
     [sym_source_file] = STATE(43),
@@ -1629,6 +1673,12 @@ static const TSParseActionEntry ts_parse_actions[] = {
 #ifdef __cplusplus
 extern "C" {
 #endif
+void *tree_sitter_turing_external_scanner_create(void);
+void tree_sitter_turing_external_scanner_destroy(void *);
+bool tree_sitter_turing_external_scanner_scan(void *, TSLexer *, const bool *);
+unsigned tree_sitter_turing_external_scanner_serialize(void *, char *);
+void tree_sitter_turing_external_scanner_deserialize(void *, const char *, unsigned);
+
 #ifdef _WIN32
 #define extern __declspec(dllexport)
 #endif
@@ -1661,6 +1711,15 @@ extern const TSLanguage *tree_sitter_turing(void) {
     .lex_fn = ts_lex,
     .keyword_lex_fn = ts_lex_keywords,
     .keyword_capture_token = sym_identifier,
+    .external_scanner = {
+      &ts_external_scanner_states[0][0],
+      ts_external_scanner_symbol_map,
+      tree_sitter_turing_external_scanner_create,
+      tree_sitter_turing_external_scanner_destroy,
+      tree_sitter_turing_external_scanner_scan,
+      tree_sitter_turing_external_scanner_serialize,
+      tree_sitter_turing_external_scanner_deserialize,
+    },
   };
   return &language;
 }

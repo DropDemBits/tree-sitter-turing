@@ -1,6 +1,12 @@
 module.exports = grammar({
   name: 'turing',
 
+  externals: $ => [
+    $.block_comment,
+    $.string_content,
+    $.real_literal,
+  ],
+
   extras: $ => [/\s/, $.line_comment, /* $.block_comment */],
 
   inline: $ => [$._statements],
