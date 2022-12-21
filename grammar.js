@@ -9,7 +9,7 @@ module.exports = grammar({
 
   extras: $ => [/\s/, $.line_comment, $.block_comment],
 
-  inline: $ => [$._statements],
+  inline: $ => [$._statement_line],
 
   word: $ => $.identifier,
 
@@ -17,25 +17,27 @@ module.exports = grammar({
     // ('unit')? body
     source_file: $ => seq(
       optional('unit'),
-      repeat($._statement),
+      repeat($._statement_line)
     ),
 
     line_comment: $ => token(seq(
       '%', /.*/
     )),
 
-    _statement: $ => seq(
-      choice(
-        // Declarations //
-        $.constvar_declaration,
-        $.type_declaration,
+    _statement_line: $ => choice(
+      $._statement,
+      ';'
+    ),
 
-        // Simple statements //
+    _statement: $ => choice(
+      // Declarations //
+      $.constvar_declaration,
+      $.type_declaration,
 
-        // other
-        // $._macro_directive,
-      ),
-      optional(';')
+      // Simple statements //
+
+      // other
+      // $._macro_directive,
     ),
 
     constvar_declaration: $ => seq(
