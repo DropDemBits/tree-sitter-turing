@@ -643,6 +643,10 @@
   "inline": [
     "_statement_line"
   ],
-  "supertypes": []
+  "supertypes": [
+    "_statement",
+    "_type",
+    "_expression"
+  ]
 }
 

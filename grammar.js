@@ -13,6 +13,13 @@ module.exports = grammar({
 
   word: $ => $.identifier,
 
+  supertypes: $ => [
+    $._statement,
+    $._type,
+    $._expression,
+    // $._macro_directive,
+  ],
+
   rules: {
     // ('unit')? body
     source_file: $ => seq(

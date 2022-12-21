@@ -1,5 +1,47 @@
 [
   {
+    "type": "_expression",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "identifier",
+        "named": true
+      },
+      {
+        "type": "literal_expression",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "_statement",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "constvar_declaration",
+        "named": true
+      },
+      {
+        "type": "type_declaration",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "_type",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "forward_type",
+        "named": true
+      },
+      {
+        "type": "primitive_type",
+        "named": true
+      }
+    ]
+  },
+  {
     "type": "boolean_literal",
     "named": true,
     "fields": {}
@@ -28,11 +70,7 @@
       "required": false,
       "types": [
         {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "literal_expression",
+          "type": "_expression",
           "named": true
         }
       ]
@@ -47,11 +85,7 @@
         "required": false,
         "types": [
           {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "literal_expression",
+            "type": "_expression",
             "named": true
           }
         ]
@@ -71,11 +105,7 @@
         "required": false,
         "types": [
           {
-            "type": "forward_type",
-            "named": true
-          },
-          {
-            "type": "primitive_type",
+            "type": "_type",
             "named": true
           }
         ]
@@ -166,11 +196,7 @@
       "required": false,
       "types": [
         {
-          "type": "constvar_declaration",
-          "named": true
-        },
-        {
-          "type": "type_declaration",
+          "type": "_statement",
           "named": true
         }
       ]
@@ -210,11 +236,7 @@
         "required": true,
         "types": [
           {
-            "type": "forward_type",
-            "named": true
-          },
-          {
-            "type": "primitive_type",
+            "type": "_type",
             "named": true
           }
         ]
