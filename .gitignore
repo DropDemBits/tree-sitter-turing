@@ -8,5 +8,5 @@ examples
 .build/
 /.idea/
 parser.exp
-parser.lib
-parser.obj
+*.lib
+*.obj

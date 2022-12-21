@@ -37,7 +37,8 @@ bool tree_sitter_turing_external_scanner_scan(void *payload, TSLexer *lexer,
     bool has_content = false;
 
     for (;;) {
-      if (lexer->lookahead == '\"' || lexer->lookahead == '\\') {
+      if (lexer->lookahead == '\"' || lexer->lookahead == '\\' ||
+          lexer->lookahead == '^') {
         // End of a content fragment
         break;
       } else if (lexer->lookahead == EOF_CHAR) {
@@ -102,9 +103,6 @@ bool tree_sitter_turing_external_scanner_scan(void *payload, TSLexer *lexer,
       if (lexer->lookahead == '+' || lexer->lookahead == '-') {
         bump(lexer);
       }
-
-      // consistency with toc_scanner: greedily eats up characters
-      lexer->mark_end(lexer);
 
       if (!is_num_char(lexer->lookahead)) {
         // missing
