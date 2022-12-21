@@ -114,3 +114,18 @@ const a := yay
   (constvar_declaration
     (identifier)
     (identifier)))
+
+================================================================================
+line comments
+================================================================================
+
+% abcd asd
+const blah := blah
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line_comment)
+  (constvar_declaration
+    (identifier)
+    (identifier)))
