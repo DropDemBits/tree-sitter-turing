@@ -158,11 +158,6 @@
     }
   },
   {
-    "type": "register_attr",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "source_file",
     "named": true,
     "fields": {},
@@ -293,10 +288,6 @@
     "named": false
   },
   {
-    "type": "cheat",
-    "named": false
-  },
-  {
     "type": "const",
     "named": false
   },
@@ -353,10 +344,6 @@
     "named": false
   },
   {
-    "type": "opaque",
-    "named": false
-  },
-  {
     "type": "pervasive",
     "named": false
   },
@@ -377,8 +364,8 @@
     "named": true
   },
   {
-    "type": "register",
-    "named": false
+    "type": "register_attr",
+    "named": true
   },
   {
     "type": "string",

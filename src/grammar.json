@@ -586,58 +586,28 @@
       ]
     },
     "register_attr": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "register"
-        }
-      ]
+      "type": "STRING",
+      "value": "register"
     },
     "const_attr": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "const"
-        }
-      ]
+      "type": "STRING",
+      "value": "const"
     },
     "var_attr": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "var"
-        }
-      ]
+      "type": "STRING",
+      "value": "var"
     },
     "cheat_attr": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "cheat"
-        }
-      ]
+      "type": "STRING",
+      "value": "cheat"
     },
     "forward_attr": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "forward"
-        }
-      ]
+      "type": "STRING",
+      "value": "forward"
     },
     "opaque_attr": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "opaque"
-        }
-      ]
+      "type": "STRING",
+      "value": "opaque"
     },
     "identifier": {
       "type": "PATTERN",

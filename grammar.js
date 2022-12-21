@@ -174,17 +174,17 @@ module.exports = grammar({
 
     unqualified_attr: $ => choice('unqualified', seq('~', '.')),
 
-    register_attr: $ => choice('register'),
+    register_attr: $ => 'register',
 
-    const_attr: $ => choice('const'),
+    const_attr: $ => 'const',
 
-    var_attr: $ => choice('var'),
+    var_attr: $ => 'var',
 
-    cheat_attr: $ => choice('cheat'),
+    cheat_attr: $ => 'cheat',
 
-    forward_attr: $ => choice('forward'),
+    forward_attr: $ => 'forward',
 
-    opaque_attr: $ => choice('opaque'),
+    opaque_attr: $ => 'opaque',
 
     identifier: $ => /[a-zA-Z_][a-zA-Z_0-9]*/,
   }
