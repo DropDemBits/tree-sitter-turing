@@ -1,0 +1,627 @@
+================================================================================
+string literal - simple
+================================================================================
+
+const a := "abcd💖"
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (string_literal))))
+
+================================================================================
+string literal - with backslash escapes
+================================================================================
+
+const a := "\\\"\'\^"
+const a := "\b\d\e\f\r\n\t\B\D\E\F\R\N\T"
+const a := "\07"
+const a := "\xaA"
+const a := "\u0aA"
+const a := "  \t  "
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (string_literal
+        (escape_sequence)
+        (escape_sequence)
+        (escape_sequence)
+        (escape_sequence))))
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (string_literal
+        (escape_sequence)
+        (escape_sequence)
+        (escape_sequence)
+        (escape_sequence)
+        (escape_sequence)
+        (escape_sequence)
+        (escape_sequence)
+        (escape_sequence)
+        (escape_sequence)
+        (escape_sequence)
+        (escape_sequence)
+        (escape_sequence)
+        (escape_sequence)
+        (escape_sequence))))
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (string_literal
+        (escape_sequence))))
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (string_literal
+        (escape_sequence))))
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (string_literal
+        (escape_sequence))))
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (string_literal
+        (escape_sequence)))))
+
+================================================================================
+string literal - with caret escapes
+================================================================================
+
+const a := "^a"
+const a := "^0"
+const a := "^@"
+const a := "^\"
+const a := "^[^]"
+const a := "^_"
+const a := "^?"
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (string_literal
+        (escape_sequence))))
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (string_literal
+        (ERROR))))
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (string_literal
+        (escape_sequence))))
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (string_literal
+        (escape_sequence))))
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (string_literal
+        (escape_sequence)
+        (escape_sequence))))
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (string_literal
+        (escape_sequence))))
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (string_literal
+        (escape_sequence)))))
+
+================================================================================
+string literal - not an escaped terminator
+================================================================================
+
+const a := "abcd\\\k"
+const a := "abcd^^""
+const a := "abcd^""
+const a := "abcd^="
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (string_literal
+        (escape_sequence)
+        (ERROR
+          (identifier)))))
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (string_literal
+        (escape_sequence))))
+  (ERROR)
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (string_literal
+        (ERROR))))
+  (ERROR)
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (string_literal
+        (ERROR
+          (UNEXPECTED '='))))))
+
+================================================================================
+string literal - invalid, ends at the end of the line
+================================================================================
+
+const a := "abcd
+const a := b
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (constvar_declaration
+    (identifier)
+    (ERROR)
+    (identifier))
+  (constvar_declaration
+    (identifier)
+    (identifier)))
+
+================================================================================
+string literal - invalid, ends at the end of the file
+================================================================================
+
+const a := "abcd
+--------------------------------------------------------------------------------
+
+(source_file
+  (constvar_declaration
+    (identifier)
+    (ERROR)
+    (identifier)))
+
+================================================================================
+string literal - invalid, escaped
+================================================================================
+
+const a := "abcd\"
+const a := "abcd^"
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (string_literal
+        (escape_sequence))))
+  (ERROR
+    (identifier)))
+
+================================================================================
+string literal - invalid, empty
+================================================================================
+
+const a := "
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (string_literal
+        (MISSING """)))))
+
+================================================================================
+char literal - simple
+================================================================================
+
+const a := 'abcd💖'
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (char_literal
+        (ERROR
+          (identifier)
+          (UNEXPECTED 128150))))))
+
+================================================================================
+char literal - not an escaped terminator
+================================================================================
+
+const a := 'abcd\\'
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (char_literal
+        (escape_sequence)))))
+
+================================================================================
+char literal - invalid, ends at the end of the line
+================================================================================
+
+const a := 'abcd
+const a := wah
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (constvar_declaration
+    (identifier)
+    (ERROR)
+    (identifier))
+  (constvar_declaration
+    (identifier)
+    (identifier)))
+
+================================================================================
+char literal - invalid, ends at the end of the file
+================================================================================
+
+const a := 'abcd
+--------------------------------------------------------------------------------
+
+(source_file
+  (constvar_declaration
+    (identifier)
+    (ERROR)
+    (identifier)))
+
+================================================================================
+char literal - invalid, escaped terminator
+================================================================================
+
+const a := 'abcd\'
+const a := 'abcd^'
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (char_literal
+        (escape_sequence)
+        (ERROR)))))
+
+================================================================================
+char literal - invalid, mismatched delimiter
+================================================================================
+
+const a := 'abcd"
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (constvar_declaration
+    (identifier))
+  (ERROR))
+
+================================================================================
+char literal - invalid, empty
+================================================================================
+
+const a := '
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (char_literal
+        (MISSING "'")))))
+
+================================================================================
+boolean literal - simple
+================================================================================
+
+const a := true
+const a := false
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (boolean_literal)))
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (boolean_literal))))
+
+================================================================================
+int literal - simple
+================================================================================
+
+const a := 01234560
+const a := 99999999999999999999
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (integer_literal)))
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (integer_literal))))
+
+================================================================================
+int literal - digit cutoff
+================================================================================
+
+const a := 999a999
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (integer_literal)))
+  (ERROR
+    (identifier)))
+
+================================================================================
+int literal - radix
+================================================================================
+
+const a := 10#99999999999999999999
+
+% not handling out of range stuff here
+const a := 37#asda
+const a := 0#0000
+const a := 1#0000
+const a := 18446744073709551616#0000
+const a := 10#999a9a9
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (integer_literal)))
+  (line_comment)
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (integer_literal)))
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (integer_literal)))
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (integer_literal)))
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (integer_literal)))
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (integer_literal))))
+
+================================================================================
+int literal - radix, no digits
+================================================================================
+
+const a := 30#
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (integer_literal)))
+  (ERROR
+    (UNEXPECTED '#')))
+
+================================================================================
+real literal - simple
+================================================================================
+
+const a := 1.
+const a := 100.00
+const a := 100.00e10
+const a := 100.00e100
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (real_literal)))
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (real_literal)))
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (real_literal)))
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (real_literal))))
+
+================================================================================
+real literal - leading dot
+================================================================================
+
+const a := .12345
+const a := .12345.6789
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (real_literal)))
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (real_literal)))
+  (ERROR
+    (integer_literal)))
+
+================================================================================
+real literal - out of range but still accept
+================================================================================
+
+const a := 1e600
+const a := 1.0e600
+const a := 1e-999999999
+const a := 1.0e-999999999
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (real_literal)))
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (real_literal)))
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (real_literal)))
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (real_literal))))
+
+================================================================================
+real literal - negative & positive exponents
+================================================================================
+
+const a := 100.00e-100
+const a := 100.00e+100
+const a := 1e100
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (real_literal)))
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (real_literal)))
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (real_literal))))
+
+================================================================================
+real literal - invalid format
+================================================================================
+
+const a := 1e+
+const a := 1e-
+const a := 1e
+const a := 1eggy
+const a := 1.0e
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (real_literal)))
+  (ERROR
+    (identifier)
+    (UNEXPECTED '+'))
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (real_literal)))
+  (ERROR
+    (identifier)
+    (UNEXPECTED '-'))
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (real_literal)))
+  (ERROR
+    (identifier))
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (real_literal)))
+  (ERROR
+    (identifier))
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (real_literal)))
+  (ERROR
+    (identifier)))
+
+================================================================================
+real literal - trailing +/-
+================================================================================
+const a := 1.0+
+const a := 1.0-
+const a := 1.0-1000
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (real_literal)))
+  (ERROR
+    (UNEXPECTED '+'))
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (real_literal)))
+  (ERROR
+    (UNEXPECTED '-'))
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (real_literal)))
+  (ERROR
+    (UNEXPECTED '-')
+    (integer_literal)))

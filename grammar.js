@@ -3,7 +3,7 @@ module.exports = grammar({
 
   externals: $ => [
     $.block_comment,
-    $.string_content,
+    $._string_content,
     $.real_literal,
   ],
 
@@ -64,9 +64,75 @@ module.exports = grammar({
     ),
 
     _expression: $ => choice(
-      $.identifier
+      $.literal_expression,
+      prec.left($.identifier),
       // TODO
     ),
+
+    literal_expression: $ => choice(
+      $.string_literal,
+      $.char_literal,
+      $.boolean_literal,
+      $.integer_literal,
+      $.real_literal,
+    ),
+
+    string_literal: $ => seq(
+      '"',
+      repeat(
+        choice(
+          $.escape_sequence,
+          $._string_content,
+        )
+      ),
+      token.immediate('"'),
+    ),
+
+    char_literal: $ => seq(
+      '\'',
+      repeat(
+        choice(
+          $.escape_sequence,
+          $._string_content,
+        )
+      ),
+      token.immediate('\''),
+    ),
+
+    escape_sequence: $ => choice(
+      $._backslash_escapes,
+      $._caret_escapes,
+    ),
+
+    _backslash_escapes: $ => seq(
+      '\\',
+      choice(
+        // char escapes
+        /[\\"'\^]/,
+        // control char escapes
+        /[bdefrntBDEFRNT]/,
+        // octal escapes
+        /[0-7]{1,3}/,
+        // hex escapes
+        /x[0-9a-fA-F]{1,2}/,
+        // unicode escapes
+        /[uU][0-9a-fA-F]{1,8}/,
+      ),
+    ),
+
+    _caret_escapes: $ => /\^[@-_a-z?]/,
+
+    boolean_literal: $ => choice('true', 'false'),
+
+    integer_literal: $ => token(seq(
+      choice(
+        /[0-9]+/,
+        /[0-9]+#[a-zA-Z0-9]+/,
+      )
+      // ???: specifying sizes:
+      // could be like `123!i4`, composes well with # and stuff
+      // and '!' is unused in the syntax right now
+    )),
 
     _type: $ => choice(
       $.primitive_type,
