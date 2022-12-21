@@ -88,3 +88,29 @@ block comments - missing terminating, trailing ws
   (ERROR
     (UNEXPECTED '/'))
   (block_comment))
+
+================================================================================
+block comments - missing endings
+================================================================================
+/*/*
+--------------------------------------------------------------------------------
+
+(source_file
+  (ERROR
+    (UNEXPECTED '/')
+    (UNEXPECTED '/')))
+
+================================================================================
+block comments - content with missing endings
+================================================================================
+/*/*
+const a := yay
+--------------------------------------------------------------------------------
+
+(source_file
+  (ERROR
+    (UNEXPECTED '/')
+    (UNEXPECTED '/'))
+  (constvar_declaration
+    (identifier)
+    (identifier)))
