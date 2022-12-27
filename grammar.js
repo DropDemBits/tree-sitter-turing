@@ -40,6 +40,7 @@ module.exports = grammar({
       // Declarations //
       $.constvar_declaration,
       $.type_declaration,
+      $.bind_declaration,
 
       // Simple statements //
 
@@ -66,6 +67,21 @@ module.exports = grammar({
       field('name', $.identifier),
       ':',
       field('type_spec', $._type),
+    ),
+
+    bind_declaration: $ => seq(
+      'bind',
+      sepBy1(',', $.bind_item),
+      // can't have an optional comma here, since that conflicts with
+      // constvar_declaration and is ambiguous with the bind item list
+    ),
+
+    bind_item: $ => seq(
+      optional($.var_attr),
+      optional($.register_attr),
+      field('name', $.identifier),
+      'to',
+      $._expression
     ),
 
     _macro_directive: $ => choice(

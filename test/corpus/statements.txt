@@ -189,3 +189,162 @@ type a boolean
   (ERROR
     (identifier)
     (identifier)))
+
+================================================================================
+bind declaration - single
+================================================================================
+
+bind a to 1
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (bind_declaration
+    (bind_item
+      (identifier)
+      (literal_expression
+        (integer_literal)))))
+
+================================================================================
+bind declaration - many items
+================================================================================
+
+bind a to 1, b to 2, c to 3
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (bind_declaration
+    (bind_item
+      (identifier)
+      (literal_expression
+        (integer_literal)))
+    (bind_item
+      (identifier)
+      (literal_expression
+        (integer_literal)))
+    (bind_item
+      (identifier)
+      (literal_expression
+        (integer_literal)))))
+
+================================================================================
+bind declaration - trailing comma
+================================================================================
+
+bind a to 1,
+bind a to 1, b to 2, c to 3,
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (bind_declaration
+    (bind_item
+      (identifier)
+      (literal_expression
+        (integer_literal)))
+    (bind_item
+      (identifier)
+      (ERROR
+        (identifier))
+      (literal_expression
+        (integer_literal)))
+    (bind_item
+      (identifier)
+      (literal_expression
+        (integer_literal)))
+    (bind_item
+      (identifier)
+      (literal_expression
+        (integer_literal))))
+  (ERROR))
+
+================================================================================
+bind declaration - with attrs
+================================================================================
+
+bind
+  var a to 1,
+  register b to 2,
+  var register c to 3
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (bind_declaration
+    (bind_item
+      (var_attr)
+      (identifier)
+      (literal_expression
+        (integer_literal)))
+    (bind_item
+      (register_attr)
+      (identifier)
+      (literal_expression
+        (integer_literal)))
+    (bind_item
+      (var_attr)
+      (register_attr)
+      (identifier)
+      (literal_expression
+        (integer_literal)))))
+
+================================================================================
+bind declaration - backwards attrs
+================================================================================
+
+bind register var c to 3
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (bind_declaration
+    (bind_item
+      (register_attr)
+      name: (identifier)
+      (ERROR
+        (identifier))
+      (literal_expression
+        (integer_literal)))))
+
+================================================================================
+bind declaration - followed by constvar
+================================================================================
+
+bind a to b
+var wa : int
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (bind_declaration
+    (bind_item
+      (identifier)
+      (identifier)))
+  (constvar_declaration
+    (identifier)
+    (primitive_type)))
+
+================================================================================
+bind declaration - error recovery, followed by constvar
+================================================================================
+
+bind a to b,
+var wa : int
+
+var wow : int % resync
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (bind_declaration
+    (bind_item
+      (identifier)
+      (identifier)))
+  (ERROR
+    (ERROR
+      (var_attr)
+      (identifier))
+    (var_attr)
+    (identifier))
+  (line_comment))

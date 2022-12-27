@@ -18,6 +18,10 @@
     "named": true,
     "subtypes": [
       {
+        "type": "bind_declaration",
+        "named": true
+      },
+      {
         "type": "constvar_declaration",
         "named": true
       },
@@ -40,6 +44,55 @@
         "named": true
       }
     ]
+  },
+  {
+    "type": "bind_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "bind_item",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "bind_item",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression",
+          "named": true
+        },
+        {
+          "type": "register_attr",
+          "named": true
+        },
+        {
+          "type": "var_attr",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "boolean_literal",
@@ -254,6 +307,11 @@
     }
   },
   {
+    "type": "var_attr",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "\"",
     "named": false
   },
@@ -271,6 +329,10 @@
   },
   {
     "type": "*",
+    "named": false
+  },
+  {
+    "type": ",",
     "named": false
   },
   {
@@ -295,6 +357,10 @@
   },
   {
     "type": "addressint",
+    "named": false
+  },
+  {
+    "type": "bind",
     "named": false
   },
   {
@@ -391,6 +457,10 @@
   },
   {
     "type": "string",
+    "named": false
+  },
+  {
+    "type": "to",
     "named": false
   },
   {
