@@ -105,6 +105,32 @@ var a
     (identifier)))
 
 ================================================================================
+constvar declaration - pervasive attr
+================================================================================
+
+const pervasive a
+var pervasive a
+
+const * a
+var * a
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (constvar_declaration
+    (pervasive_attr)
+    (identifier))
+  (constvar_declaration
+    (pervasive_attr)
+    (identifier))
+  (constvar_declaration
+    (pervasive_attr)
+    (identifier))
+  (constvar_declaration
+    (pervasive_attr)
+    (identifier)))
+
+================================================================================
 constvar declaration - register attr
 ================================================================================
 
@@ -140,6 +166,41 @@ var register pervasive a
     (identifier))
   (ERROR
     (identifier)))
+
+================================================================================
+constvar declaration - multiple names
+================================================================================
+
+const a, b, c, d : int
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (constvar_declaration
+    name: (identifier)
+    name: (identifier)
+    name: (identifier)
+    name: (identifier)
+    type_spec: (primitive_type)))
+
+================================================================================
+constvar declaration - alt eq
+================================================================================
+
+const a = 1
+var b = 2
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (constvar_declaration
+    (identifier))
+  (ERROR
+    (UNEXPECTED '='))
+  (constvar_declaration
+    (identifier))
+  (ERROR
+    (UNEXPECTED '=')))
 
 ================================================================================
 type declaration - full

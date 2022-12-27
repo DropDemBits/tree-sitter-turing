@@ -52,11 +52,12 @@ module.exports = grammar({
       choice('const', 'var'),
       optional($.pervasive_attr),
       optional($.register_attr),
-      field('name', $.identifier),
+      $._name_list,
       optional(seq(
         ':', field('type_spec', $._type)
       )),
       optional(seq(
+        // ???: how to deal with = instead of :=?
         ':=', field('initializer', $._expression),
       )),
     ),
@@ -212,6 +213,8 @@ module.exports = grammar({
     opaque_attr: $ => 'opaque',
 
     identifier: $ => /[a-zA-Z_][a-zA-Z_0-9]*/,
+
+    _name_list: $ => sepBy1(',', field('name', $.identifier)),
   }
 });
 
