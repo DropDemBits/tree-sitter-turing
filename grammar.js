@@ -199,6 +199,14 @@ module.exports = grammar({
   }
 });
 
+function sepBy1(sep, rule) {
+  return seq(rule, repeat(seq(sep, rule)));
+}
+
+function sepBy(sep, rule) {
+  return optional(sepBy1(sep, rule));
+};
+
 // - Range exprs should be hoisted into the precedence tree
 //   - Auto creates span covering the bounds, don't have to make one
 // - AllExpr is an atom, but can keep same logic
