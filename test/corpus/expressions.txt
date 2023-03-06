@@ -625,3 +625,222 @@ const a := 1.0-1000
   (ERROR
     (UNEXPECTED '-')
     (integer_literal)))
+
+================================================================================
+objclass expression
+================================================================================
+
+const a := objectclass(wow)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (constvar_declaration
+    (identifier)
+    (objclass_expression
+      (identifier))))
+
+================================================================================
+objclass expression - missing expr
+================================================================================
+
+const a := objectclass()
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (constvar_declaration
+    (identifier)
+    (objclass_expression
+      (MISSING identifier))))
+
+================================================================================
+init expression - no items
+================================================================================
+
+const a := init()
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (constvar_declaration
+    (identifier)
+    (init_expression)))
+
+================================================================================
+init expression - no items, with comma
+================================================================================
+
+const a := init(,)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (constvar_declaration
+    (identifier)
+    (init_expression)))
+
+================================================================================
+init expression - one item
+================================================================================
+
+const a := init(1)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (constvar_declaration
+    (identifier)
+    (init_expression
+      (literal_expression
+        (integer_literal)))))
+
+================================================================================
+init expression - many items
+================================================================================
+
+const a := init(1, 2, 3, 4)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (constvar_declaration
+    (identifier)
+    (init_expression
+      (literal_expression
+        (integer_literal))
+      (literal_expression
+        (integer_literal))
+      (literal_expression
+        (integer_literal))
+      (literal_expression
+        (integer_literal)))))
+
+================================================================================
+init expression - many items, trailing comma
+================================================================================
+
+const a := init(1, 2, 3, 4, )
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (constvar_declaration
+    (identifier)
+    (init_expression
+      (literal_expression
+        (integer_literal))
+      (literal_expression
+        (integer_literal))
+      (literal_expression
+        (integer_literal))
+      (literal_expression
+        (integer_literal)))))
+
+================================================================================
+nil expression - standalone
+================================================================================
+
+const a := nil
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (constvar_declaration
+    (identifier)
+    (nil_expression)))
+
+================================================================================
+nil expression - specific type
+================================================================================
+
+const a := nil(owo)
+const a := nil(int)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (constvar_declaration
+    (identifier)
+    (nil_expression
+      (identifier)))
+  (constvar_declaration
+    (identifier)
+    (nil_expression
+      (primitive_type))))
+
+================================================================================
+nil expression - only parens
+================================================================================
+
+const a := nil()
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (constvar_declaration
+    (identifier)
+    (nil_expression)))
+
+================================================================================
+nil expression - bare
+================================================================================
+
+const a := nil
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (constvar_declaration
+    (identifier)
+    (nil_expression)))
+
+================================================================================
+self expression
+================================================================================
+
+const a := self
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (constvar_declaration
+    (identifier)
+    (self_expression)))
+
+================================================================================
+sizeof
+================================================================================
+
+const a := sizeof(1)
+const a := sizeof(int)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (constvar_declaration
+    (identifier)
+    (sizeof_expression
+      (literal_expression
+        (integer_literal))))
+  (constvar_declaration
+    (identifier)
+    (sizeof_expression
+      (primitive_type))))
+
+================================================================================
+sizeof expression - reject size specs
+================================================================================
+
+% size specs aren't planned to be supported
+const a := sizeof(uwu : 3)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line_comment)
+  (constvar_declaration
+    (identifier)
+    (sizeof_expression
+      (identifier)
+      (ERROR))))

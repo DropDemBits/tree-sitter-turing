@@ -91,6 +91,12 @@ module.exports = grammar({
 
     _expression: $ => choice(
       $.literal_expression,
+      $.objclass_expression,
+      $.init_expression,
+      $.nil_expression,
+      $.sizeof_expression,
+
+      $.self_expression,
       prec.left($.identifier),
       // TODO
     ),
@@ -160,6 +166,30 @@ module.exports = grammar({
       // and '!' is unused in the syntax right now
     )),
 
+    objclass_expression: $ => seq('objectclass', '(', $._expression, ')'),
+
+    init_expression: $ => seq('init', '(', sepBy(',', $._expression), optional(','), ')'),
+
+    nil_expression: $ => seq(
+      'nil',
+      optional(seq(
+        '(',
+        optional($._item_path),
+        ')'
+      )),
+    ),
+
+    sizeof_expression: $ => seq(
+      // Not planning to support the size_spec part, since while the acceptable
+      // values are only 1, 2 and 4, those can be computed in an arbitrary
+      // manner, and that's not fun for incremental compilation
+      'sizeof', '(',
+      choice($._expression, $._type),
+      ')',
+    ),
+
+    self_expression: $ => 'self',
+
     _type: $ => choice(
       $.primitive_type,
       $.forward_type,
@@ -215,6 +245,8 @@ module.exports = grammar({
     identifier: $ => /[a-zA-Z_][a-zA-Z_0-9]*/,
 
     _name_list: $ => sepBy1(',', field('name', $.identifier)),
+
+    _item_path: $ => choice($._type, $._expression), // should really be its own thing
   }
 });
 

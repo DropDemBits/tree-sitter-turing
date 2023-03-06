@@ -8,7 +8,27 @@
         "named": true
       },
       {
+        "type": "init_expression",
+        "named": true
+      },
+      {
         "type": "literal_expression",
+        "named": true
+      },
+      {
+        "type": "nil_expression",
+        "named": true
+      },
+      {
+        "type": "objclass_expression",
+        "named": true
+      },
+      {
+        "type": "self_expression",
+        "named": true
+      },
+      {
+        "type": "sizeof_expression",
         "named": true
       }
     ]
@@ -190,6 +210,21 @@
     "fields": {}
   },
   {
+    "type": "init_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "literal_expression",
     "named": true,
     "fields": {},
@@ -221,6 +256,40 @@
     }
   },
   {
+    "type": "nil_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "_expression",
+          "named": true
+        },
+        {
+          "type": "_type",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "objclass_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "pervasive_attr",
     "named": true,
     "fields": {}
@@ -235,6 +304,25 @@
       "types": [
         {
           "type": "charseq_size",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "sizeof_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression",
+          "named": true
+        },
+        {
+          "type": "_type",
           "named": true
         }
       ]
@@ -392,6 +480,10 @@
     "named": true
   },
   {
+    "type": "init",
+    "named": false
+  },
+  {
     "type": "int",
     "named": false
   },
@@ -432,6 +524,14 @@
     "named": false
   },
   {
+    "type": "nil",
+    "named": false
+  },
+  {
+    "type": "objectclass",
+    "named": false
+  },
+  {
     "type": "pervasive",
     "named": false
   },
@@ -454,6 +554,14 @@
   {
     "type": "register_attr",
     "named": true
+  },
+  {
+    "type": "self_expression",
+    "named": true
+  },
+  {
+    "type": "sizeof",
+    "named": false
   },
   {
     "type": "string",
