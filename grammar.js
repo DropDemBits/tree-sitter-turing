@@ -37,12 +37,60 @@ module.exports = grammar({
     ),
 
     _statement: $ => choice(
+      // TODO: commented items
+
       // Declarations //
       $.constvar_declaration,
       $.type_declaration,
       $.bind_declaration,
+      // $.function_declaration,
+      // $.procedure_declaration,
+      // $.process_declaration,
+      // $.external_declaration,
+      // $.forward_declaration,
+      // $.deferred_declaration,
+      // $.body_declaration,
+      // $.module_declaration,
+      // $.class_declaration,
+      // $.monitor_declaration,
 
       // Simple statements //
+      // $.assign_statement,
+      // $.open_statement,
+      // $.close_statement,
+      // $.put_statement,
+      // $.get_statement,
+      // $.read_statement,
+      // $.write_statement,
+      // $.seek_statement,
+      // $.tell_statement,
+      // $.for_statement,
+      // $.loop_statement,
+      // $.exit_statement,
+      // $.if_statement,
+      // $.case_statement,
+      // $.block_statement,
+      // $.invariant_statement,
+      // $.assert_statement,
+      // $.call_statement,
+      // $.return_statement,
+      // $.new_statement,
+      // $.free_statement,
+      // $.tag_statement,
+      // $.fork_statement,
+      // $.pause_statement,
+      // $.quit_statement,
+      // $.break_statement,
+      // $.checkedness_statement,
+      // $.pre_statement,
+      // $.init_statement,
+      // $.post_statement,
+      // $.handler_statement,
+      // $.inherit_statement,
+      // $.implement_statement,
+      // $.implement_by_statement,
+      // $.import_statement,
+      // $.export_statement,
 
       // other
       // $._macro_directive,
@@ -86,19 +134,36 @@ module.exports = grammar({
     ),
 
     _macro_directive: $ => choice(
-      // TODO
+      // TODO: commented items + pp_expression
+      // $.pp_include_directive
+      // $.pp_if_directive
+      // $.pp_elseif_directive
+      // $.pp_else_directive
+      // $.pp_endif_directive
     ),
 
     _expression: $ => choice(
+      // TODO: commented items
+
       $.literal_expression,
       $.objclass_expression,
       $.init_expression,
       $.nil_expression,
       $.sizeof_expression,
+      // $.binary_expression,
+      // $.unary_expression,
+      // $.paren_expression,
 
       $.self_expression,
       prec.left($.identifier),
-      // TODO
+      // $.field_expression,
+      // $.deref_expression,
+      // $.cheat_expression,
+      // $.nat_cheat_expression,
+      // $.arrow_expression,
+      // $.indirect_expression,
+      // $.bits_expression,
+      // $.call_expression,
     ),
 
     literal_expression: $ => choice(
@@ -191,9 +256,21 @@ module.exports = grammar({
     self_expression: $ => 'self',
 
     _type: $ => choice(
+      // TODO: commented items
+
       $.primitive_type,
       $.forward_type,
-      // TODO
+      // $.range_type,
+      // $.enum_type,
+      // $.array_type,
+      // $.set_type,
+      // $.record_type,
+      // $.union_type,
+      // $.pointer_type,
+      // $.fcn_type,
+      // $.proc_type,
+      // $.collection_type,
+      // $.condition_type,
     ),
 
     primitive_type: $ => choice(
