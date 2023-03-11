@@ -66,7 +66,7 @@ module.exports = grammar({
       // $.tell_statement,
       $.for_statement,
       $.loop_statement,
-      // $.exit_statement,
+      $.exit_statement,
       // $.if_statement,
       // $.case_statement,
       // $.block_statement,
@@ -158,6 +158,11 @@ module.exports = grammar({
       'loop',
       optional(repeat($._statement_line)),
       choice(seq('end', 'loop'), 'endloop')
+    ),
+
+    exit_statement: $ => seq(
+      'exit',
+      optional(seq('when', field('condition', $._expression)))
     ),
 
     _macro_directive: $ => choice(

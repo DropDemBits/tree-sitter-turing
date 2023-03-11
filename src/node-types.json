@@ -46,6 +46,10 @@
         "named": true
       },
       {
+        "type": "exit_statement",
+        "named": true
+      },
+      {
         "type": "for_statement",
         "named": true
       },
@@ -211,6 +215,22 @@
     "type": "escape_sequence",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "exit_statement",
+    "named": true,
+    "fields": {
+      "condition": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "_expression",
+            "named": true
+          }
+        ]
+      }
+    }
   },
   {
     "type": "for_statement",
@@ -589,6 +609,10 @@
     "named": false
   },
   {
+    "type": "exit",
+    "named": false
+  },
+  {
     "type": "false",
     "named": false
   },
@@ -718,6 +742,10 @@
   },
   {
     "type": "var",
+    "named": false
+  },
+  {
+    "type": "when",
     "named": false
   },
   {

@@ -77,6 +77,10 @@
         {
           "type": "SYMBOL",
           "name": "loop_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "exit_statement"
         }
       ]
     },
@@ -478,6 +482,40 @@
             {
               "type": "STRING",
               "value": "endloop"
+            }
+          ]
+        }
+      ]
+    },
+    "exit_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "exit"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "when"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "condition",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "_expression"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
             }
           ]
         }
