@@ -54,6 +54,10 @@
         "named": true
       },
       {
+        "type": "if_statement",
+        "named": true
+      },
+      {
         "type": "loop_statement",
         "named": true
       },
@@ -212,6 +216,47 @@
     }
   },
   {
+    "type": "else_clause",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "_statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "elsif_clause",
+    "named": true,
+    "fields": {
+      "condition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_expression",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "_statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "escape_sequence",
     "named": true,
     "fields": {}
@@ -310,6 +355,40 @@
     "type": "forward_type",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "if_statement",
+    "named": true,
+    "fields": {
+      "condition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_expression",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "_statement",
+          "named": true
+        },
+        {
+          "type": "else_clause",
+          "named": true
+        },
+        {
+          "type": "elsif_clause",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "init_expression",
@@ -597,11 +676,31 @@
     "named": false
   },
   {
+    "type": "elif",
+    "named": false
+  },
+  {
+    "type": "else",
+    "named": false
+  },
+  {
+    "type": "elseif",
+    "named": false
+  },
+  {
+    "type": "elsif",
+    "named": false
+  },
+  {
     "type": "end",
     "named": false
   },
   {
     "type": "endfor",
+    "named": false
+  },
+  {
+    "type": "endif",
     "named": false
   },
   {
@@ -627,6 +726,10 @@
   {
     "type": "identifier",
     "named": true
+  },
+  {
+    "type": "if",
+    "named": false
   },
   {
     "type": "init",
@@ -718,6 +821,10 @@
   },
   {
     "type": "string",
+    "named": false
+  },
+  {
+    "type": "then",
     "named": false
   },
   {

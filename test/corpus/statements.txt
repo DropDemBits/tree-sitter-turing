@@ -635,3 +635,268 @@ end loop
 (ERROR
   (exit_statement
     condition: (identifier)))
+
+================================================================================
+if statement - bare
+================================================================================
+
+if true then
+  if false then end if
+end if
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (if_statement
+    condition: (literal_expression
+      (boolean_literal))
+    (if_statement
+      condition: (literal_expression
+        (boolean_literal)))))
+
+================================================================================
+if statement - if else
+================================================================================
+
+if true then
+  loop end loop
+else 
+  var a := 1
+end if
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (if_statement
+    condition: (literal_expression
+      (boolean_literal))
+    (loop_statement)
+    (else_clause
+      (constvar_declaration
+        name: (identifier)
+        initializer: (literal_expression
+          (integer_literal))))))
+
+================================================================================
+if statement - if elsif
+================================================================================
+
+if true then
+  var a := 1
+elsif false then
+  loop end loop
+elsif false then
+  exit
+end if
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (if_statement
+    condition: (literal_expression
+      (boolean_literal))
+    (constvar_declaration
+      name: (identifier)
+      initializer: (literal_expression
+        (integer_literal)))
+    (elsif_clause
+      condition: (literal_expression
+        (boolean_literal))
+      (loop_statement))
+    (elsif_clause
+      condition: (literal_expression
+        (boolean_literal))
+      (exit_statement))))
+
+================================================================================
+if statement - if elsif else
+================================================================================
+
+if true then
+  var a := 1
+elsif false then
+  loop end loop
+elsif false then
+  exit
+else
+  exit when true
+end if
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (if_statement
+    condition: (literal_expression
+      (boolean_literal))
+    (constvar_declaration
+      name: (identifier)
+      initializer: (literal_expression
+        (integer_literal)))
+    (elsif_clause
+      condition: (literal_expression
+        (boolean_literal))
+      (loop_statement))
+    (elsif_clause
+      condition: (literal_expression
+        (boolean_literal))
+      (exit_statement))
+    (else_clause
+      (exit_statement
+        condition: (literal_expression
+          (boolean_literal))))))
+
+================================================================================
+if statement - elsif variations
+================================================================================
+
+if true then
+elseif true then
+elif true then
+end if
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (if_statement
+    condition: (literal_expression
+      (boolean_literal))
+    (elsif_clause
+      condition: (literal_expression
+        (boolean_literal)))
+    (elsif_clause
+      condition: (literal_expression
+        (boolean_literal)))))
+
+================================================================================
+if statement - endif
+================================================================================
+
+if true then
+elsif true then
+else
+endif
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (if_statement
+    condition: (literal_expression
+      (boolean_literal))
+    (elsif_clause
+      condition: (literal_expression
+        (boolean_literal)))
+    (else_clause)))
+
+================================================================================
+if statement - missing final if
+================================================================================
+
+if true then
+  loop end loop
+end
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (if_statement
+    condition: (literal_expression
+      (boolean_literal))
+    (loop_statement)
+    (MISSING "if")))
+
+================================================================================
+if statement - bare else
+================================================================================
+
+else
+  loop end loop
+end if
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (ERROR
+    (identifier))
+  (loop_statement)
+  (ERROR))
+
+================================================================================
+if statement - bare elsif
+================================================================================
+
+elsif true then
+  loop end loop
+end if
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (ERROR
+    (identifier))
+  (loop_statement)
+  (ERROR))
+
+================================================================================
+if statement - bare elseif
+================================================================================
+
+elseif true then
+  loop end loop
+end if
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (ERROR
+    (identifier))
+  (loop_statement)
+  (ERROR))
+
+================================================================================
+if statement - bare elif
+================================================================================
+
+elif true then
+  loop end loop
+end if
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (ERROR
+    (identifier))
+  (loop_statement)
+  (ERROR))
+
+================================================================================
+if statement - missing condition
+================================================================================
+
+if then
+  loop end loop
+end if
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (ERROR
+    (identifier))
+  (loop_statement)
+  (ERROR))
+
+================================================================================
+if statement - missing then
+================================================================================
+
+if true
+  loop end loop
+end if
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (ERROR
+    (literal_expression
+      (boolean_literal)))
+  (loop_statement)
+  (ERROR))
