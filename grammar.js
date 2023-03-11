@@ -151,13 +151,13 @@ module.exports = grammar({
         'by', $._expression
       ))),
       optional(repeat($._statement_line)),
-      choice(seq('end', 'for'), 'endfor')
+      end_keyword_tail('for')
     ),
 
     loop_statement: $ => seq(
       'loop',
       optional(repeat($._statement_line)),
-      choice(seq('end', 'loop'), 'endloop')
+      end_keyword_tail('loop')
     ),
 
     exit_statement: $ => seq(
@@ -170,7 +170,7 @@ module.exports = grammar({
       optional(repeat($._statement_line)),
       optional(repeat($.elsif_clause)),
       optional($.else_clause),
-      choice(seq('end', 'if'), 'endif')
+      end_keyword_tail('if')
     ),
 
     elsif_clause: $ => seq(
@@ -384,7 +384,11 @@ function sepBy1(sep, rule) {
 
 function sepBy(sep, rule) {
   return optional(sepBy1(sep, rule));
-};
+}
+
+function end_keyword_tail(bit) {
+  return choice(seq('end', bit), 'end' + bit)
+}
 
 // - Range exprs should be hoisted into the precedence tree
 //   - Auto creates span covering the bounds, don't have to make one
