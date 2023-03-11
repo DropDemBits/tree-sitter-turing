@@ -137,10 +137,16 @@ module.exports = grammar({
       'for',
       optional('decreasing'), optional(field('name', $.identifier)), ':',
       // ???: Could either use real range expr, or use version that doesn't exclude anything
-      field('bounds', seq(
-        $._expression,
-        optional(seq('..', $._expression))
-      )),
+      field('bounds',
+        choice(
+          $._expression,
+          seq(
+            field('start', $._expression),
+            '..',
+            field('end', $._expression)
+          )
+        ),
+      ),
       field('step_by', optional(seq(
         'by', $._expression
       ))),

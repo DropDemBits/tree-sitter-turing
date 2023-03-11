@@ -12,7 +12,7 @@
 #define ALIAS_COUNT 0
 #define TOKEN_COUNT 69
 #define EXTERNAL_TOKEN_COUNT 3
-#define FIELD_COUNT 5
+#define FIELD_COUNT 7
 #define MAX_ALIAS_SEQUENCE_LENGTH 12
 #define PRODUCTION_ID_COUNT 36
 
@@ -739,17 +739,21 @@ static const TSSymbolMetadata ts_symbol_metadata[] = {
 
 enum {
   field_bounds = 1,
-  field_initializer = 2,
-  field_name = 3,
-  field_step_by = 4,
-  field_type_spec = 5,
+  field_end = 2,
+  field_initializer = 3,
+  field_name = 4,
+  field_start = 5,
+  field_step_by = 6,
+  field_type_spec = 7,
 };
 
 static const char * const ts_field_names[] = {
   [0] = NULL,
   [field_bounds] = "bounds",
+  [field_end] = "end",
   [field_initializer] = "initializer",
   [field_name] = "name",
+  [field_start] = "start",
   [field_step_by] = "step_by",
   [field_type_spec] = "type_spec",
 };
@@ -847,9 +851,9 @@ static const TSFieldMapEntry ts_field_map_entries[] = {
   [32] =
     {field_name, 2},
   [33] =
-    {field_bounds, 2},
     {field_bounds, 3},
-    {field_bounds, 4},
+    {field_end, 4},
+    {field_start, 2},
   [36] =
     {field_bounds, 2},
     {field_step_by, 3},
@@ -862,18 +866,18 @@ static const TSFieldMapEntry ts_field_map_entries[] = {
     {field_name, 2, .inherited = true},
     {field_type_spec, 4},
   [44] =
-    {field_bounds, 3},
     {field_bounds, 4},
-    {field_bounds, 5},
+    {field_end, 5},
+    {field_start, 3},
   [47] =
     {field_bounds, 3},
     {field_step_by, 4},
     {field_step_by, 5},
   [50] =
-    {field_bounds, 3},
     {field_bounds, 4},
-    {field_bounds, 5},
+    {field_end, 5},
     {field_name, 1},
+    {field_start, 3},
   [54] =
     {field_bounds, 3},
     {field_name, 1},
@@ -884,39 +888,39 @@ static const TSFieldMapEntry ts_field_map_entries[] = {
     {field_name, 3, .inherited = true},
     {field_type_spec, 5},
   [61] =
-    {field_bounds, 2},
     {field_bounds, 3},
-    {field_bounds, 4},
+    {field_end, 4},
+    {field_start, 2},
     {field_step_by, 5},
     {field_step_by, 6},
   [66] =
-    {field_bounds, 4},
     {field_bounds, 5},
-    {field_bounds, 6},
+    {field_end, 6},
     {field_name, 2},
+    {field_start, 4},
   [70] =
     {field_bounds, 4},
     {field_name, 2},
     {field_step_by, 5},
     {field_step_by, 6},
   [74] =
-    {field_bounds, 3},
     {field_bounds, 4},
-    {field_bounds, 5},
+    {field_end, 5},
+    {field_start, 3},
     {field_step_by, 6},
     {field_step_by, 7},
   [79] =
-    {field_bounds, 3},
     {field_bounds, 4},
-    {field_bounds, 5},
+    {field_end, 5},
     {field_name, 1},
+    {field_start, 3},
     {field_step_by, 6},
     {field_step_by, 7},
   [85] =
-    {field_bounds, 4},
     {field_bounds, 5},
-    {field_bounds, 6},
+    {field_end, 6},
     {field_name, 2},
+    {field_start, 4},
     {field_step_by, 7},
     {field_step_by, 8},
 };
