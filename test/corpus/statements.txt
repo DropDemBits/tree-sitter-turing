@@ -409,3 +409,191 @@ var wow : int % resync
     (var_attr)
     (identifier))
   (line_comment))
+
+================================================================================
+loop statement - normal
+================================================================================
+loop end loop
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (loop_statement))
+
+================================================================================
+loop statement - nesting
+================================================================================
+loop
+  loop
+  end loop
+end loop
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (loop_statement
+    (loop_statement)))
+
+================================================================================
+loop statement - missing final end loop
+================================================================================
+
+loop end
+var a := 1
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (ERROR
+    (identifier)
+    (identifier)))
+
+================================================================================
+loop statement - with endloop
+================================================================================
+
+loop endloop
+var a := 1
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (loop_statement)
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (integer_literal))))
+
+================================================================================
+for statement - increasing
+================================================================================
+
+for a : 1 .. 3 end for
+for a : 1 .. 3 by 1 end for
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (for_statement
+    (identifier)
+    (literal_expression
+      (integer_literal))
+    (literal_expression
+      (integer_literal)))
+  (for_statement
+    (identifier)
+    (literal_expression
+      (integer_literal))
+    (literal_expression
+      (integer_literal))
+    (literal_expression
+      (integer_literal))))
+
+================================================================================
+for statement - decreasing
+================================================================================
+
+for decreasing a : 1 .. 3 end for
+for decreasing a : 1 .. 3 by 1 end for
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (for_statement
+    (identifier)
+    (literal_expression
+      (integer_literal))
+    (literal_expression
+      (integer_literal)))
+  (for_statement
+    (identifier)
+    (literal_expression
+      (integer_literal))
+    (literal_expression
+      (integer_literal))
+    (literal_expression
+      (integer_literal))))
+
+================================================================================
+for statement - no counter name
+================================================================================
+
+for : 1 .. 3 end for
+for decreasing : 1 .. 3 end for
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (for_statement
+    (literal_expression
+      (integer_literal))
+    (literal_expression
+      (integer_literal)))
+  (for_statement
+    (literal_expression
+      (integer_literal))
+    (literal_expression
+      (integer_literal))))
+
+================================================================================
+for statement - single bound
+================================================================================
+
+for : 1 end for
+% technically valid syntax, but not valid sematically
+% that's a job for toco
+for decreasing : 1 end for
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (for_statement
+    (literal_expression
+      (integer_literal)))
+  (line_comment)
+  (line_comment)
+  (for_statement
+    (literal_expression
+      (integer_literal))))
+
+================================================================================
+for statement - missing bounds
+================================================================================
+
+for :
+end for
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (ERROR
+    (identifier)))
+
+================================================================================
+for statement - with endfor
+================================================================================
+
+for : 1 endfor
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (for_statement
+    (literal_expression
+      (integer_literal))))
+
+================================================================================
+for statement - missing final for
+================================================================================
+
+for : 1 end 
+var a := 1
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (ERROR
+    (literal_expression
+      (integer_literal))
+    (identifier)
+    (identifier)))

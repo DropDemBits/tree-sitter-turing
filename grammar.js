@@ -64,8 +64,8 @@ module.exports = grammar({
       // $.write_statement,
       // $.seek_statement,
       // $.tell_statement,
-      // $.for_statement,
-      // $.loop_statement,
+      $.for_statement,
+      $.loop_statement,
       // $.exit_statement,
       // $.if_statement,
       // $.case_statement,
@@ -131,6 +131,27 @@ module.exports = grammar({
       field('name', $.identifier),
       'to',
       $._expression
+    ),
+
+    for_statement: $ => seq(
+      'for',
+      optional('decreasing'), optional(field('name', $.identifier)), ':',
+      // ???: Could either use real range expr, or use version that doesn't exclude anything
+      field('bounds', seq(
+        $._expression,
+        optional(seq('..', $._expression))
+      )),
+      field('step_by', optional(seq(
+        'by', $._expression
+      ))),
+      optional(repeat($._statement_line)),
+      choice(seq('end', 'for'), 'endfor')
+    ),
+
+    loop_statement: $ => seq(
+      'loop',
+      optional(repeat($._statement_line)),
+      choice(seq('end', 'loop'), 'endloop')
     ),
 
     _macro_directive: $ => choice(

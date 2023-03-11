@@ -46,6 +46,14 @@
         "named": true
       },
       {
+        "type": "for_statement",
+        "named": true
+      },
+      {
+        "type": "loop_statement",
+        "named": true
+      },
+      {
         "type": "type_declaration",
         "named": true
       }
@@ -205,6 +213,60 @@
     "fields": {}
   },
   {
+    "type": "for_statement",
+    "named": true,
+    "fields": {
+      "bounds": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "..",
+            "named": false
+          },
+          {
+            "type": "_expression",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "step_by": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "_expression",
+            "named": true
+          },
+          {
+            "type": "by",
+            "named": false
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "_statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "forward_type",
     "named": true,
     "fields": {}
@@ -250,6 +312,21 @@
         },
         {
           "type": "string_literal",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "loop_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "_statement",
           "named": true
         }
       ]
@@ -428,6 +505,10 @@
     "named": false
   },
   {
+    "type": "..",
+    "named": false
+  },
+  {
     "type": ":",
     "named": false
   },
@@ -460,6 +541,10 @@
     "named": false
   },
   {
+    "type": "by",
+    "named": false
+  },
+  {
     "type": "char",
     "named": false
   },
@@ -468,7 +553,27 @@
     "named": false
   },
   {
+    "type": "decreasing",
+    "named": false
+  },
+  {
+    "type": "end",
+    "named": false
+  },
+  {
+    "type": "endfor",
+    "named": false
+  },
+  {
+    "type": "endloop",
+    "named": false
+  },
+  {
     "type": "false",
+    "named": false
+  },
+  {
+    "type": "for",
     "named": false
   },
   {
@@ -506,6 +611,10 @@
   {
     "type": "line_comment",
     "named": true
+  },
+  {
+    "type": "loop",
+    "named": false
   },
   {
     "type": "nat",

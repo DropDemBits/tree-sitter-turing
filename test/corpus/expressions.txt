@@ -495,7 +495,7 @@ const a := .12345.6789
     (literal_expression
       (real_literal)))
   (ERROR
-    (integer_literal)))
+    (real_literal)))
 
 ================================================================================
 real literal - out of range but still accept
