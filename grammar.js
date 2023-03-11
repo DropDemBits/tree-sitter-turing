@@ -68,7 +68,7 @@ module.exports = grammar({
       $.loop_statement,
       $.exit_statement,
       $.if_statement,
-      // $.case_statement,
+      $.case_statement,
       // $.block_statement,
       // $.invariant_statement,
       // $.assert_statement,
@@ -181,6 +181,17 @@ module.exports = grammar({
 
     else_clause: $ => seq(
       'else',
+      optional(repeat($._statement_line)),
+    ),
+
+    case_statement: $ => seq(
+      'case', field('condition', $._expression), 'of',
+      optional(repeat($.case_arm)),
+      end_keyword_tail('case')
+    ),
+
+    case_arm: $ => seq(
+      'label', field('pattern', sepBy(',', $._expression)), ':',
       optional(repeat($._statement_line)),
     ),
 

@@ -900,3 +900,156 @@ end if
       (boolean_literal)))
   (loop_statement)
   (ERROR))
+
+================================================================================
+case statement - no arms
+================================================================================
+
+case true of
+end case
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (case_statement
+    condition: (literal_expression
+      (boolean_literal))))
+
+================================================================================
+case statement - empty arm
+================================================================================
+
+case true of
+label 1:
+end case
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (case_statement
+    condition: (literal_expression
+      (boolean_literal))
+    (case_arm
+      pattern: (literal_expression
+        (integer_literal)))))
+
+================================================================================
+case statement - empty patterns
+================================================================================
+
+case true of
+label :
+end case
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (case_statement
+    condition: (literal_expression
+      (boolean_literal))
+    (case_arm)))
+
+================================================================================
+case statement - one arm
+================================================================================
+
+case true of
+label 1:
+  loop end loop
+end case
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (case_statement
+    condition: (literal_expression
+      (boolean_literal))
+    (case_arm
+      pattern: (literal_expression
+        (integer_literal))
+      (loop_statement))))
+
+================================================================================
+case statement - multiple arms
+================================================================================
+
+case true of
+label 1:
+  loop end loop
+label :
+  loop end loop
+label 3:
+  loop end loop
+end case
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (case_statement
+    condition: (literal_expression
+      (boolean_literal))
+    (case_arm
+      pattern: (literal_expression
+        (integer_literal))
+      (loop_statement))
+    (case_arm
+      (loop_statement))
+    (case_arm
+      pattern: (literal_expression
+        (integer_literal))
+      (loop_statement))))
+
+================================================================================
+case statement - multiple patterns
+================================================================================
+
+case true of
+label 1, 2, 3, 4, 5:
+  loop end loop
+end case
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (case_statement
+    condition: (literal_expression
+      (boolean_literal))
+    (case_arm
+      pattern: (literal_expression
+        (integer_literal))
+      pattern: (literal_expression
+        (integer_literal))
+      pattern: (literal_expression
+        (integer_literal))
+      pattern: (literal_expression
+        (integer_literal))
+      pattern: (literal_expression
+        (integer_literal))
+      (loop_statement))))
+
+================================================================================
+case statement - with endcase
+================================================================================
+
+case true of endcase
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (case_statement
+    condition: (literal_expression
+      (boolean_literal))))
+
+================================================================================
+case statement - missing final case
+================================================================================
+
+case true of end
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (case_statement
+    condition: (literal_expression
+      (boolean_literal))
+    (MISSING "case")))

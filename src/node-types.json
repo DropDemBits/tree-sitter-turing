@@ -42,6 +42,10 @@
         "named": true
       },
       {
+        "type": "case_statement",
+        "named": true
+      },
+      {
         "type": "constvar_declaration",
         "named": true
       },
@@ -134,6 +138,62 @@
     "type": "boolean_literal",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "case_arm",
+    "named": true,
+    "fields": {
+      "pattern": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "_expression",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "_statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "case_statement",
+    "named": true,
+    "fields": {
+      "condition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_expression",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "case_arm",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "char_literal",
@@ -664,6 +724,10 @@
     "named": false
   },
   {
+    "type": "case",
+    "named": false
+  },
+  {
     "type": "char",
     "named": false
   },
@@ -693,6 +757,10 @@
   },
   {
     "type": "end",
+    "named": false
+  },
+  {
+    "type": "endcase",
     "named": false
   },
   {
@@ -756,6 +824,10 @@
     "named": true
   },
   {
+    "type": "label",
+    "named": false
+  },
+  {
     "type": "line_comment",
     "named": true
   },
@@ -785,6 +857,10 @@
   },
   {
     "type": "objectclass",
+    "named": false
+  },
+  {
+    "type": "of",
     "named": false
   },
   {
