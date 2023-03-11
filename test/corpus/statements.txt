@@ -195,12 +195,10 @@ var b = 2
 (source_file
   (constvar_declaration
     (identifier))
-  (ERROR
-    (UNEXPECTED '='))
+  (ERROR)
   (constvar_declaration
     (identifier))
-  (ERROR
-    (UNEXPECTED '=')))
+  (ERROR))
 
 ================================================================================
 type declaration - full

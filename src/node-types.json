@@ -4,6 +4,10 @@
     "named": true,
     "subtypes": [
       {
+        "type": "binary_expression",
+        "named": true
+      },
+      {
         "type": "identifier",
         "named": true
       },
@@ -88,6 +92,134 @@
         "named": true
       }
     ]
+  },
+  {
+    "type": "binary_expression",
+    "named": true,
+    "fields": {
+      "left": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_expression",
+            "named": true
+          }
+        ]
+      },
+      "operator": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "&",
+            "named": false
+          },
+          {
+            "type": "*",
+            "named": false
+          },
+          {
+            "type": "**",
+            "named": false
+          },
+          {
+            "type": "+",
+            "named": false
+          },
+          {
+            "type": "-",
+            "named": false
+          },
+          {
+            "type": "/",
+            "named": false
+          },
+          {
+            "type": "<",
+            "named": false
+          },
+          {
+            "type": "<=",
+            "named": false
+          },
+          {
+            "type": "=",
+            "named": false
+          },
+          {
+            "type": "=>",
+            "named": false
+          },
+          {
+            "type": ">",
+            "named": false
+          },
+          {
+            "type": ">=",
+            "named": false
+          },
+          {
+            "type": "and",
+            "named": false
+          },
+          {
+            "type": "div",
+            "named": false
+          },
+          {
+            "type": "in",
+            "named": false
+          },
+          {
+            "type": "mod",
+            "named": false
+          },
+          {
+            "type": "not",
+            "named": false
+          },
+          {
+            "type": "or",
+            "named": false
+          },
+          {
+            "type": "rem",
+            "named": false
+          },
+          {
+            "type": "shl",
+            "named": false
+          },
+          {
+            "type": "shr",
+            "named": false
+          },
+          {
+            "type": "xor",
+            "named": false
+          },
+          {
+            "type": "|",
+            "named": false
+          },
+          {
+            "type": "~",
+            "named": false
+          }
+        ]
+      },
+      "right": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_expression",
+            "named": true
+          }
+        ]
+      }
+    }
   },
   {
     "type": "bind_declaration",
@@ -679,6 +811,10 @@
     "named": false
   },
   {
+    "type": "&",
+    "named": false
+  },
+  {
     "type": "'",
     "named": false
   },
@@ -695,7 +831,19 @@
     "named": false
   },
   {
+    "type": "**",
+    "named": false
+  },
+  {
+    "type": "+",
+    "named": false
+  },
+  {
     "type": ",",
+    "named": false
+  },
+  {
+    "type": "-",
     "named": false
   },
   {
@@ -704,6 +852,10 @@
   },
   {
     "type": "..",
+    "named": false
+  },
+  {
+    "type": "/",
     "named": false
   },
   {
@@ -719,11 +871,39 @@
     "named": false
   },
   {
+    "type": "<",
+    "named": false
+  },
+  {
+    "type": "<=",
+    "named": false
+  },
+  {
+    "type": "=",
+    "named": false
+  },
+  {
+    "type": "=>",
+    "named": false
+  },
+  {
+    "type": ">",
+    "named": false
+  },
+  {
+    "type": ">=",
+    "named": false
+  },
+  {
     "type": "\\",
     "named": false
   },
   {
     "type": "addressint",
+    "named": false
+  },
+  {
+    "type": "and",
     "named": false
   },
   {
@@ -760,6 +940,10 @@
   },
   {
     "type": "decreasing",
+    "named": false
+  },
+  {
+    "type": "div",
     "named": false
   },
   {
@@ -823,6 +1007,10 @@
     "named": false
   },
   {
+    "type": "in",
+    "named": false
+  },
+  {
     "type": "init",
     "named": false
   },
@@ -859,6 +1047,10 @@
     "named": false
   },
   {
+    "type": "mod",
+    "named": false
+  },
+  {
     "type": "nat",
     "named": false
   },
@@ -879,11 +1071,19 @@
     "named": false
   },
   {
+    "type": "not",
+    "named": false
+  },
+  {
     "type": "objectclass",
     "named": false
   },
   {
     "type": "of",
+    "named": false
+  },
+  {
+    "type": "or",
     "named": false
   },
   {
@@ -911,8 +1111,20 @@
     "named": true
   },
   {
+    "type": "rem",
+    "named": false
+  },
+  {
     "type": "self_expression",
     "named": true
+  },
+  {
+    "type": "shl",
+    "named": false
+  },
+  {
+    "type": "shr",
+    "named": false
   },
   {
     "type": "sizeof",
@@ -952,6 +1164,14 @@
   },
   {
     "type": "when",
+    "named": false
+  },
+  {
+    "type": "xor",
+    "named": false
+  },
+  {
+    "type": "|",
     "named": false
   },
   {

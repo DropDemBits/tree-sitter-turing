@@ -160,8 +160,7 @@ const a := "abcd^="
     (identifier)
     (literal_expression
       (string_literal
-        (ERROR
-          (UNEXPECTED '='))))))
+        (ERROR)))))
 
 ================================================================================
 string literal - invalid, ends at the end of the line
@@ -384,9 +383,9 @@ const a := 999a999
 (source_file
   (constvar_declaration
     (identifier)
-    (literal_expression
-      (integer_literal)))
-  (ERROR
+    (ERROR
+      (literal_expression
+        (integer_literal)))
     (identifier)))
 
 ================================================================================
@@ -565,29 +564,25 @@ const a := 1.0e
 (source_file
   (constvar_declaration
     (identifier)
-    (literal_expression
-      (real_literal)))
+    (ERROR
+      (literal_expression
+        (real_literal)))
+    (binary_expression
+      (binary_expression
+        (identifier)
+        (identifier))
+      (ERROR
+        (identifier)
+        (real_literal))
+      (identifier)))
   (ERROR
     (identifier)
-    (UNEXPECTED '+'))
+    (real_literal))
   (constvar_declaration
     (identifier)
-    (literal_expression
-      (real_literal)))
-  (ERROR
-    (identifier)
-    (UNEXPECTED '-'))
-  (constvar_declaration
-    (identifier)
-    (literal_expression
-      (real_literal)))
-  (ERROR
-    (identifier))
-  (constvar_declaration
-    (identifier)
-    (literal_expression
-      (real_literal)))
-  (ERROR
+    (ERROR
+      (literal_expression
+        (real_literal)))
     (identifier))
   (constvar_declaration
     (identifier)
@@ -608,23 +603,21 @@ const a := 1.0-1000
 (source_file
   (constvar_declaration
     (identifier)
-    (literal_expression
-      (real_literal)))
-  (ERROR
-    (UNEXPECTED '+'))
-  (constvar_declaration
-    (identifier)
-    (literal_expression
-      (real_literal)))
-  (ERROR
-    (UNEXPECTED '-'))
-  (constvar_declaration
-    (identifier)
-    (literal_expression
-      (real_literal)))
-  (ERROR
-    (UNEXPECTED '-')
-    (integer_literal)))
+    (binary_expression
+      (binary_expression
+        (binary_expression
+          (literal_expression
+            (real_literal))
+          (identifier))
+        (ERROR
+          (identifier)
+          (real_literal))
+        (identifier))
+      (ERROR
+        (identifier)
+        (real_literal))
+      (literal_expression
+        (integer_literal)))))
 
 ================================================================================
 objclass expression
@@ -844,3 +837,90 @@ const a := sizeof(uwu : 3)
     (sizeof_expression
       (identifier)
       (ERROR))))
+
+================================================================================
+binary expression - left associative
+================================================================================
+
+var a := 1 + 1 + 1 + 1
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (constvar_declaration
+    name: (identifier)
+    initializer: (binary_expression
+      left: (binary_expression
+        left: (binary_expression
+          left: (literal_expression
+            (integer_literal))
+          right: (literal_expression
+            (integer_literal)))
+        right: (literal_expression
+          (integer_literal)))
+      right: (literal_expression
+        (integer_literal)))))
+
+================================================================================
+binary expression - right associative
+================================================================================
+
+var a := 2 ** 3 ** 3 ** 3
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (constvar_declaration
+    name: (identifier)
+    initializer: (binary_expression
+      left: (literal_expression
+        (integer_literal))
+      right: (binary_expression
+        left: (literal_expression
+          (integer_literal))
+        right: (binary_expression
+          left: (literal_expression
+            (integer_literal))
+          right: (literal_expression
+            (integer_literal)))))))
+
+================================================================================
+binary expression - precedence
+================================================================================
+
+var a := false or true and 1 < 1 + 1 * 2 * 2 + 1 or false => true
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (constvar_declaration
+    name: (identifier)
+    initializer: (binary_expression
+      left: (binary_expression
+        left: (binary_expression
+          left: (literal_expression
+            (boolean_literal))
+          right: (binary_expression
+            left: (literal_expression
+              (boolean_literal))
+            right: (binary_expression
+              left: (literal_expression
+                (integer_literal))
+              right: (binary_expression
+                left: (binary_expression
+                  left: (literal_expression
+                    (integer_literal))
+                  right: (binary_expression
+                    left: (binary_expression
+                      left: (literal_expression
+                        (integer_literal))
+                      right: (literal_expression
+                        (integer_literal)))
+                    right: (literal_expression
+                      (integer_literal))))
+                right: (literal_expression
+                  (integer_literal))))))
+        right: (literal_expression
+          (boolean_literal)))
+      right: (literal_expression
+        (boolean_literal)))))

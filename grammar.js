@@ -1,3 +1,19 @@
+const PREC = {
+  assign: 0,
+  imply: 2,
+  or: 3,
+  and: 4,
+  // not
+  compare: 5,
+  add: 6,
+  multiply: 7,
+  // negation
+  exp: 8,
+  // nat_cheat
+  call: 9,
+  // deref
+};
+
 module.exports = grammar({
   name: 'turing',
 
@@ -218,7 +234,7 @@ module.exports = grammar({
       $.init_expression,
       $.nil_expression,
       $.sizeof_expression,
-      // $.binary_expression,
+      $.binary_expression,
       // $.unary_expression,
       // $.paren_expression,
 
@@ -322,6 +338,43 @@ module.exports = grammar({
     ),
 
     self_expression: $ => 'self',
+
+    binary_expression: $ => {
+      const left_assoc = [
+        [PREC.imply, '=>'],
+        [PREC.or, choice('or', '|')],
+        [PREC.and, choice('and', '&')],
+        [PREC.compare, choice(
+          '<', '>', '<=', '>=', '=',
+          seq('~', '='), seq('not', '='),
+          seq('~', 'in'), seq('not', 'in')
+        )],
+        [PREC.add, choice('+', '-', 'xor')],
+        [PREC.multiply, choice('*', '/', 'div', 'mod', 'rem', 'shl', 'shr')],
+      ];
+
+      // In toco, exponentiation is right-associative,
+      // while in Turing, it's left-associative.
+      //
+      // Since we're targeting toco anyways, we're keeping
+      // it right associative.
+      const right_assoc = [
+        [PREC.exp, '**']
+      ];
+
+      return choice(
+        ...left_assoc.map(([precedence, operator]) => prec.left(precedence, seq(
+          field('left', $._expression),
+          field('operator', operator),
+          field('right', $._expression),
+        ))),
+        ...right_assoc.map(([precedence, operator]) => prec.right(precedence, seq(
+          field('left', $._expression),
+          field('operator', operator),
+          field('right', $._expression),
+        )))
+      );
+    },
 
     _type: $ => choice(
       // TODO: commented items
