@@ -2313,6 +2313,10 @@
         {
           "type": "SYMBOL",
           "name": "forward_type"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "range_type"
         }
       ]
     },
@@ -2438,6 +2442,31 @@
         {
           "type": "STRING",
           "value": ")"
+        }
+      ]
+    },
+    "range_type": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "start",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_expression"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ".."
+        },
+        {
+          "type": "FIELD",
+          "name": "end",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_expression"
+          }
         }
       ]
     },

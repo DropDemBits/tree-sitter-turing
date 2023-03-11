@@ -407,7 +407,7 @@ module.exports = grammar({
 
       $.primitive_type,
       $.forward_type,
-      // $.range_type,
+      $.range_type,
       // $.enum_type,
       // $.array_type,
       // $.set_type,
@@ -445,6 +445,12 @@ module.exports = grammar({
         $._expression
       ),
       ')'
+    ),
+
+    range_type: $ => seq(
+      field('start', $._expression),
+      '..',
+      field('end', $._expression)
     ),
 
     forward_type: $ => 'forward',

@@ -106,3 +106,81 @@ type a : string(*)
     (identifier)
     (primitive_type
       (charseq_size))))
+
+================================================================================
+range type - start and end
+================================================================================
+
+type a : 1 .. 2
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (type_declaration
+    name: (identifier)
+    type_spec: (range_type
+      start: (literal_expression
+        (integer_literal))
+      end: (literal_expression
+        (integer_literal)))))
+
+================================================================================
+range type - only start
+================================================================================
+
+type a : 1 ..
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (type_declaration
+    name: (identifier)
+    type_spec: (range_type
+      start: (literal_expression
+        (integer_literal))
+      end: (MISSING identifier))))
+
+================================================================================
+range type - only end
+================================================================================
+
+type a : .. 2
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (type_declaration
+    name: (identifier)
+    type_spec: (range_type
+      start: (MISSING identifier)
+      end: (literal_expression
+        (integer_literal)))))
+
+================================================================================
+range type - no bounds
+================================================================================
+
+type a : ..
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (ERROR
+    (identifier)))
+
+================================================================================
+expression in type position
+================================================================================
+
+type a : 1 + 1
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (ERROR
+    (identifier)
+    (binary_expression
+      (literal_expression
+        (integer_literal))
+      (literal_expression
+        (integer_literal)))))
