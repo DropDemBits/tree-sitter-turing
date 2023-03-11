@@ -69,7 +69,7 @@ module.exports = grammar({
       $.exit_statement,
       $.if_statement,
       $.case_statement,
-      // $.block_statement,
+      $.block_statement,
       // $.invariant_statement,
       // $.assert_statement,
       // $.call_statement,
@@ -193,6 +193,12 @@ module.exports = grammar({
     case_arm: $ => seq(
       'label', field('pattern', sepBy(',', $._expression)), ':',
       optional(repeat($._statement_line)),
+    ),
+
+    block_statement: $ => seq(
+      'begin',
+      optional(repeat($._statement_line)),
+      'end'
     ),
 
     _macro_directive: $ => choice(

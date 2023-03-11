@@ -1053,3 +1053,17 @@ case true of end
     condition: (literal_expression
       (boolean_literal))
     (MISSING "case")))
+
+================================================================================
+block statement
+================================================================================
+
+begin
+  begin end
+end
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (block_statement
+    (block_statement)))
