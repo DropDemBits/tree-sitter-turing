@@ -149,13 +149,10 @@ const a := "abcd^="
     (literal_expression
       (string_literal
         (escape_sequence))))
-  (ERROR)
-  (constvar_declaration
-    (identifier)
+  (ERROR
     (literal_expression
-      (string_literal
-        (ERROR))))
-  (ERROR)
+      (string_literal))
+    (identifier))
   (constvar_declaration
     (identifier)
     (literal_expression
@@ -383,9 +380,9 @@ const a := 999a999
 (source_file
   (constvar_declaration
     (identifier)
-    (ERROR
-      (literal_expression
-        (integer_literal)))
+    (literal_expression
+      (integer_literal)))
+  (ERROR
     (identifier)))
 
 ================================================================================
@@ -494,7 +491,8 @@ const a := .12345.6789
     (literal_expression
       (real_literal)))
   (ERROR
-    (real_literal)))
+    (literal_expression
+      (real_literal))))
 
 ================================================================================
 real literal - out of range but still accept
@@ -564,25 +562,31 @@ const a := 1.0e
 (source_file
   (constvar_declaration
     (identifier)
-    (ERROR
-      (literal_expression
-        (real_literal)))
+    (literal_expression
+      (real_literal)))
+  (assign_statement
     (binary_expression
-      (binary_expression
-        (identifier)
-        (identifier))
-      (ERROR
-        (identifier)
-        (real_literal))
-      (identifier)))
+      (identifier)
+      (identifier))
+    (ERROR
+      (identifier))
+    (literal_expression
+      (real_literal)))
+  (assign_statement
+    (binary_expression
+      (identifier)
+      (identifier))
+    (ERROR
+      (identifier))
+    (literal_expression
+      (real_literal)))
   (ERROR
-    (identifier)
-    (real_literal))
+    (identifier))
   (constvar_declaration
     (identifier)
-    (ERROR
-      (literal_expression
-        (real_literal)))
+    (literal_expression
+      (real_literal)))
+  (ERROR
     (identifier))
   (constvar_declaration
     (identifier)
@@ -604,17 +608,19 @@ const a := 1.0-1000
   (constvar_declaration
     (identifier)
     (binary_expression
-      (binary_expression
-        (binary_expression
-          (literal_expression
-            (real_literal))
-          (identifier))
-        (ERROR
-          (identifier)
-          (real_literal))
-        (identifier))
-      (ERROR
-        (identifier)
+      (literal_expression
+        (real_literal))
+      (identifier)))
+  (assign_statement
+    (identifier)
+    (binary_expression
+      (literal_expression
+        (real_literal))
+      (identifier)))
+  (assign_statement
+    (identifier)
+    (binary_expression
+      (literal_expression
         (real_literal))
       (literal_expression
         (integer_literal)))))

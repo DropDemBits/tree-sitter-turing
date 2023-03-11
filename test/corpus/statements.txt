@@ -442,9 +442,12 @@ var a := 1
 --------------------------------------------------------------------------------
 
 (source_file
-  (ERROR
+  (loop_statement
+    (MISSING "loop"))
+  (constvar_declaration
     (identifier)
-    (identifier)))
+    (literal_expression
+      (integer_literal))))
 
 ================================================================================
 loop statement - with endloop
@@ -590,11 +593,14 @@ var a := 1
 --------------------------------------------------------------------------------
 
 (source_file
-  (ERROR
+  (for_statement
     (literal_expression
       (integer_literal))
+    (MISSING "for"))
+  (constvar_declaration
     (identifier)
-    (identifier)))
+    (literal_expression
+      (integer_literal))))
 
 ================================================================================
 exit statement - plain
@@ -630,9 +636,10 @@ end loop
 
 --------------------------------------------------------------------------------
 
-(ERROR
-  (exit_statement
-    condition: (identifier)))
+(source_file
+  (ERROR
+    (exit_statement
+      condition: (identifier))))
 
 ================================================================================
 if statement - bare
@@ -816,7 +823,9 @@ end if
   (ERROR
     (identifier))
   (loop_statement)
-  (ERROR))
+  (ERROR
+    (identifier)
+    (identifier)))
 
 ================================================================================
 if statement - bare elsif
@@ -830,9 +839,12 @@ end if
 
 (source_file
   (ERROR
+    (identifier)
     (identifier))
   (loop_statement)
-  (ERROR))
+  (ERROR
+    (identifier)
+    (identifier)))
 
 ================================================================================
 if statement - bare elseif
@@ -846,9 +858,12 @@ end if
 
 (source_file
   (ERROR
+    (identifier)
     (identifier))
   (loop_statement)
-  (ERROR))
+  (ERROR
+    (identifier)
+    (identifier)))
 
 ================================================================================
 if statement - bare elif
@@ -862,9 +877,12 @@ end if
 
 (source_file
   (ERROR
+    (identifier)
     (identifier))
   (loop_statement)
-  (ERROR))
+  (ERROR
+    (identifier)
+    (identifier)))
 
 ================================================================================
 if statement - missing condition
@@ -878,9 +896,8 @@ end if
 
 (source_file
   (ERROR
-    (identifier))
-  (loop_statement)
-  (ERROR))
+    (identifier)
+    (identifier)))
 
 ================================================================================
 if statement - missing then
@@ -895,9 +912,8 @@ end if
 (source_file
   (ERROR
     (literal_expression
-      (boolean_literal)))
-  (loop_statement)
-  (ERROR))
+      (boolean_literal))
+    (identifier)))
 
 ================================================================================
 case statement - no arms
@@ -1065,3 +1081,96 @@ end
 (source_file
   (block_statement
     (block_statement)))
+
+================================================================================
+assign statement
+================================================================================
+
+a := b
+1 := 2 % handled by typeck, not the parser
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    left: (identifier)
+    right: (identifier))
+  (assign_statement
+    left: (literal_expression
+      (integer_literal))
+    right: (literal_expression
+      (integer_literal)))
+  (line_comment))
+
+================================================================================
+compound assign statement
+================================================================================
+
+a => = b
+a or = b
+a | = b
+a and = b
+a & = b
+a + = b
+a - = b
+a xor = b
+a * = b
+a / = b
+a div = b
+a mod = b
+a rem = b
+a shl = b
+a shr = b
+a ** = b
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (compound_assign_statement
+    left: (identifier)
+    right: (identifier))
+  (compound_assign_statement
+    left: (identifier)
+    right: (identifier))
+  (compound_assign_statement
+    left: (identifier)
+    right: (identifier))
+  (compound_assign_statement
+    left: (identifier)
+    right: (identifier))
+  (compound_assign_statement
+    left: (identifier)
+    right: (identifier))
+  (compound_assign_statement
+    left: (identifier)
+    right: (identifier))
+  (compound_assign_statement
+    left: (identifier)
+    right: (identifier))
+  (compound_assign_statement
+    left: (identifier)
+    right: (identifier))
+  (compound_assign_statement
+    left: (identifier)
+    right: (identifier))
+  (compound_assign_statement
+    left: (identifier)
+    right: (identifier))
+  (compound_assign_statement
+    left: (identifier)
+    right: (identifier))
+  (compound_assign_statement
+    left: (identifier)
+    right: (identifier))
+  (compound_assign_statement
+    left: (identifier)
+    right: (identifier))
+  (compound_assign_statement
+    left: (identifier)
+    right: (identifier))
+  (compound_assign_statement
+    left: (identifier)
+    right: (identifier))
+  (compound_assign_statement
+    left: (identifier)
+    right: (identifier)))

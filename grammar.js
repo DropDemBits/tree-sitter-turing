@@ -71,7 +71,8 @@ module.exports = grammar({
       // $.monitor_declaration,
 
       // Simple statements //
-      // $.assign_statement,
+      $.assign_statement,
+      $.compound_assign_statement,
       // $.open_statement,
       // $.close_statement,
       // $.put_statement,
@@ -148,6 +149,31 @@ module.exports = grammar({
       'to',
       $._expression
     ),
+
+    assign_statement: $ => prec.left(PREC.assign, seq(
+      field('left', $._expression),
+      ':=',
+      field('right', $._expression),
+    )),
+
+    compound_assign_statement: $ => {
+      const infix_ops = [
+        '=>',
+        'or', '|',
+        'and', '&',
+        '+', '-', 'xor',
+        '*', '/', 'div', 'mod', 'rem', 'shl', 'shr',
+        '**'
+      ];
+
+      return choice(
+        ...infix_ops.map((operator) => prec.left(PREC.assign, seq(
+          field('left', $._expression),
+          field('operator', seq(operator, '=')),
+          field('right', $._expression),
+        ))),
+      )
+    },
 
     for_statement: $ => seq(
       'for',
