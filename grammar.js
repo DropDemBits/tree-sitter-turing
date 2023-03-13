@@ -3,15 +3,15 @@ const PREC = {
   imply: 2,
   or: 3,
   and: 4,
-  // not
-  compare: 5,
-  add: 6,
-  multiply: 7,
-  // negation
-  exp: 8,
-  // nat_cheat
-  call: 9,
-  // deref
+  not: 5,
+  compare: 6,
+  add: 7,
+  multiply: 8,
+  negation: 9,
+  exp: 10,
+  nat_cheat: 11,
+  call: 12,
+  deref: 13,
 };
 
 module.exports = grammar({
