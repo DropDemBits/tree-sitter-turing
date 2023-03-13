@@ -930,3 +930,104 @@ var a := false or true and 1 < 1 + 1 * 2 * 2 + 1 or false => true
           (boolean_literal)))
       right: (literal_expression
         (boolean_literal)))))
+
+================================================================================
+unary expression - not
+================================================================================
+
+a := ~not b
+a := ~b
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    left: (identifier)
+    right: (unary_expression
+      right: (unary_expression
+        right: (identifier))))
+  (assign_statement
+    left: (identifier)
+    right: (unary_expression
+      right: (identifier))))
+
+================================================================================
+unary expression - not as infix
+================================================================================
+
+a := b not b
+a := b ~ b
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    left: (identifier)
+    right: (identifier))
+  (ERROR
+    (identifier))
+  (assign_statement
+    left: (identifier)
+    right: (identifier))
+  (ERROR
+    (identifier)))
+
+================================================================================
+unary expression - negation
+================================================================================
+
+a := -b
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    (identifier)
+    (unary_expression
+      (identifier))))
+
+================================================================================
+binary expression - negation and subtraction
+================================================================================
+
+a := b--b
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    (identifier)
+    (binary_expression
+      (identifier)
+      (unary_expression
+        (identifier)))))
+
+================================================================================
+unary expression - identity
+================================================================================
+
+a := +a
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    left: (identifier)
+    right: (unary_expression
+      right: (identifier))))
+
+================================================================================
+unary expression - identity and addition
+================================================================================
+
+a := a++a
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    left: (identifier)
+    right: (binary_expression
+      left: (identifier)
+      right: (unary_expression
+        right: (identifier)))))

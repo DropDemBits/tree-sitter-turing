@@ -261,7 +261,7 @@ module.exports = grammar({
       $.nil_expression,
       $.sizeof_expression,
       $.binary_expression,
-      // $.unary_expression,
+      $.unary_expression,
       // $.paren_expression,
 
       $.self_expression,
@@ -401,6 +401,17 @@ module.exports = grammar({
         )))
       );
     },
+
+    unary_expression: $ => choice(
+      prec(PREC.not, seq(
+        field('operator', choice('not', '~')),
+        field('right', $._expression)
+      )),
+      prec(PREC.negation, seq(
+        field('operator', choice('-', '+')),
+        field('right', $._expression)
+      ))
+    ),
 
     _type: $ => choice(
       // TODO: commented items
