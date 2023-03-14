@@ -39,8 +39,7 @@ module.exports = grammar({
   rules: {
     // ('unit')? body
     source_file: $ => seq(
-      optional('unit'),
-      repeat($._statement_line)
+      optional('unit'), _statement_list($),
     ),
 
     line_comment: $ => token(seq(
@@ -192,13 +191,13 @@ module.exports = grammar({
       field('step_by', optional(seq(
         'by', $._expression
       ))),
-      optional(repeat($._statement_line)),
+      _statement_list($),
       end_keyword_tail('for')
     ),
 
     loop_statement: $ => seq(
       'loop',
-      optional(repeat($._statement_line)),
+      _statement_list($),
       end_keyword_tail('loop')
     ),
 
@@ -208,38 +207,35 @@ module.exports = grammar({
     ),
 
     if_statement: $ => seq(
-      'if', field('condition', $._expression), 'then',
-      optional(repeat($._statement_line)),
-      optional(repeat($.elsif_clause)),
+      'if', field('condition', $._expression), 'then', _statement_list($),
+      repeat($.elsif_clause),
       optional($.else_clause),
       end_keyword_tail('if')
     ),
 
     elsif_clause: $ => seq(
       choice('elsif', 'elif', 'elseif'), // all recovery variations
-      field('condition', $._expression), 'then',
-      optional(repeat($._statement_line)),
+      field('condition', $._expression), 'then', _statement_list($),
     ),
 
     else_clause: $ => seq(
-      'else',
-      optional(repeat($._statement_line)),
+      'else', _statement_list($),
     ),
 
     case_statement: $ => seq(
       'case', field('condition', $._expression), 'of',
-      optional(repeat($.case_arm)),
+      repeat($.case_arm),
       end_keyword_tail('case')
     ),
 
     case_arm: $ => seq(
       'label', field('pattern', sepBy(',', $._expression)), ':',
-      optional(repeat($._statement_line)),
+      _statement_list($),
     ),
 
     block_statement: $ => seq(
       'begin',
-      optional(repeat($._statement_line)),
+      _statement_list($),
       'end'
     ),
 
@@ -503,6 +499,10 @@ function sepBy(sep, rule) {
 
 function end_keyword_tail(bit) {
   return choice(seq('end', bit), 'end' + bit)
+}
+
+function _statement_list($) {
+  return repeat($._statement_line);
 }
 
 // - Range exprs should be hoisted into the precedence tree
