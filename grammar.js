@@ -515,3 +515,35 @@ function end_keyword_tail(bit) {
 // - `all` can't be used here
 
 // ah, so we basically want to create idxs from child to parent
+
+// mostly wondering on how to go from parsing path to expression form
+
+// so it'd be
+
+// expression_or_path:
+// - try as a path first
+// - if could be an expression (via lookahead), convert!
+//   - `expr_binding_power` has a bailout way to notify completion :D
+
+// Path:
+// (PathComponent '.')+
+
+// PathComponent:
+// NameRef GenericArgs?
+
+// GenericArgs:
+// '[' (GenericArg ',')* ']'
+
+// ?
+// const(???)
+
+// how to parse this?
+// a[1..2]
+
+// as either:
+// - range expr
+// - constrained ty
+
+// i like the `ty is range` syntax from pattern types, since that both specifies the size, and is unambiguous :D
+
+// alt `ty in 1..2`, tho we'd want `ty is Some | None`
