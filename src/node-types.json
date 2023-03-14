@@ -28,6 +28,10 @@
         "named": true
       },
       {
+        "type": "paren_expression",
+        "named": true
+      },
+      {
         "type": "self_expression",
         "named": true
       },
@@ -825,6 +829,21 @@
   },
   {
     "type": "objclass_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "paren_expression",
     "named": true,
     "fields": {},
     "children": {

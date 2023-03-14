@@ -262,7 +262,7 @@ module.exports = grammar({
       $.sizeof_expression,
       $.binary_expression,
       $.unary_expression,
-      // $.paren_expression,
+      $.paren_expression,
 
       $.self_expression,
       prec.left($.identifier),
@@ -345,14 +345,14 @@ module.exports = grammar({
 
     init_expression: $ => seq('init', '(', sepBy(',', $._expression), optional(','), ')'),
 
-    nil_expression: $ => seq(
+    nil_expression: $ => prec.right(seq(
       'nil',
       optional(seq(
         '(',
         optional($._item_path),
         ')'
       )),
-    ),
+    )),
 
     sizeof_expression: $ => seq(
       // Not planning to support the size_spec part, since while the acceptable
@@ -413,6 +413,8 @@ module.exports = grammar({
       ))
     ),
 
+    paren_expression: $ => (seq('(', $._expression, ')')),
+
     _type: $ => choice(
       // TODO: commented items
 
@@ -431,7 +433,7 @@ module.exports = grammar({
       // $.condition_type,
     ),
 
-    primitive_type: $ => choice(
+    primitive_type: $ => prec.right(choice(
       'boolean',
       'addressint',
       'int',
@@ -447,7 +449,7 @@ module.exports = grammar({
       'real8',
       seq('char', optional($.charseq_size)),
       seq('string', optional($.charseq_size)),
-    ),
+    )),
 
     charseq_size: $ => seq(
       '(',

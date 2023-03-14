@@ -1031,3 +1031,52 @@ a := a++a
       left: (identifier)
       right: (unary_expression
         right: (identifier)))))
+
+================================================================================
+paren expression
+================================================================================
+
+a := (b)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    (identifier)
+    (paren_expression
+      (identifier))))
+
+================================================================================
+paren expression - empty
+================================================================================
+
+a := ()
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    (identifier)
+    (paren_expression
+      (MISSING identifier))))
+
+================================================================================
+paren expression - reset precedence
+================================================================================
+
+a := 1 * (2 + 3)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    (identifier)
+    (binary_expression
+      (literal_expression
+        (integer_literal))
+      (paren_expression
+        (binary_expression
+          (literal_expression
+            (integer_literal))
+          (literal_expression
+            (integer_literal)))))))
