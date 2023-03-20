@@ -85,10 +85,14 @@ bool tree_sitter_turing_external_scanner_scan(void *payload, TSLexer *lexer,
         return false;
       }
 
-      while (is_num_char(lexer->lookahead))
+      if (is_num_char(lexer->lookahead)) {
         bump(lexer);
 
-      has_fraction = true;
+        while (is_num_char(lexer->lookahead))
+          bump(lexer);
+
+        has_fraction = true;
+      }
     }
 
     lexer->mark_end(lexer);
