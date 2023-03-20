@@ -149,7 +149,7 @@ module.exports = grammar({
       $._expression
     ),
 
-    assign_statement: $ => prec.left(PREC.assign, seq(
+    assign_statement: $ => prec.right(PREC.assign, seq(
       field('left', $._expression),
       ':=',
       field('right', $._expression),
@@ -262,7 +262,7 @@ module.exports = grammar({
 
       $.self_expression,
       prec.left($.identifier),
-      // $.field_expression,
+      $.field_expression,
       // $.deref_expression,
       // $.cheat_expression,
       // $.nat_cheat_expression,
@@ -410,6 +410,12 @@ module.exports = grammar({
     ),
 
     paren_expression: $ => (seq('(', $._expression, ')')),
+
+    field_expression: $ => prec.left(PREC.call, seq(
+      field('left', $._expression),
+      '.',
+      field('field', $.identifier)
+    )),
 
     _type: $ => choice(
       // TODO: commented items

@@ -8,6 +8,10 @@
         "named": true
       },
       {
+        "type": "field_expression",
+        "named": true
+      },
+      {
         "type": "identifier",
         "named": true
       },
@@ -635,6 +639,32 @@
     }
   },
   {
+    "type": "field_expression",
+    "named": true,
+    "fields": {
+      "field": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "left": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "for_statement",
     "named": true,
     "fields": {
@@ -1189,22 +1219,6 @@
   },
   {
     "type": "end",
-    "named": false
-  },
-  {
-    "type": "endcase",
-    "named": false
-  },
-  {
-    "type": "endfor",
-    "named": false
-  },
-  {
-    "type": "endif",
-    "named": false
-  },
-  {
-    "type": "endloop",
     "named": false
   },
   {

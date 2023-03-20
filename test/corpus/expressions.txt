@@ -457,9 +457,11 @@ const a := 100.00e100
 (source_file
   (constvar_declaration
     (identifier)
-    (literal_expression
-      (real_literal)))
-  (constvar_declaration
+    (field_expression
+      (literal_expression
+        (integer_literal))
+      (identifier)))
+  (assign_statement
     (identifier)
     (literal_expression
       (real_literal)))
@@ -1080,3 +1082,32 @@ a := 1 * (2 + 3)
             (integer_literal))
           (literal_expression
             (integer_literal)))))))
+
+================================================================================
+field expression
+================================================================================
+
+a.b.c.d.e := a.b.c.d.e
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    left: (field_expression
+      left: (field_expression
+        left: (field_expression
+          left: (field_expression
+            left: (identifier)
+            field: (identifier))
+          field: (identifier))
+        field: (identifier))
+      field: (identifier))
+    right: (field_expression
+      left: (field_expression
+        left: (field_expression
+          left: (field_expression
+            left: (identifier)
+            field: (identifier))
+          field: (identifier))
+        field: (identifier))
+      field: (identifier))))
