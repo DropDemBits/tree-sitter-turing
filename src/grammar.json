@@ -1136,15 +1136,24 @@
           }
         },
         {
-          "type": "SEQ",
+          "type": "CHOICE",
           "members": [
             {
-              "type": "STRING",
-              "value": "end"
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "end"
+                },
+                {
+                  "type": "STRING",
+                  "value": "for"
+                }
+              ]
             },
             {
               "type": "STRING",
-              "value": "for"
+              "value": "endfor"
             }
           ]
         }
@@ -1165,15 +1174,24 @@
           }
         },
         {
-          "type": "SEQ",
+          "type": "CHOICE",
           "members": [
             {
-              "type": "STRING",
-              "value": "end"
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "end"
+                },
+                {
+                  "type": "STRING",
+                  "value": "loop"
+                }
+              ]
             },
             {
               "type": "STRING",
-              "value": "loop"
+              "value": "endloop"
             }
           ]
         }
@@ -1259,15 +1277,24 @@
           ]
         },
         {
-          "type": "SEQ",
+          "type": "CHOICE",
           "members": [
             {
-              "type": "STRING",
-              "value": "end"
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "end"
+                },
+                {
+                  "type": "STRING",
+                  "value": "if"
+                }
+              ]
             },
             {
               "type": "STRING",
-              "value": "if"
+              "value": "endif"
             }
           ]
         }
@@ -1357,15 +1384,24 @@
           }
         },
         {
-          "type": "SEQ",
+          "type": "CHOICE",
           "members": [
             {
-              "type": "STRING",
-              "value": "end"
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "end"
+                },
+                {
+                  "type": "STRING",
+                  "value": "case"
+                }
+              ]
             },
             {
               "type": "STRING",
-              "value": "case"
+              "value": "endcase"
             }
           ]
         }

@@ -1222,6 +1222,22 @@
     "named": false
   },
   {
+    "type": "endcase",
+    "named": false
+  },
+  {
+    "type": "endfor",
+    "named": false
+  },
+  {
+    "type": "endif",
+    "named": false
+  },
+  {
+    "type": "endloop",
+    "named": false
+  },
+  {
     "type": "exit",
     "named": false
   },
