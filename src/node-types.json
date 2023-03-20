@@ -8,6 +8,10 @@
         "named": true
       },
       {
+        "type": "deref_expression",
+        "named": true
+      },
+      {
         "type": "field_expression",
         "named": true
       },
@@ -601,6 +605,32 @@
     }
   },
   {
+    "type": "deref_expression",
+    "named": true,
+    "fields": {
+      "operator": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "^",
+            "named": false
+          }
+        ]
+      },
+      "right": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "else_clause",
     "named": true,
     "fields": {},
@@ -683,6 +713,16 @@
           {
             "type": "_expression",
             "named": true
+          }
+        ]
+      },
+      "operator": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": ".",
+            "named": false
           }
         ]
       }
@@ -1191,6 +1231,10 @@
   },
   {
     "type": "\\",
+    "named": false
+  },
+  {
+    "type": "^",
     "named": false
   },
   {

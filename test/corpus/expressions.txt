@@ -95,14 +95,14 @@ const a := "^?"
         (escape_sequence))))
   (constvar_declaration
     (identifier)
+    (ERROR)
+    (deref_expression
+      (literal_expression
+        (integer_literal))))
+  (ERROR
     (literal_expression
-      (string_literal
-        (ERROR))))
-  (constvar_declaration
-    (identifier)
-    (literal_expression
-      (string_literal
-        (escape_sequence))))
+      (string_literal))
+    (UNEXPECTED '@'))
   (constvar_declaration
     (identifier)
     (literal_expression
@@ -152,7 +152,10 @@ const a := "abcd^="
   (ERROR
     (literal_expression
       (string_literal))
-    (identifier))
+    (identifier)
+    (deref_expression
+      (literal_expression
+        (string_literal))))
   (constvar_declaration
     (identifier)
     (literal_expression
@@ -1111,3 +1114,20 @@ a.b.c.d.e := a.b.c.d.e
           field: (identifier))
         field: (identifier))
       field: (identifier))))
+
+================================================================================
+deref expression
+================================================================================
+
+^a.b := 1
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    left: (field_expression
+      left: (deref_expression
+        right: (identifier))
+      field: (identifier))
+    right: (literal_expression
+      (integer_literal))))

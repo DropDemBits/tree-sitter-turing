@@ -10,6 +10,7 @@ const PREC = {
   negation: 9,
   exp: 10,
   nat_cheat: 11,
+  // also arrow, dot
   call: 12,
   deref: 13,
 };
@@ -269,7 +270,7 @@ module.exports = grammar({
       $.self_expression,
       prec.left($.identifier),
       $.field_expression,
-      // $.deref_expression,
+      $.deref_expression,
       // $.cheat_expression,
       // $.nat_cheat_expression,
       // $.arrow_expression,
@@ -415,12 +416,17 @@ module.exports = grammar({
       ))
     ),
 
-    paren_expression: $ => (seq('(', $._expression, ')')),
+    paren_expression: $ => seq('(', $._expression, ')'),
 
     field_expression: $ => prec.left(PREC.call, seq(
       field('left', $._expression),
-      '.',
+      field('operator', '.'),
       field('field', $.identifier)
+    )),
+
+    deref_expression: $ => prec.left(PREC.deref, seq(
+      field('operator', '^'),
+      field('right', $._expression),
     )),
 
     _type: $ => choice(
