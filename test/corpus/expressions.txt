@@ -443,8 +443,7 @@ const a := 30#
     (identifier)
     (literal_expression
       (integer_literal)))
-  (ERROR
-    (UNEXPECTED '#')))
+  (ERROR))
 
 ================================================================================
 real literal - simple
@@ -1128,6 +1127,39 @@ deref expression
     left: (field_expression
       left: (deref_expression
         right: (identifier))
+      field: (identifier))
+    right: (literal_expression
+      (integer_literal))))
+
+================================================================================
+nat cheat expression
+================================================================================
+
+#a.b := 1
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    left: (field_expression
+      left: (nat_cheat_expression
+        right: (identifier))
+      field: (identifier))
+    right: (literal_expression
+      (integer_literal))))
+
+================================================================================
+arrow expression
+================================================================================
+
+a->b := 1
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    left: (arrow_expression
+      left: (identifier)
       field: (identifier))
     right: (literal_expression
       (integer_literal))))

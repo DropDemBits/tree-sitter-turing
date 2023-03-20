@@ -1535,6 +1535,14 @@
         {
           "type": "SYMBOL",
           "name": "deref_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "nat_cheat_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "arrow_expression"
         }
       ]
     },
@@ -2387,6 +2395,64 @@
             "content": {
               "type": "SYMBOL",
               "name": "_expression"
+            }
+          }
+        ]
+      }
+    },
+    "nat_cheat_expression": {
+      "type": "PREC_LEFT",
+      "value": 13,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "FIELD",
+            "name": "operator",
+            "content": {
+              "type": "STRING",
+              "value": "#"
+            }
+          },
+          {
+            "type": "FIELD",
+            "name": "right",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_expression"
+            }
+          }
+        ]
+      }
+    },
+    "arrow_expression": {
+      "type": "PREC_LEFT",
+      "value": 12,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "FIELD",
+            "name": "left",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_expression"
+            }
+          },
+          {
+            "type": "FIELD",
+            "name": "operator",
+            "content": {
+              "type": "STRING",
+              "value": "->"
+            }
+          },
+          {
+            "type": "FIELD",
+            "name": "field",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
             }
           }
         ]

@@ -4,6 +4,10 @@
     "named": true,
     "subtypes": [
       {
+        "type": "arrow_expression",
+        "named": true
+      },
+      {
         "type": "binary_expression",
         "named": true
       },
@@ -25,6 +29,10 @@
       },
       {
         "type": "literal_expression",
+        "named": true
+      },
+      {
+        "type": "nat_cheat_expression",
         "named": true
       },
       {
@@ -128,6 +136,42 @@
         "named": true
       }
     ]
+  },
+  {
+    "type": "arrow_expression",
+    "named": true,
+    "fields": {
+      "field": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "left": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_expression",
+            "named": true
+          }
+        ]
+      },
+      "operator": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "->",
+            "named": false
+          }
+        ]
+      }
+    }
   },
   {
     "type": "assert_statement",
@@ -919,6 +963,32 @@
     }
   },
   {
+    "type": "nat_cheat_expression",
+    "named": true,
+    "fields": {
+      "operator": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "#",
+            "named": false
+          }
+        ]
+      },
+      "right": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "nil_expression",
     "named": true,
     "fields": {},
@@ -1146,6 +1216,10 @@
     "named": false
   },
   {
+    "type": "#",
+    "named": false
+  },
+  {
     "type": "&",
     "named": false
   },
@@ -1179,6 +1253,10 @@
   },
   {
     "type": "-",
+    "named": false
+  },
+  {
+    "type": "->",
     "named": false
   },
   {

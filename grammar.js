@@ -272,8 +272,8 @@ module.exports = grammar({
       $.field_expression,
       $.deref_expression,
       // $.cheat_expression,
-      // $.nat_cheat_expression,
-      // $.arrow_expression,
+      $.nat_cheat_expression,
+      $.arrow_expression,
       // $.indirect_expression,
       // $.bits_expression,
       // $.call_expression,
@@ -427,6 +427,17 @@ module.exports = grammar({
     deref_expression: $ => prec.left(PREC.deref, seq(
       field('operator', '^'),
       field('right', $._expression),
+    )),
+
+    nat_cheat_expression: $ => prec.left(PREC.deref, seq(
+      field('operator', '#'),
+      field('right', $._expression),
+    )),
+
+    arrow_expression: $ => prec.left(PREC.call, seq(
+      field('left', $._expression),
+      field('operator', '->'),
+      field('field', $.identifier)
     )),
 
     _type: $ => choice(
