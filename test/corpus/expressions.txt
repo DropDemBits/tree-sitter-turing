@@ -1163,3 +1163,39 @@ a->b := 1
       field: (identifier))
     right: (literal_expression
       (integer_literal))))
+
+================================================================================
+cheat expression
+================================================================================
+
+a := cheat(1 .. 2, 3)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    left: (identifier)
+    right: (cheat_expression
+      to_type: (range_type
+        start: (literal_expression
+          (integer_literal))
+        end: (literal_expression
+          (integer_literal)))
+      operand: (literal_expression
+        (integer_literal)))))
+
+================================================================================
+cheat expression - as lhs
+================================================================================
+
+cheat(real, some_place) := 6.9
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    left: (cheat_expression
+      to_type: (primitive_type)
+      operand: (identifier))
+    right: (literal_expression
+      (real_literal))))

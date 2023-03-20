@@ -12,6 +12,10 @@
         "named": true
       },
       {
+        "type": "cheat_expression",
+        "named": true
+      },
+      {
         "type": "deref_expression",
         "named": true
       },
@@ -496,6 +500,32 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "cheat_expression",
+    "named": true,
+    "fields": {
+      "operand": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_expression",
+            "named": true
+          }
+        ]
+      },
+      "to_type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_type",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -1353,6 +1383,10 @@
   },
   {
     "type": "char",
+    "named": false
+  },
+  {
+    "type": "cheat",
     "named": false
   },
   {

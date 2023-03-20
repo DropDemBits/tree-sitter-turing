@@ -1538,6 +1538,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "cheat_expression"
+        },
+        {
+          "type": "SYMBOL",
           "name": "nat_cheat_expression"
         },
         {
@@ -2399,6 +2403,55 @@
           }
         ]
       }
+    },
+    "cheat_expression": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "cheat"
+        },
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "FIELD",
+          "name": "to_type",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_type"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ","
+        },
+        {
+          "type": "FIELD",
+          "name": "operand",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_expression"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": ","
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
     },
     "nat_cheat_expression": {
       "type": "PREC_LEFT",

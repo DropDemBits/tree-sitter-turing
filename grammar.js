@@ -271,7 +271,7 @@ module.exports = grammar({
       prec.left($.identifier),
       $.field_expression,
       $.deref_expression,
-      // $.cheat_expression,
+      $.cheat_expression,
       $.nat_cheat_expression,
       $.arrow_expression,
       // $.indirect_expression,
@@ -428,6 +428,16 @@ module.exports = grammar({
       field('operator', '^'),
       field('right', $._expression),
     )),
+
+    cheat_expression: $ => seq(
+      // Not planning to support the size_spec part, since while the acceptable
+      // values are only 1, 2 and 4, those can be computed in an arbitrary
+      // manner, and that's not fun for incremental compilation
+      'cheat', '(',
+      field('to_type', $._type), ',',
+      field('operand', $._expression), optional(','),
+      ')'
+    ),
 
     nat_cheat_expression: $ => prec.left(PREC.deref, seq(
       field('operator', '#'),
