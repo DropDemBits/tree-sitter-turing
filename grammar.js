@@ -121,7 +121,6 @@ module.exports = grammar({
         ':', field('type_spec', $._type)
       )),
       optional(seq(
-        // ???: how to deal with = instead of :=?
         ':=', field('initializer', $._expression),
       )),
     ),
@@ -214,8 +213,7 @@ module.exports = grammar({
     ),
 
     elsif_clause: $ => seq(
-      choice('elsif', 'elif', 'elseif'), // all recovery variations
-      field('condition', $._expression), 'then', _statement_list($),
+      'elsif', field('condition', $._expression), 'then', _statement_list($),
     ),
 
     else_clause: $ => seq(
@@ -504,7 +502,7 @@ function sepBy(sep, rule) {
 }
 
 function end_keyword_tail(bit) {
-  return choice(seq('end', bit), 'end' + bit)
+  return seq('end', bit)
 }
 
 function _statement_list($) {

@@ -1202,15 +1202,7 @@
     "named": false
   },
   {
-    "type": "elif",
-    "named": false
-  },
-  {
     "type": "else",
-    "named": false
-  },
-  {
-    "type": "elseif",
     "named": false
   },
   {
@@ -1219,22 +1211,6 @@
   },
   {
     "type": "end",
-    "named": false
-  },
-  {
-    "type": "endcase",
-    "named": false
-  },
-  {
-    "type": "endfor",
-    "named": false
-  },
-  {
-    "type": "endif",
-    "named": false
-  },
-  {
-    "type": "endloop",
     "named": false
   },
   {

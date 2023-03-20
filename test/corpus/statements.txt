@@ -459,11 +459,13 @@ var a := 1
 --------------------------------------------------------------------------------
 
 (source_file
-  (loop_statement)
-  (constvar_declaration
-    (identifier)
-    (literal_expression
-      (integer_literal))))
+  (ERROR
+    (ERROR
+      (identifier))
+    (constvar_declaration
+      (identifier)
+      (literal_expression
+        (integer_literal)))))
 
 ================================================================================
 for statement - increasing
@@ -579,9 +581,10 @@ for : 1 endfor
 --------------------------------------------------------------------------------
 
 (source_file
-  (for_statement
-    bounds: (literal_expression
-      (integer_literal))))
+  (ERROR
+    (literal_expression
+      (integer_literal))
+    (identifier)))
 
 ================================================================================
 for statement - missing final for
@@ -765,12 +768,11 @@ end if
   (if_statement
     condition: (literal_expression
       (boolean_literal))
-    (elsif_clause
-      condition: (literal_expression
-        (boolean_literal)))
-    (elsif_clause
-      condition: (literal_expression
-        (boolean_literal)))))
+    (ERROR
+      (identifier)
+      (identifier)
+      (identifier)
+      (identifier))))
 
 ================================================================================
 if statement - endif
@@ -784,13 +786,13 @@ endif
 --------------------------------------------------------------------------------
 
 (source_file
-  (if_statement
-    condition: (literal_expression
+  (ERROR
+    (literal_expression
       (boolean_literal))
     (elsif_clause
       condition: (literal_expression
         (boolean_literal)))
-    (else_clause)))
+    (identifier)))
 
 ================================================================================
 if statement - missing final if
@@ -1050,9 +1052,10 @@ case true of endcase
 --------------------------------------------------------------------------------
 
 (source_file
-  (case_statement
-    condition: (literal_expression
-      (boolean_literal))))
+  (ERROR
+    (literal_expression
+      (boolean_literal))
+    (identifier)))
 
 ================================================================================
 case statement - missing final case
