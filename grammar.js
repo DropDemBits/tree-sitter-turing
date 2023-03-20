@@ -86,8 +86,8 @@ module.exports = grammar({
       $.if_statement,
       $.case_statement,
       $.block_statement,
-      // $.invariant_statement,
-      // $.assert_statement,
+      $.invariant_statement,
+      $.assert_statement,
       // $.call_statement,
       // $.return_statement,
       // $.new_statement,
@@ -235,6 +235,14 @@ module.exports = grammar({
       'begin',
       _statement_list($),
       'end'
+    ),
+
+    invariant_statement: $ => seq(
+      'invariant', field('condition', $._expression)
+    ),
+
+    assert_statement: $ => seq(
+      'assert', field('condition', $._expression)
     ),
 
     _macro_directive: $ => choice(

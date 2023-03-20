@@ -54,6 +54,10 @@
     "named": true,
     "subtypes": [
       {
+        "type": "assert_statement",
+        "named": true
+      },
+      {
         "type": "assign_statement",
         "named": true
       },
@@ -90,6 +94,10 @@
         "named": true
       },
       {
+        "type": "invariant_statement",
+        "named": true
+      },
+      {
         "type": "loop_statement",
         "named": true
       },
@@ -116,6 +124,22 @@
         "named": true
       }
     ]
+  },
+  {
+    "type": "assert_statement",
+    "named": true,
+    "fields": {
+      "condition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_expression",
+            "named": true
+          }
+        ]
+      }
+    }
   },
   {
     "type": "assign_statement",
@@ -793,6 +817,22 @@
     }
   },
   {
+    "type": "invariant_statement",
+    "named": true,
+    "fields": {
+      "condition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "literal_expression",
     "named": true,
     "fields": {},
@@ -1162,6 +1202,10 @@
     "named": false
   },
   {
+    "type": "assert",
+    "named": false
+  },
+  {
     "type": "begin",
     "named": false
   },
@@ -1264,6 +1308,10 @@
   {
     "type": "integer_literal",
     "named": true
+  },
+  {
+    "type": "invariant",
+    "named": false
   },
   {
     "type": "label",

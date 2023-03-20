@@ -101,6 +101,14 @@
         {
           "type": "SYMBOL",
           "name": "block_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "invariant_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "assert_statement"
         }
       ]
     },
@@ -1432,6 +1440,40 @@
         {
           "type": "STRING",
           "value": "end"
+        }
+      ]
+    },
+    "invariant_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "invariant"
+        },
+        {
+          "type": "FIELD",
+          "name": "condition",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_expression"
+          }
+        }
+      ]
+    },
+    "assert_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "assert"
+        },
+        {
+          "type": "FIELD",
+          "name": "condition",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_expression"
+          }
         }
       ]
     },

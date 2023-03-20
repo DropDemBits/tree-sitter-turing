@@ -1177,3 +1177,35 @@ a ** = b
   (compound_assign_statement
     left: (identifier)
     right: (identifier)))
+
+================================================================================
+invariant statement
+================================================================================
+
+invariant true or true
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (invariant_statement
+    condition: (binary_expression
+      left: (literal_expression
+        (boolean_literal))
+      right: (literal_expression
+        (boolean_literal)))))
+
+================================================================================
+assert statement
+================================================================================
+
+assert true or true
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assert_statement
+    condition: (binary_expression
+      left: (literal_expression
+        (boolean_literal))
+      right: (literal_expression
+        (boolean_literal)))))
