@@ -817,9 +817,7 @@ const a := nil(int)
   (constvar_declaration
     (identifier)
     (nil_expression
-      (item_path
-        (path_component
-          (identifier))))))
+      (primitive_type))))
 
 ================================================================================
 nil expression - only parens

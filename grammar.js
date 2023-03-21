@@ -352,7 +352,7 @@ module.exports = grammar({
       'nil',
       optional(seq(
         '(',
-        optional($.item_path), // FIXME: parse primitive types here too
+        optional(choice($.item_path, $.primitive_type)),
         ')'
       )),
     )),

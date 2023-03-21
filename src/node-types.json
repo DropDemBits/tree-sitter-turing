@@ -1059,6 +1059,10 @@
         {
           "type": "item_path",
           "named": true
+        },
+        {
+          "type": "primitive_type",
+          "named": true
         }
       ]
     }
