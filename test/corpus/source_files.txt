@@ -106,7 +106,9 @@ const a := yay
   (ERROR)
   (constvar_declaration
     (identifier)
-    (identifier)))
+    (nameref_expression
+      (path_component
+        (identifier)))))
 
 ================================================================================
 line comments
@@ -121,4 +123,6 @@ const blah := blah
   (line_comment)
   (constvar_declaration
     (identifier)
-    (identifier)))
+    (nameref_expression
+      (path_component
+        (identifier)))))

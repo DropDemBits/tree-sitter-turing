@@ -268,7 +268,7 @@ module.exports = grammar({
       $.paren_expression,
 
       $.self_expression,
-      prec.left($.identifier),
+      $.nameref_expression,
       $.field_expression,
       $.deref_expression,
       $.cheat_expression,
@@ -352,7 +352,7 @@ module.exports = grammar({
       'nil',
       optional(seq(
         '(',
-        optional($._item_path),
+        optional($.item_path), // FIXME: parse primitive types here too
         ')'
       )),
     )),
@@ -367,6 +367,8 @@ module.exports = grammar({
     ),
 
     self_expression: $ => 'self',
+
+    nameref_expression: $ => prec.left($.path_component),
 
     binary_expression: $ => {
       const left_assoc = [
@@ -421,7 +423,7 @@ module.exports = grammar({
     field_expression: $ => prec.left(PREC.call, seq(
       field('left', $._expression),
       field('operator', '.'),
-      field('field', $.identifier)
+      field('field', $.path_component)
     )),
 
     deref_expression: $ => prec.left(PREC.deref, seq(
@@ -524,7 +526,9 @@ module.exports = grammar({
 
     _name_list: $ => sepBy1(',', field('name', $.identifier)),
 
-    _item_path: $ => choice($._type, $._expression), // should really be its own thing
+    item_path: $ => sepBy1(',', $.path_component),
+
+    path_component: $ => $.identifier,
   }
 });
 
@@ -586,3 +590,9 @@ function _statement_list($) {
 // i like the `ty is range` syntax from pattern types, since that both specifies the size, and is unambiguous :D
 
 // alt `ty in 1..2`, tho we'd want `ty is Some | None`
+
+// can't really have dedicated path nodes, because:
+//
+// ^a.b[int]
+//
+// needs to be (field (deref nameref) (component (primitive int)))

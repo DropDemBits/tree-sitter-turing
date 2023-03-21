@@ -81,12 +81,16 @@ type a : string(a)
     (identifier)
     (primitive_type
       (charseq_size
-        (identifier))))
+        (nameref_expression
+          (path_component
+            (identifier))))))
   (type_declaration
     (identifier)
     (primitive_type
       (charseq_size
-        (identifier)))))
+        (nameref_expression
+          (path_component
+            (identifier)))))))
 
 ================================================================================
 primitive ty - dyn sized
@@ -138,7 +142,9 @@ type a : 1 ..
     type_spec: (range_type
       start: (literal_expression
         (integer_literal))
-      end: (MISSING identifier))))
+      end: (nameref_expression
+        (path_component
+          (MISSING identifier))))))
 
 ================================================================================
 range type - only end
@@ -152,7 +158,9 @@ type a : .. 2
   (type_declaration
     name: (identifier)
     type_spec: (range_type
-      start: (MISSING identifier)
+      start: (nameref_expression
+        (path_component
+          (MISSING identifier)))
       end: (literal_expression
         (integer_literal)))))
 

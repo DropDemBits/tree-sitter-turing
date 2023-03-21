@@ -175,10 +175,14 @@ const a := b
   (constvar_declaration
     (identifier)
     (ERROR)
-    (identifier))
+    (nameref_expression
+      (path_component
+        (identifier))))
   (constvar_declaration
     (identifier)
-    (identifier)))
+    (nameref_expression
+      (path_component
+        (identifier)))))
 
 ================================================================================
 string literal - invalid, ends at the end of the file
@@ -191,7 +195,9 @@ const a := "abcd
   (constvar_declaration
     (identifier)
     (ERROR)
-    (identifier)))
+    (nameref_expression
+      (path_component
+        (identifier)))))
 
 ================================================================================
 string literal - invalid, escaped
@@ -209,7 +215,9 @@ const a := "abcd^"
       (string_literal
         (escape_sequence))))
   (ERROR
-    (identifier)))
+    (nameref_expression
+      (path_component
+        (identifier)))))
 
 ================================================================================
 string literal - invalid, empty
@@ -271,10 +279,14 @@ const a := wah
   (constvar_declaration
     (identifier)
     (ERROR)
-    (identifier))
+    (nameref_expression
+      (path_component
+        (identifier))))
   (constvar_declaration
     (identifier)
-    (identifier)))
+    (nameref_expression
+      (path_component
+        (identifier)))))
 
 ================================================================================
 char literal - invalid, ends at the end of the file
@@ -287,7 +299,9 @@ const a := 'abcd
   (constvar_declaration
     (identifier)
     (ERROR)
-    (identifier)))
+    (nameref_expression
+      (path_component
+        (identifier)))))
 
 ================================================================================
 char literal - invalid, escaped terminator
@@ -386,7 +400,9 @@ const a := 999a999
     (literal_expression
       (integer_literal)))
   (ERROR
-    (identifier)))
+    (nameref_expression
+      (path_component
+        (identifier)))))
 
 ================================================================================
 int literal - radix
@@ -462,9 +478,12 @@ const a := 100.00e100
     (field_expression
       (literal_expression
         (integer_literal))
-      (identifier)))
+      (path_component
+        (identifier))))
   (assign_statement
-    (identifier)
+    (nameref_expression
+      (path_component
+        (identifier)))
     (literal_expression
       (real_literal)))
   (constvar_declaration
@@ -570,34 +589,48 @@ const a := 1.0e
       (real_literal)))
   (assign_statement
     (binary_expression
-      (identifier)
-      (identifier))
+      (nameref_expression
+        (path_component
+          (identifier)))
+      (nameref_expression
+        (path_component
+          (identifier))))
     (ERROR
       (identifier))
     (literal_expression
       (real_literal)))
   (assign_statement
     (binary_expression
-      (identifier)
-      (identifier))
+      (nameref_expression
+        (path_component
+          (identifier)))
+      (nameref_expression
+        (path_component
+          (identifier))))
     (ERROR
       (identifier))
     (literal_expression
       (real_literal)))
   (ERROR
-    (identifier))
+    (nameref_expression
+      (path_component
+        (identifier))))
   (constvar_declaration
     (identifier)
     (literal_expression
       (real_literal)))
   (ERROR
-    (identifier))
+    (nameref_expression
+      (path_component
+        (identifier))))
   (constvar_declaration
     (identifier)
     (literal_expression
       (real_literal)))
   (ERROR
-    (identifier)))
+    (nameref_expression
+      (path_component
+        (identifier)))))
 
 ================================================================================
 real literal - trailing +/-
@@ -614,15 +647,23 @@ const a := 1.0-1000
     (binary_expression
       (literal_expression
         (real_literal))
-      (identifier)))
+      (nameref_expression
+        (path_component
+          (identifier)))))
   (assign_statement
-    (identifier)
+    (nameref_expression
+      (path_component
+        (identifier)))
     (binary_expression
       (literal_expression
         (real_literal))
-      (identifier)))
+      (nameref_expression
+        (path_component
+          (identifier)))))
   (assign_statement
-    (identifier)
+    (nameref_expression
+      (path_component
+        (identifier)))
     (binary_expression
       (literal_expression
         (real_literal))
@@ -641,7 +682,9 @@ const a := objectclass(wow)
   (constvar_declaration
     (identifier)
     (objclass_expression
-      (identifier))))
+      (nameref_expression
+        (path_component
+          (identifier))))))
 
 ================================================================================
 objclass expression - missing expr
@@ -655,7 +698,9 @@ const a := objectclass()
   (constvar_declaration
     (identifier)
     (objclass_expression
-      (MISSING identifier))))
+      (nameref_expression
+        (path_component
+          (MISSING identifier))))))
 
 ================================================================================
 init expression - no items
@@ -766,11 +811,15 @@ const a := nil(int)
   (constvar_declaration
     (identifier)
     (nil_expression
-      (identifier)))
+      (item_path
+        (path_component
+          (identifier)))))
   (constvar_declaration
     (identifier)
     (nil_expression
-      (primitive_type))))
+      (item_path
+        (path_component
+          (identifier))))))
 
 ================================================================================
 nil expression - only parens
@@ -845,7 +894,9 @@ const a := sizeof(uwu : 3)
   (constvar_declaration
     (identifier)
     (sizeof_expression
-      (identifier)
+      (nameref_expression
+        (path_component
+          (identifier)))
       (ERROR))))
 
 ================================================================================
@@ -946,14 +997,22 @@ a := ~b
 
 (source_file
   (assign_statement
-    left: (identifier)
+    left: (nameref_expression
+      (path_component
+        (identifier)))
     right: (unary_expression
       right: (unary_expression
-        right: (identifier))))
+        right: (nameref_expression
+          (path_component
+            (identifier))))))
   (assign_statement
-    left: (identifier)
+    left: (nameref_expression
+      (path_component
+        (identifier)))
     right: (unary_expression
-      right: (identifier))))
+      right: (nameref_expression
+        (path_component
+          (identifier))))))
 
 ================================================================================
 unary expression - not as infix
@@ -966,13 +1025,21 @@ a := b ~ b
 
 (source_file
   (assign_statement
-    left: (identifier)
-    right: (identifier))
+    left: (nameref_expression
+      (path_component
+        (identifier)))
+    right: (nameref_expression
+      (path_component
+        (identifier))))
   (ERROR
     (identifier))
   (assign_statement
-    left: (identifier)
-    right: (identifier))
+    left: (nameref_expression
+      (path_component
+        (identifier)))
+    right: (nameref_expression
+      (path_component
+        (identifier))))
   (ERROR
     (identifier)))
 
@@ -986,9 +1053,13 @@ a := -b
 
 (source_file
   (assign_statement
-    (identifier)
+    (nameref_expression
+      (path_component
+        (identifier)))
     (unary_expression
-      (identifier))))
+      (nameref_expression
+        (path_component
+          (identifier))))))
 
 ================================================================================
 binary expression - negation and subtraction
@@ -1000,11 +1071,17 @@ a := b--b
 
 (source_file
   (assign_statement
-    (identifier)
+    (nameref_expression
+      (path_component
+        (identifier)))
     (binary_expression
-      (identifier)
+      (nameref_expression
+        (path_component
+          (identifier)))
       (unary_expression
-        (identifier)))))
+        (nameref_expression
+          (path_component
+            (identifier)))))))
 
 ================================================================================
 unary expression - identity
@@ -1016,9 +1093,13 @@ a := +a
 
 (source_file
   (assign_statement
-    left: (identifier)
+    left: (nameref_expression
+      (path_component
+        (identifier)))
     right: (unary_expression
-      right: (identifier))))
+      right: (nameref_expression
+        (path_component
+          (identifier))))))
 
 ================================================================================
 unary expression - identity and addition
@@ -1030,11 +1111,17 @@ a := a++a
 
 (source_file
   (assign_statement
-    left: (identifier)
+    left: (nameref_expression
+      (path_component
+        (identifier)))
     right: (binary_expression
-      left: (identifier)
+      left: (nameref_expression
+        (path_component
+          (identifier)))
       right: (unary_expression
-        right: (identifier)))))
+        right: (nameref_expression
+          (path_component
+            (identifier)))))))
 
 ================================================================================
 paren expression
@@ -1046,9 +1133,13 @@ a := (b)
 
 (source_file
   (assign_statement
-    (identifier)
+    (nameref_expression
+      (path_component
+        (identifier)))
     (paren_expression
-      (identifier))))
+      (nameref_expression
+        (path_component
+          (identifier))))))
 
 ================================================================================
 paren expression - empty
@@ -1060,9 +1151,13 @@ a := ()
 
 (source_file
   (assign_statement
-    (identifier)
+    (nameref_expression
+      (path_component
+        (identifier)))
     (paren_expression
-      (MISSING identifier))))
+      (nameref_expression
+        (path_component
+          (MISSING identifier))))))
 
 ================================================================================
 paren expression - reset precedence
@@ -1074,7 +1169,9 @@ a := 1 * (2 + 3)
 
 (source_file
   (assign_statement
-    (identifier)
+    (nameref_expression
+      (path_component
+        (identifier)))
     (binary_expression
       (literal_expression
         (integer_literal))
@@ -1099,20 +1196,32 @@ a.b.c.d.e := a.b.c.d.e
       left: (field_expression
         left: (field_expression
           left: (field_expression
-            left: (identifier)
-            field: (identifier))
-          field: (identifier))
-        field: (identifier))
-      field: (identifier))
+            left: (nameref_expression
+              (path_component
+                (identifier)))
+            field: (path_component
+              (identifier)))
+          field: (path_component
+            (identifier)))
+        field: (path_component
+          (identifier)))
+      field: (path_component
+        (identifier)))
     right: (field_expression
       left: (field_expression
         left: (field_expression
           left: (field_expression
-            left: (identifier)
-            field: (identifier))
-          field: (identifier))
-        field: (identifier))
-      field: (identifier))))
+            left: (nameref_expression
+              (path_component
+                (identifier)))
+            field: (path_component
+              (identifier)))
+          field: (path_component
+            (identifier)))
+        field: (path_component
+          (identifier)))
+      field: (path_component
+        (identifier)))))
 
 ================================================================================
 deref expression
@@ -1126,8 +1235,11 @@ deref expression
   (assign_statement
     left: (field_expression
       left: (deref_expression
-        right: (identifier))
-      field: (identifier))
+        right: (nameref_expression
+          (path_component
+            (identifier))))
+      field: (path_component
+        (identifier)))
     right: (literal_expression
       (integer_literal))))
 
@@ -1143,8 +1255,11 @@ nat cheat expression
   (assign_statement
     left: (field_expression
       left: (nat_cheat_expression
-        right: (identifier))
-      field: (identifier))
+        right: (nameref_expression
+          (path_component
+            (identifier))))
+      field: (path_component
+        (identifier)))
     right: (literal_expression
       (integer_literal))))
 
@@ -1159,7 +1274,9 @@ a->b := 1
 (source_file
   (assign_statement
     left: (arrow_expression
-      left: (identifier)
+      left: (nameref_expression
+        (path_component
+          (identifier)))
       field: (identifier))
     right: (literal_expression
       (integer_literal))))
@@ -1174,7 +1291,9 @@ a := cheat(1 .. 2, 3)
 
 (source_file
   (assign_statement
-    left: (identifier)
+    left: (nameref_expression
+      (path_component
+        (identifier)))
     right: (cheat_expression
       to_type: (range_type
         start: (literal_expression
@@ -1196,6 +1315,8 @@ cheat(real, some_place) := 6.9
   (assign_statement
     left: (cheat_expression
       to_type: (primitive_type)
-      operand: (identifier))
+      operand: (nameref_expression
+        (path_component
+          (identifier))))
     right: (literal_expression
       (real_literal))))

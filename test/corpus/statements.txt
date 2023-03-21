@@ -49,11 +49,15 @@ var a : boolean := b
   (constvar_declaration
     name: (identifier)
     type_spec: (primitive_type)
-    initializer: (identifier))
+    initializer: (nameref_expression
+      (path_component
+        (identifier))))
   (constvar_declaration
     name: (identifier)
     type_spec: (primitive_type)
-    initializer: (identifier)))
+    initializer: (nameref_expression
+      (path_component
+        (identifier)))))
 
 ================================================================================
 constvar declaration - type only
@@ -84,10 +88,14 @@ var a := b
 (source_file
   (constvar_declaration
     (identifier)
-    (identifier))
+    (nameref_expression
+      (path_component
+        (identifier))))
   (constvar_declaration
     (identifier)
-    (identifier)))
+    (nameref_expression
+      (path_component
+        (identifier)))))
 
 ================================================================================
 constvar declaration - missing both
@@ -165,7 +173,9 @@ var register pervasive a
     (register_attr)
     (identifier))
   (ERROR
-    (identifier)))
+    (nameref_expression
+      (path_component
+        (identifier)))))
 
 ================================================================================
 constvar declaration - multiple names
@@ -379,7 +389,9 @@ var wa : int
   (bind_declaration
     (bind_item
       (identifier)
-      (identifier)))
+      (nameref_expression
+        (path_component
+          (identifier)))))
   (constvar_declaration
     (identifier)
     (primitive_type)))
@@ -399,7 +411,9 @@ var wow : int % resync
   (bind_declaration
     (bind_item
       (identifier)
-      (identifier)))
+      (nameref_expression
+        (path_component
+          (identifier)))))
   (ERROR
     (ERROR
       (var_attr)
@@ -461,7 +475,9 @@ var a := 1
 (source_file
   (ERROR
     (ERROR
-      (identifier))
+      (nameref_expression
+        (path_component
+          (identifier))))
     (constvar_declaration
       (identifier)
       (literal_expression
@@ -570,7 +586,9 @@ end for
 
 (source_file
   (ERROR
-    (identifier)))
+    (nameref_expression
+      (path_component
+        (identifier)))))
 
 ================================================================================
 for statement - with endfor
@@ -584,7 +602,9 @@ for : 1 endfor
   (ERROR
     (literal_expression
       (integer_literal))
-    (identifier)))
+    (nameref_expression
+      (path_component
+        (identifier)))))
 
 ================================================================================
 for statement - missing final for
@@ -642,7 +662,9 @@ end loop
 (source_file
   (ERROR
     (exit_statement
-      condition: (identifier))))
+      condition: (nameref_expression
+        (path_component
+          (identifier))))))
 
 ================================================================================
 if statement - bare
@@ -769,9 +791,13 @@ end if
     condition: (literal_expression
       (boolean_literal))
     (ERROR
+      (nameref_expression
+        (path_component
+          (identifier)))
       (identifier)
-      (identifier)
-      (identifier)
+      (nameref_expression
+        (path_component
+          (identifier)))
       (identifier))))
 
 ================================================================================
@@ -792,7 +818,9 @@ endif
     (elsif_clause
       condition: (literal_expression
         (boolean_literal)))
-    (identifier)))
+    (nameref_expression
+      (path_component
+        (identifier)))))
 
 ================================================================================
 if statement - missing final if
@@ -823,10 +851,14 @@ end if
 
 (source_file
   (ERROR
-    (identifier))
+    (nameref_expression
+      (path_component
+        (identifier))))
   (loop_statement)
   (ERROR
-    (identifier)
+    (nameref_expression
+      (path_component
+        (identifier)))
     (identifier)))
 
 ================================================================================
@@ -841,11 +873,15 @@ end if
 
 (source_file
   (ERROR
-    (identifier)
+    (nameref_expression
+      (path_component
+        (identifier)))
     (identifier))
   (loop_statement)
   (ERROR
-    (identifier)
+    (nameref_expression
+      (path_component
+        (identifier)))
     (identifier)))
 
 ================================================================================
@@ -860,11 +896,15 @@ end if
 
 (source_file
   (ERROR
-    (identifier)
+    (nameref_expression
+      (path_component
+        (identifier)))
     (identifier))
   (loop_statement)
   (ERROR
-    (identifier)
+    (nameref_expression
+      (path_component
+        (identifier)))
     (identifier)))
 
 ================================================================================
@@ -879,11 +919,15 @@ end if
 
 (source_file
   (ERROR
-    (identifier)
+    (nameref_expression
+      (path_component
+        (identifier)))
     (identifier))
   (loop_statement)
   (ERROR
-    (identifier)
+    (nameref_expression
+      (path_component
+        (identifier)))
     (identifier)))
 
 ================================================================================
@@ -898,7 +942,9 @@ end if
 
 (source_file
   (ERROR
-    (identifier)
+    (nameref_expression
+      (path_component
+        (identifier)))
     (identifier)))
 
 ================================================================================
@@ -1096,8 +1142,12 @@ a := b
 
 (source_file
   (assign_statement
-    left: (identifier)
-    right: (identifier))
+    left: (nameref_expression
+      (path_component
+        (identifier)))
+    right: (nameref_expression
+      (path_component
+        (identifier))))
   (assign_statement
     left: (literal_expression
       (integer_literal))
@@ -1130,53 +1180,117 @@ a ** = b
 
 (source_file
   (compound_assign_statement
-    left: (identifier)
-    right: (identifier))
+    left: (nameref_expression
+      (path_component
+        (identifier)))
+    right: (nameref_expression
+      (path_component
+        (identifier))))
   (compound_assign_statement
-    left: (identifier)
-    right: (identifier))
+    left: (nameref_expression
+      (path_component
+        (identifier)))
+    right: (nameref_expression
+      (path_component
+        (identifier))))
   (compound_assign_statement
-    left: (identifier)
-    right: (identifier))
+    left: (nameref_expression
+      (path_component
+        (identifier)))
+    right: (nameref_expression
+      (path_component
+        (identifier))))
   (compound_assign_statement
-    left: (identifier)
-    right: (identifier))
+    left: (nameref_expression
+      (path_component
+        (identifier)))
+    right: (nameref_expression
+      (path_component
+        (identifier))))
   (compound_assign_statement
-    left: (identifier)
-    right: (identifier))
+    left: (nameref_expression
+      (path_component
+        (identifier)))
+    right: (nameref_expression
+      (path_component
+        (identifier))))
   (compound_assign_statement
-    left: (identifier)
-    right: (identifier))
+    left: (nameref_expression
+      (path_component
+        (identifier)))
+    right: (nameref_expression
+      (path_component
+        (identifier))))
   (compound_assign_statement
-    left: (identifier)
-    right: (identifier))
+    left: (nameref_expression
+      (path_component
+        (identifier)))
+    right: (nameref_expression
+      (path_component
+        (identifier))))
   (compound_assign_statement
-    left: (identifier)
-    right: (identifier))
+    left: (nameref_expression
+      (path_component
+        (identifier)))
+    right: (nameref_expression
+      (path_component
+        (identifier))))
   (compound_assign_statement
-    left: (identifier)
-    right: (identifier))
+    left: (nameref_expression
+      (path_component
+        (identifier)))
+    right: (nameref_expression
+      (path_component
+        (identifier))))
   (compound_assign_statement
-    left: (identifier)
-    right: (identifier))
+    left: (nameref_expression
+      (path_component
+        (identifier)))
+    right: (nameref_expression
+      (path_component
+        (identifier))))
   (compound_assign_statement
-    left: (identifier)
-    right: (identifier))
+    left: (nameref_expression
+      (path_component
+        (identifier)))
+    right: (nameref_expression
+      (path_component
+        (identifier))))
   (compound_assign_statement
-    left: (identifier)
-    right: (identifier))
+    left: (nameref_expression
+      (path_component
+        (identifier)))
+    right: (nameref_expression
+      (path_component
+        (identifier))))
   (compound_assign_statement
-    left: (identifier)
-    right: (identifier))
+    left: (nameref_expression
+      (path_component
+        (identifier)))
+    right: (nameref_expression
+      (path_component
+        (identifier))))
   (compound_assign_statement
-    left: (identifier)
-    right: (identifier))
+    left: (nameref_expression
+      (path_component
+        (identifier)))
+    right: (nameref_expression
+      (path_component
+        (identifier))))
   (compound_assign_statement
-    left: (identifier)
-    right: (identifier))
+    left: (nameref_expression
+      (path_component
+        (identifier)))
+    right: (nameref_expression
+      (path_component
+        (identifier))))
   (compound_assign_statement
-    left: (identifier)
-    right: (identifier)))
+    left: (nameref_expression
+      (path_component
+        (identifier)))
+    right: (nameref_expression
+      (path_component
+        (identifier)))))
 
 ================================================================================
 invariant statement
