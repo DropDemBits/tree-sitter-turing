@@ -12,6 +12,10 @@
         "named": true
       },
       {
+        "type": "bits_expression",
+        "named": true
+      },
+      {
         "type": "cheat_expression",
         "named": true
       },
@@ -395,6 +399,42 @@
         },
         {
           "type": "var_attr",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "bits_expression",
+    "named": true,
+    "fields": {
+      "end": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "_expression",
+            "named": true
+          }
+        ]
+      },
+      "start": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_expression",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression",
           "named": true
         }
       ]
@@ -1456,6 +1496,10 @@
   },
   {
     "type": "bind",
+    "named": false
+  },
+  {
+    "type": "bits",
     "named": false
   },
   {

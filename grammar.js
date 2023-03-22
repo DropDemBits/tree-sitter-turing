@@ -275,7 +275,7 @@ module.exports = grammar({
       $.nat_cheat_expression,
       $.arrow_expression,
       $.indirect_expression,
-      // $.bits_expression,
+      $.bits_expression,
       // $.call_expression,
     ),
 
@@ -456,6 +456,18 @@ module.exports = grammar({
       field('type_spec', choice($.field_expression, $.primitive_type)),
       field('operator', '@'),
       '(', $._expression, ')'
+    ),
+
+    bits_expression: $ => prec.left(PREC.call, seq(
+      'bits', '(', $._expression, ',', $._bit_range, optional(','), ')',
+    )),
+
+    _bit_range: $ => seq(
+      field('start', $._expression),
+      optional(seq(
+        '..',
+        field('end', $._expression),
+      ))
     ),
 
     _type: $ => choice(
