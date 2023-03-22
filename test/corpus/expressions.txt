@@ -101,8 +101,7 @@ const a := "^?"
         (integer_literal))))
   (ERROR
     (literal_expression
-      (string_literal))
-    (UNEXPECTED '@'))
+      (string_literal)))
   (constvar_declaration
     (identifier)
     (literal_expression
@@ -1318,3 +1317,64 @@ cheat(real, some_place) := 6.9
           (identifier))))
     right: (literal_expression
       (real_literal))))
+
+================================================================================
+indirect expression - primitive
+================================================================================
+
+boolean @ (true) := 1
+char(char(1) @ (2)) @ (3) := 1
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    left: (indirect_expression
+      type_spec: (primitive_type)
+      (literal_expression
+        (boolean_literal)))
+    right: (literal_expression
+      (integer_literal)))
+  (assign_statement
+    left: (indirect_expression
+      type_spec: (primitive_type
+        (charseq_size
+          (indirect_expression
+            type_spec: (primitive_type
+              (charseq_size
+                (literal_expression
+                  (integer_literal))))
+            (literal_expression
+              (integer_literal)))))
+      (literal_expression
+        (integer_literal)))
+    right: (literal_expression
+      (integer_literal))))
+
+================================================================================
+indirect expression - item path
+================================================================================
+
+a.b.c @ (1 + 1) := 1
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    left: (indirect_expression
+      type_spec: (field_expression
+        left: (field_expression
+          left: (nameref_expression
+            (path_component
+              (identifier)))
+          field: (path_component
+            (identifier)))
+        field: (path_component
+          (identifier)))
+      (binary_expression
+        left: (literal_expression
+          (integer_literal))
+        right: (literal_expression
+          (integer_literal))))
+    right: (literal_expression
+      (integer_literal))))

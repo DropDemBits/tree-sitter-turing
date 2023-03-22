@@ -274,7 +274,7 @@ module.exports = grammar({
       $.cheat_expression,
       $.nat_cheat_expression,
       $.arrow_expression,
-      // $.indirect_expression,
+      $.indirect_expression,
       // $.bits_expression,
       // $.call_expression,
     ),
@@ -451,6 +451,12 @@ module.exports = grammar({
       field('operator', '->'),
       field('field', $.identifier)
     )),
+
+    indirect_expression: $ => seq(
+      field('type_spec', choice($.field_expression, $.primitive_type)),
+      field('operator', '@'),
+      '(', $._expression, ')'
+    ),
 
     _type: $ => choice(
       // TODO: commented items

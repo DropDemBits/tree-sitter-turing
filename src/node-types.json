@@ -24,6 +24,10 @@
         "named": true
       },
       {
+        "type": "indirect_expression",
+        "named": true
+      },
+      {
         "type": "init_expression",
         "named": true
       },
@@ -916,6 +920,46 @@
     }
   },
   {
+    "type": "indirect_expression",
+    "named": true,
+    "fields": {
+      "operator": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "@",
+            "named": false
+          }
+        ]
+      },
+      "type_spec": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "field_expression",
+            "named": true
+          },
+          {
+            "type": "primitive_type",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "init_expression",
     "named": true,
     "fields": {},
@@ -1380,6 +1424,10 @@
   },
   {
     "type": ">=",
+    "named": false
+  },
+  {
+    "type": "@",
     "named": false
   },
   {

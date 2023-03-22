@@ -1543,6 +1543,10 @@
         {
           "type": "SYMBOL",
           "name": "arrow_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "indirect_expression"
         }
       ]
     },
@@ -2523,6 +2527,48 @@
           }
         ]
       }
+    },
+    "indirect_expression": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "type_spec",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "field_expression"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "primitive_type"
+              }
+            ]
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "operator",
+          "content": {
+            "type": "STRING",
+            "value": "@"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_expression"
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
     },
     "_type": {
       "type": "CHOICE",
