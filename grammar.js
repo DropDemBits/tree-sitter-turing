@@ -37,6 +37,13 @@ module.exports = grammar({
     // $._macro_directive,
   ],
 
+  conflicts: $ => [
+    // A painful core ambiguity...
+    // toco solves this by parsing all expressions in statement position as calls,
+    // and then disambiguating later
+    [$.call_statement, $._expression]
+  ],
+
   rules: {
     // ('unit')? body
     source_file: $ => seq(
@@ -89,7 +96,7 @@ module.exports = grammar({
       $.block_statement,
       $.invariant_statement,
       $.assert_statement,
-      // $.call_statement,
+      $.call_statement,
       // $.return_statement,
       // $.new_statement,
       // $.free_statement,
@@ -246,6 +253,14 @@ module.exports = grammar({
       'assert', field('condition', $._expression)
     ),
 
+    call_statement: $ => choice(
+      $.call_expression,
+      seq(
+        field('left', choice($.nameref_expression, $.field_expression)),
+        optional($._argument_list)
+      ),
+    ),
+
     _macro_directive: $ => choice(
       // TODO: commented items + pp_expression
       // $.pp_include_directive
@@ -256,8 +271,6 @@ module.exports = grammar({
     ),
 
     _expression: $ => choice(
-      // TODO: commented items
-
       $.literal_expression,
       $.objclass_expression,
       $.init_expression,
@@ -276,7 +289,7 @@ module.exports = grammar({
       $.arrow_expression,
       $.indirect_expression,
       $.bits_expression,
-      // $.call_expression,
+      $.call_expression,
     ),
 
     literal_expression: $ => choice(
@@ -469,6 +482,34 @@ module.exports = grammar({
         field('end', $._expression),
       ))
     ),
+
+    call_expression: $ => prec.left(PREC.call, seq(
+      field('left', $._expression), $._argument_list
+    )),
+
+    _argument_list: $ => seq('(', sepBy(',', $._call_argument), optional(','), ')'),
+
+    _call_argument: $ => prec.left(choice(
+      alias('all', $.all_expression),
+      $._expression,
+      $.slice_expression,
+    )),
+
+    slice_expression: $ => choice(
+      field('start', $.slice_from_end_bound),
+      seq(
+        field('start', $._slice_range_bound),
+        field('operator', '..'),
+        field('end', $._slice_range_bound),
+      )
+    ),
+
+    _slice_range_bound: $ => choice($._expression, $.slice_from_end_bound),
+
+    slice_from_end_bound: $ => seq('*', optional(seq(
+      '-',
+      field('from_end', $._expression),
+    ))),
 
     _type: $ => choice(
       // TODO: commented items

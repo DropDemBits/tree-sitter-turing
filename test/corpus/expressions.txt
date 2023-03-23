@@ -150,8 +150,12 @@ const a := "abcd^="
         (escape_sequence))))
   (ERROR
     (literal_expression
-      (string_literal))
-    (identifier)
+      (string_literal)))
+  (call_statement
+    (nameref_expression
+      (path_component
+        (identifier))))
+  (ERROR
     (deref_expression
       (literal_expression
         (string_literal))))
@@ -213,10 +217,11 @@ const a := "abcd^"
     (literal_expression
       (string_literal
         (escape_sequence))))
-  (ERROR
+  (call_statement
     (nameref_expression
       (path_component
-        (identifier)))))
+        (identifier))))
+  (ERROR))
 
 ================================================================================
 string literal - invalid, empty
@@ -398,7 +403,7 @@ const a := 999a999
     (identifier)
     (literal_expression
       (integer_literal)))
-  (ERROR
+  (call_statement
     (nameref_expression
       (path_component
         (identifier)))))
@@ -610,7 +615,7 @@ const a := 1.0e
       (identifier))
     (literal_expression
       (real_literal)))
-  (ERROR
+  (call_statement
     (nameref_expression
       (path_component
         (identifier))))
@@ -618,7 +623,7 @@ const a := 1.0e
     (identifier)
     (literal_expression
       (real_literal)))
-  (ERROR
+  (call_statement
     (nameref_expression
       (path_component
         (identifier))))
@@ -626,7 +631,7 @@ const a := 1.0e
     (identifier)
     (literal_expression
       (real_literal)))
-  (ERROR
+  (call_statement
     (nameref_expression
       (path_component
         (identifier)))))
@@ -1028,8 +1033,11 @@ a := b ~ b
     right: (nameref_expression
       (path_component
         (identifier))))
-  (ERROR
-    (identifier))
+  (ERROR)
+  (call_statement
+    left: (nameref_expression
+      (path_component
+        (identifier))))
   (assign_statement
     left: (nameref_expression
       (path_component
@@ -1037,8 +1045,11 @@ a := b ~ b
     right: (nameref_expression
       (path_component
         (identifier))))
-  (ERROR
-    (identifier)))
+  (ERROR)
+  (call_statement
+    left: (nameref_expression
+      (path_component
+        (identifier)))))
 
 ================================================================================
 unary expression - negation
@@ -1437,3 +1448,266 @@ bits(aaa, 5,) := 1
         (integer_literal)))
     right: (literal_expression
       (integer_literal))))
+
+================================================================================
+no paren call as place
+================================================================================
+
+% need type inference to really tell
+a := aaaaa + 1
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line_comment)
+  (assign_statement
+    left: (nameref_expression
+      (path_component
+        (identifier)))
+    right: (binary_expression
+      left: (nameref_expression
+        (path_component
+          (identifier)))
+      right: (literal_expression
+        (integer_literal)))))
+
+================================================================================
+call expression - no args
+================================================================================
+
+a := aaaa()
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    left: (nameref_expression
+      (path_component
+        (identifier)))
+    right: (call_expression
+      left: (nameref_expression
+        (path_component
+          (identifier))))))
+
+================================================================================
+call expression - 1 arg
+================================================================================
+
+a := aaaa(1)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    left: (nameref_expression
+      (path_component
+        (identifier)))
+    right: (call_expression
+      left: (nameref_expression
+        (path_component
+          (identifier)))
+      (literal_expression
+        (integer_literal)))))
+
+================================================================================
+call expression - 1 arg, trailing comma
+================================================================================
+
+a := aaaa(1,)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    left: (nameref_expression
+      (path_component
+        (identifier)))
+    right: (call_expression
+      left: (nameref_expression
+        (path_component
+          (identifier)))
+      (literal_expression
+        (integer_literal)))))
+
+================================================================================
+call expression - multiple args
+================================================================================
+
+a := aaaa(1, 2, 3)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    left: (nameref_expression
+      (path_component
+        (identifier)))
+    right: (call_expression
+      left: (nameref_expression
+        (path_component
+          (identifier)))
+      (literal_expression
+        (integer_literal))
+      (literal_expression
+        (integer_literal))
+      (literal_expression
+        (integer_literal)))))
+
+================================================================================
+call expression - 'all' arg
+================================================================================
+
+a := aaaa(all, all, all)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    left: (nameref_expression
+      (path_component
+        (identifier)))
+    right: (call_expression
+      left: (nameref_expression
+        (path_component
+          (identifier)))
+      (all_expression)
+      (all_expression)
+      (all_expression))))
+
+================================================================================
+call expression - at end bound
+================================================================================
+
+a := aaaa(*)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    left: (nameref_expression
+      (path_component
+        (identifier)))
+    right: (call_expression
+      left: (nameref_expression
+        (path_component
+          (identifier)))
+      (slice_expression
+        start: (slice_from_end_bound)))))
+
+================================================================================
+call expression - from end bound
+================================================================================
+
+a := aaaa(* - 2)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    left: (nameref_expression
+      (path_component
+        (identifier)))
+    right: (call_expression
+      left: (nameref_expression
+        (path_component
+          (identifier)))
+      (slice_expression
+        start: (slice_from_end_bound
+          from_end: (literal_expression
+            (integer_literal)))))))
+
+================================================================================
+call expression - slice range, from (start, start)
+================================================================================
+
+a := aaaa(1 .. 1)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    (nameref_expression
+      (path_component
+        (identifier)))
+    (call_expression
+      (nameref_expression
+        (path_component
+          (identifier)))
+      (slice_expression
+        (literal_expression
+          (integer_literal))
+        (literal_expression
+          (integer_literal))))))
+
+================================================================================
+call expression - slice range, from (start, end)
+================================================================================
+
+a := aaaa(1 .. * - 2)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    left: (nameref_expression
+      (path_component
+        (identifier)))
+    right: (call_expression
+      left: (nameref_expression
+        (path_component
+          (identifier)))
+      (slice_expression
+        start: (literal_expression
+          (integer_literal))
+        end: (slice_from_end_bound
+          from_end: (literal_expression
+            (integer_literal)))))))
+
+================================================================================
+call expression - slice range, from (end, start)
+================================================================================
+
+a := aaaa(* - 2 .. 8)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    left: (nameref_expression
+      (path_component
+        (identifier)))
+    right: (call_expression
+      left: (nameref_expression
+        (path_component
+          (identifier)))
+      (slice_expression
+        start: (slice_from_end_bound
+          from_end: (literal_expression
+            (integer_literal)))
+        end: (literal_expression
+          (integer_literal))))))
+
+================================================================================
+call expression - slice range, from (end, end)
+================================================================================
+
+a := aaaa(* - 8 .. * - 2)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    left: (nameref_expression
+      (path_component
+        (identifier)))
+    right: (call_expression
+      left: (nameref_expression
+        (path_component
+          (identifier)))
+      (slice_expression
+        start: (slice_from_end_bound
+          from_end: (literal_expression
+            (integer_literal)))
+        end: (slice_from_end_bound
+          from_end: (literal_expression
+            (integer_literal)))))))

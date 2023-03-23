@@ -172,7 +172,7 @@ var register pervasive a
   (constvar_declaration
     (register_attr)
     (identifier))
-  (ERROR
+  (call_statement
     (nameref_expression
       (path_component
         (identifier)))))
@@ -474,7 +474,7 @@ var a := 1
 
 (source_file
   (ERROR
-    (ERROR
+    (call_statement
       (nameref_expression
         (path_component
           (identifier))))
@@ -790,15 +790,20 @@ end if
   (if_statement
     condition: (literal_expression
       (boolean_literal))
+    (call_statement
+      left: (nameref_expression
+        (path_component
+          (identifier))))
     (ERROR
-      (nameref_expression
+      (literal_expression
+        (boolean_literal)))
+    (call_statement
+      left: (nameref_expression
         (path_component
-          (identifier)))
-      (identifier)
-      (nameref_expression
-        (path_component
-          (identifier)))
-      (identifier))))
+          (identifier))))
+    (ERROR
+      (literal_expression
+        (boolean_literal)))))
 
 ================================================================================
 if statement - endif
@@ -818,9 +823,11 @@ endif
     (elsif_clause
       condition: (literal_expression
         (boolean_literal)))
-    (nameref_expression
-      (path_component
-        (identifier)))))
+    (else_clause
+      (call_statement
+        left: (nameref_expression
+          (path_component
+            (identifier)))))))
 
 ================================================================================
 if statement - missing final if
@@ -850,16 +857,16 @@ end if
 --------------------------------------------------------------------------------
 
 (source_file
-  (ERROR
+  (call_statement
     (nameref_expression
       (path_component
         (identifier))))
   (loop_statement)
-  (ERROR
+  (call_statement
     (nameref_expression
       (path_component
-        (identifier)))
-    (identifier)))
+        (identifier))))
+  (ERROR))
 
 ================================================================================
 if statement - bare elsif
@@ -872,17 +879,19 @@ end if
 --------------------------------------------------------------------------------
 
 (source_file
-  (ERROR
+  (call_statement
     (nameref_expression
       (path_component
-        (identifier)))
-    (identifier))
+        (identifier))))
+  (ERROR
+    (literal_expression
+      (boolean_literal)))
   (loop_statement)
-  (ERROR
+  (call_statement
     (nameref_expression
       (path_component
-        (identifier)))
-    (identifier)))
+        (identifier))))
+  (ERROR))
 
 ================================================================================
 if statement - bare elseif
@@ -895,17 +904,19 @@ end if
 --------------------------------------------------------------------------------
 
 (source_file
-  (ERROR
+  (call_statement
     (nameref_expression
       (path_component
-        (identifier)))
-    (identifier))
+        (identifier))))
+  (ERROR
+    (literal_expression
+      (boolean_literal)))
   (loop_statement)
-  (ERROR
+  (call_statement
     (nameref_expression
       (path_component
-        (identifier)))
-    (identifier)))
+        (identifier))))
+  (ERROR))
 
 ================================================================================
 if statement - bare elif
@@ -918,17 +929,19 @@ end if
 --------------------------------------------------------------------------------
 
 (source_file
-  (ERROR
+  (call_statement
     (nameref_expression
       (path_component
-        (identifier)))
-    (identifier))
+        (identifier))))
+  (ERROR
+    (literal_expression
+      (boolean_literal)))
   (loop_statement)
-  (ERROR
+  (call_statement
     (nameref_expression
       (path_component
-        (identifier)))
-    (identifier)))
+        (identifier))))
+  (ERROR))
 
 ================================================================================
 if statement - missing condition
@@ -1323,3 +1336,54 @@ assert true or true
         (boolean_literal))
       right: (literal_expression
         (boolean_literal)))))
+
+================================================================================
+call statement - bare
+================================================================================
+
+aaaa
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (call_statement
+    left: (nameref_expression
+      (path_component
+        (identifier)))))
+
+================================================================================
+call statement - bare, fields
+================================================================================
+
+aaaa.bbb.cc.d
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (call_statement
+    left: (field_expression
+      left: (field_expression
+        left: (field_expression
+          left: (nameref_expression
+            (path_component
+              (identifier)))
+          field: (path_component
+            (identifier)))
+        field: (path_component
+          (identifier)))
+      field: (path_component
+        (identifier)))))
+
+================================================================================
+call statement - with parens
+================================================================================
+
+1()
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (call_statement
+    (call_expression
+      left: (literal_expression
+        (integer_literal)))))
