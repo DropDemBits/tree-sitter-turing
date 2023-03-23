@@ -113,6 +113,14 @@
         {
           "type": "SYMBOL",
           "name": "call_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "return_statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "result_statement"
         }
       ]
     },
@@ -1521,6 +1529,27 @@
               ]
             }
           ]
+        }
+      ]
+    },
+    "return_statement": {
+      "type": "STRING",
+      "value": "return"
+    },
+    "result_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "result"
+        },
+        {
+          "type": "FIELD",
+          "name": "value",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_expression"
+          }
         }
       ]
     },

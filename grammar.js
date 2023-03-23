@@ -97,7 +97,8 @@ module.exports = grammar({
       $.invariant_statement,
       $.assert_statement,
       $.call_statement,
-      // $.return_statement,
+      $.return_statement,
+      $.result_statement,
       // $.new_statement,
       // $.free_statement,
       // $.tag_statement,
@@ -260,6 +261,10 @@ module.exports = grammar({
         optional($._argument_list)
       ),
     ),
+
+    return_statement: $ => 'return',
+
+    result_statement: $ => seq('result', field('value', $._expression)),
 
     _macro_directive: $ => choice(
       // TODO: commented items + pp_expression
