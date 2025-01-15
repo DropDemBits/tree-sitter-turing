@@ -77,8 +77,8 @@ module.exports = grammar({
       $.constvar_declaration,
       $.type_declaration,
       $.bind_declaration,
-      // $.function_declaration,
-      // $.procedure_declaration,
+      $.function_declaration,
+      $.procedure_declaration,
       // $.process_declaration,
       // $.external_declaration,
       // $.forward_declaration,
@@ -159,6 +159,57 @@ module.exports = grammar({
       // can't have an optional comma here, since that conflicts with
       // constvar_declaration and is ambiguous with the bind item list
     ),
+
+    function_declaration: $ => seq(
+      $._function_header,
+      _statement_list($),
+      end_named_tail($),
+    ),
+
+    _function_header: $ => prec.right(seq(
+      choice('function', 'fcn'),
+      optional($.pervasive_attr),
+      field('name', $.identifier),
+      optional(field('params', $.param_spec)),
+      optional(field('result_name', $.identifier)),
+      ':',
+      field('result_type', $._type),
+    )),
+
+    procedure_declaration: $ => seq(
+      $._procedure_header,
+      _statement_list($),
+      end_named_tail($),
+    ),
+
+    _procedure_header: $ => prec.right(seq(
+      choice('procedure', 'proc'),
+      optional($.pervasive_attr),
+      field('name', $.identifier),
+      optional(field('params', $.param_spec)),
+      optional(seq(':', field('device_spec', $._expression))),
+    )),
+
+    param_spec: $ => seq(
+      '(',
+      sepBy(',', $._param_declaration),
+      optional(','),
+      ')',
+    ),
+
+    _param_declaration: $ => choice(
+      $.constvar_param,
+      $._subprogram_param,
+    ),
+
+    constvar_param: $ => seq(
+      optional(field('by_ref', $.var_attr)),
+      optional(field('bind_to_register', $.register_attr)),
+      sepBy1(',', field('name', $.identifier)), optional(','),
+      ':', optional(field('coerce_type', $.cheat_attr)), field('param_type', $._type),
+    ),
+
+    _subprogram_param: $ => choice($.function_type, $.procedure_type),
 
     bind_item: $ => seq(
       optional($.var_attr),
@@ -547,8 +598,8 @@ module.exports = grammar({
       // $.record_type,
       // $.union_type,
       // $.pointer_type,
-      // $.fcn_type,
-      // $.proc_type,
+      $.function_type,
+      $.procedure_type,
       // $.collection_type,
       // $.condition_type,
     ),
@@ -586,6 +637,20 @@ module.exports = grammar({
       field('end', $._expression)
     ),
 
+    function_type: $ => prec.right(seq(
+      choice('function', 'fcn'),
+      optional(field('name', $.identifier)),
+      optional(field('params', $.param_spec)),
+      ':',
+      field('result_type', $._type),
+    )),
+
+    procedure_type: $ => prec.right(seq(
+      choice('procedure', 'proc'),
+      optional(field('name', $.identifier)),
+      optional(field('params', $.param_spec)),
+    )),
+
     forward_type: $ => 'forward',
 
     // Attrs //
@@ -599,7 +664,7 @@ module.exports = grammar({
 
     var_attr: $ => 'var',
 
-    cheat_attr: $ => 'cheat',
+    cheat_attr: $ => prec.left('cheat'),
 
     forward_attr: $ => 'forward',
 
@@ -625,6 +690,14 @@ function sepBy(sep, rule) {
 
 function end_keyword_tail(bit) {
   return seq('end', bit)
+}
+
+function end_named_tail($) {
+  // don't really care about the name being different or not being there at all
+  return prec.right(seq(
+    'end',
+    optional(field('end_name', $.identifier))
+  ))
 }
 
 function _statement_list($) {

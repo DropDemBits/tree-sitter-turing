@@ -423,6 +423,586 @@ var wow : int % resync
   (line_comment))
 
 ================================================================================
+function declaration - normal
+================================================================================
+
+function someFn() : int end someFn
+fcn someFn() : int end someFn
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    params: (param_spec)
+    result_type: (primitive_type)
+    end_name: (identifier))
+  (function_declaration
+    name: (identifier)
+    params: (param_spec)
+    result_type: (primitive_type)
+    end_name: (identifier)))
+
+================================================================================
+function declaration - pervasive attr
+================================================================================
+
+function pervasive someFn() : int end someFn
+fcn * someFn() : int end someFn
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_declaration
+    (pervasive_attr)
+    name: (identifier)
+    params: (param_spec)
+    result_type: (primitive_type)
+    end_name: (identifier))
+  (function_declaration
+    (pervasive_attr)
+    name: (identifier)
+    params: (param_spec)
+    result_type: (primitive_type)
+    end_name: (identifier)))
+
+================================================================================
+function declaration - with statements
+================================================================================
+
+function someFn() : int
+  begin end
+  result 1
+end someFn
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    params: (param_spec)
+    result_type: (primitive_type)
+    (block_statement)
+    (result_statement
+      value: (literal_expression
+        (integer_literal)))
+    end_name: (identifier)))
+
+================================================================================
+function declaration - one constvar param with one name
+================================================================================
+
+function someFn(i : int) : int end someFn
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    params: (param_spec
+      (constvar_param
+        name: (identifier)
+        param_type: (primitive_type)))
+    result_type: (primitive_type)
+    end_name: (identifier)))
+
+================================================================================
+function declaration - multiple constvar param with shared type
+================================================================================
+
+function someFn(i, j, k, l : int) : int end someFn
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    params: (param_spec
+      (constvar_param
+        name: (identifier)
+        name: (identifier)
+        name: (identifier)
+        name: (identifier)
+        param_type: (primitive_type)))
+    result_type: (primitive_type)
+    end_name: (identifier)))
+
+================================================================================
+function declaration - multiple constvar param with shared type optional comma
+================================================================================
+
+function someFn(i, j, : int) : int end someFn
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    params: (param_spec
+      (constvar_param
+        name: (identifier)
+        name: (identifier)
+        param_type: (primitive_type)))
+    result_type: (primitive_type)
+    end_name: (identifier)))
+
+================================================================================
+function declaration - multiple constvar param
+================================================================================
+
+function someFn(i : int, j : int, k : int) : int end someFn
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    params: (param_spec
+      (constvar_param
+        name: (identifier)
+        param_type: (primitive_type))
+      (constvar_param
+        name: (identifier)
+        param_type: (primitive_type))
+      (constvar_param
+        name: (identifier)
+        param_type: (primitive_type)))
+    result_type: (primitive_type)
+    end_name: (identifier)))
+
+================================================================================
+function declaration - multiple constvar param with optional comma
+================================================================================
+
+function someFn(i : int, j : int, k : int,) : int end someFn
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    params: (param_spec
+      (constvar_param
+        name: (identifier)
+        param_type: (primitive_type))
+      (constvar_param
+        name: (identifier)
+        param_type: (primitive_type))
+      (constvar_param
+        name: (identifier)
+        param_type: (primitive_type)))
+    result_type: (primitive_type)
+    end_name: (identifier)))
+
+================================================================================
+function declaration - subprogram params
+================================================================================
+
+function someFn(fcn i() : int, function : int, proc j(), proc) : int end someFn
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    params: (param_spec
+      (function_type
+        name: (identifier)
+        params: (param_spec)
+        result_type: (primitive_type))
+      (function_type
+        result_type: (primitive_type))
+      (procedure_type
+        name: (identifier)
+        params: (param_spec))
+      (procedure_type))
+    result_type: (primitive_type)
+    end_name: (identifier)))
+
+================================================================================
+function declaration - mixed params
+================================================================================
+
+function someFn(function : int, i : int, proc) : int end someFn
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    params: (param_spec
+      (function_type
+        result_type: (primitive_type))
+      (constvar_param
+        name: (identifier)
+        param_type: (primitive_type))
+      (procedure_type))
+    result_type: (primitive_type)
+    end_name: (identifier)))
+
+================================================================================
+function declaration - all constvar attrs
+================================================================================
+
+function someFn(
+  i : int,
+  register i : int,
+  var register i : int,
+  i : cheat int,
+  register i : cheat int,
+  var register i : cheat int,
+) : int
+end someFn
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    params: (param_spec
+      (constvar_param
+        name: (identifier)
+        param_type: (primitive_type))
+      (constvar_param
+        bind_to_register: (register_attr)
+        name: (identifier)
+        param_type: (primitive_type))
+      (constvar_param
+        by_ref: (var_attr)
+        bind_to_register: (register_attr)
+        name: (identifier)
+        param_type: (primitive_type))
+      (constvar_param
+        name: (identifier)
+        coerce_type: (cheat_attr)
+        param_type: (primitive_type))
+      (constvar_param
+        bind_to_register: (register_attr)
+        name: (identifier)
+        coerce_type: (cheat_attr)
+        param_type: (primitive_type))
+      (constvar_param
+        by_ref: (var_attr)
+        bind_to_register: (register_attr)
+        name: (identifier)
+        coerce_type: (cheat_attr)
+        param_type: (primitive_type)))
+    result_type: (primitive_type)
+    end_name: (identifier)))
+
+================================================================================
+function declaration - with named result
+================================================================================
+
+function namedRes() toName : int end namedRes
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    params: (param_spec)
+    result_name: (identifier)
+    result_type: (primitive_type)
+    end_name: (identifier)))
+
+================================================================================
+function declaration - no params
+================================================================================
+
+function noParams : int end noParams
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (function_declaration
+    name: (identifier)
+    result_type: (primitive_type)
+    end_name: (identifier)))
+
+================================================================================
+procedure declaration - normal
+================================================================================
+
+procedure someProc() end someProc
+proc someProc() end someProc
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (procedure_declaration
+    name: (identifier)
+    params: (param_spec)
+    end_name: (identifier))
+  (procedure_declaration
+    name: (identifier)
+    params: (param_spec)
+    end_name: (identifier)))
+
+================================================================================
+procedure declaration - pervasive attr
+================================================================================
+
+procedure pervasive someProc() end someProc
+proc * someProc() end someProc
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (procedure_declaration
+    (pervasive_attr)
+    name: (identifier)
+    params: (param_spec)
+    end_name: (identifier))
+  (procedure_declaration
+    (pervasive_attr)
+    name: (identifier)
+    params: (param_spec)
+    end_name: (identifier)))
+
+================================================================================
+procedure declaration - with statements
+================================================================================
+
+procedure someProc()
+  begin end
+  return
+end someProc
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (procedure_declaration
+    name: (identifier)
+    params: (param_spec)
+    (block_statement)
+    (return_statement)
+    end_name: (identifier)))
+
+================================================================================
+procedure declaration - one constvar param with one name
+================================================================================
+
+procedure someProc(i : int) end someProc
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (procedure_declaration
+    name: (identifier)
+    params: (param_spec
+      (constvar_param
+        name: (identifier)
+        param_type: (primitive_type)))
+    end_name: (identifier)))
+
+================================================================================
+procedure declaration - multiple constvar param with shared type
+================================================================================
+
+procedure someProc(i, j, k, l : int) end someProc
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (procedure_declaration
+    name: (identifier)
+    params: (param_spec
+      (constvar_param
+        name: (identifier)
+        name: (identifier)
+        name: (identifier)
+        name: (identifier)
+        param_type: (primitive_type)))
+    end_name: (identifier)))
+
+================================================================================
+procedure declaration - multiple constvar param with shared type optional comma
+================================================================================
+
+procedure someProc(i, j, : int) end someProc
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (procedure_declaration
+    name: (identifier)
+    params: (param_spec
+      (constvar_param
+        name: (identifier)
+        name: (identifier)
+        param_type: (primitive_type)))
+    end_name: (identifier)))
+
+================================================================================
+procedure declaration - multiple constvar param
+================================================================================
+
+procedure someProc(i : int, j : int, k : int) end someProc
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (procedure_declaration
+    name: (identifier)
+    params: (param_spec
+      (constvar_param
+        name: (identifier)
+        param_type: (primitive_type))
+      (constvar_param
+        name: (identifier)
+        param_type: (primitive_type))
+      (constvar_param
+        name: (identifier)
+        param_type: (primitive_type)))
+    end_name: (identifier)))
+
+================================================================================
+procedure declaration - multiple constvar param with optional comma
+================================================================================
+
+procedure someProc(i : int, j : int, k : int,) end someProc
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (procedure_declaration
+    name: (identifier)
+    params: (param_spec
+      (constvar_param
+        name: (identifier)
+        param_type: (primitive_type))
+      (constvar_param
+        name: (identifier)
+        param_type: (primitive_type))
+      (constvar_param
+        name: (identifier)
+        param_type: (primitive_type)))
+    end_name: (identifier)))
+
+================================================================================
+procedure declaration - subprogram params
+================================================================================
+
+procedure someProc(fcn i() : int, function : int, proc j(), proc) end someProc
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (procedure_declaration
+    name: (identifier)
+    params: (param_spec
+      (function_type
+        name: (identifier)
+        params: (param_spec)
+        result_type: (primitive_type))
+      (function_type
+        result_type: (primitive_type))
+      (procedure_type
+        name: (identifier)
+        params: (param_spec))
+      (procedure_type))
+    end_name: (identifier)))
+
+================================================================================
+procedure declaration - mixed params
+================================================================================
+
+procedure someProc(function : int, i : int, proc) end someProc
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (procedure_declaration
+    name: (identifier)
+    params: (param_spec
+      (function_type
+        result_type: (primitive_type))
+      (constvar_param
+        name: (identifier)
+        param_type: (primitive_type))
+      (procedure_type))
+    end_name: (identifier)))
+
+================================================================================
+procedure declaration - all constvar attrs
+================================================================================
+
+procedure someProc(
+  i : int,
+  register i : int,
+  var register i : int,
+  i : cheat int,
+  register i : cheat int,
+  var register i : cheat int,
+)
+end someProc
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (procedure_declaration
+    name: (identifier)
+    params: (param_spec
+      (constvar_param
+        name: (identifier)
+        param_type: (primitive_type))
+      (constvar_param
+        bind_to_register: (register_attr)
+        name: (identifier)
+        param_type: (primitive_type))
+      (constvar_param
+        by_ref: (var_attr)
+        bind_to_register: (register_attr)
+        name: (identifier)
+        param_type: (primitive_type))
+      (constvar_param
+        name: (identifier)
+        coerce_type: (cheat_attr)
+        param_type: (primitive_type))
+      (constvar_param
+        bind_to_register: (register_attr)
+        name: (identifier)
+        coerce_type: (cheat_attr)
+        param_type: (primitive_type))
+      (constvar_param
+        by_ref: (var_attr)
+        bind_to_register: (register_attr)
+        name: (identifier)
+        coerce_type: (cheat_attr)
+        param_type: (primitive_type)))
+    end_name: (identifier)))
+
+================================================================================
+procedure declaration - with device spec
+================================================================================
+
+procedure withDevSpec() : 1 end withDevSpec
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (procedure_declaration
+    name: (identifier)
+    params: (param_spec)
+    device_spec: (literal_expression
+      (integer_literal))
+    end_name: (identifier)))
+
+================================================================================
+procedure declaration - no params
+================================================================================
+
+procedure noParams end noParams
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (procedure_declaration
+    name: (identifier)
+    end_name: (identifier)))
+
+================================================================================
 loop statement - normal
 ================================================================================
 loop end loop

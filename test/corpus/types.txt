@@ -192,3 +192,251 @@ type a : 1 + 1
         (integer_literal))
       (literal_expression
         (integer_literal)))))
+
+================================================================================
+function ty - normal
+================================================================================
+
+type a : function() : int
+type a : fcn() : int
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (type_declaration
+    name: (identifier)
+    type_spec: (function_type
+      params: (param_spec)
+      result_type: (primitive_type)))
+  (type_declaration
+    name: (identifier)
+    type_spec: (function_type
+      params: (param_spec)
+      result_type: (primitive_type))))
+
+================================================================================
+function ty - with unused name
+================================================================================
+
+type a : function name() : int
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (type_declaration
+    name: (identifier)
+    type_spec: (function_type
+      name: (identifier)
+      params: (param_spec)
+      result_type: (primitive_type))))
+
+================================================================================
+function ty - with no params
+================================================================================
+
+type a : function : int
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (type_declaration
+    name: (identifier)
+    type_spec: (function_type
+      result_type: (primitive_type))))
+
+================================================================================
+function ty - with constvar param
+================================================================================
+
+type a : function name(a : int) : int
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (type_declaration
+    name: (identifier)
+    type_spec: (function_type
+      name: (identifier)
+      params: (param_spec
+        (constvar_param
+          name: (identifier)
+          param_type: (primitive_type)))
+      result_type: (primitive_type))))
+
+================================================================================
+function ty - with function param
+================================================================================
+
+type a : function name(fcn() : int) : int
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (type_declaration
+    name: (identifier)
+    type_spec: (function_type
+      name: (identifier)
+      params: (param_spec
+        (function_type
+          params: (param_spec)
+          result_type: (primitive_type)))
+      result_type: (primitive_type))))
+
+================================================================================
+function ty - with named function param
+================================================================================
+
+type a : function name(fcn a() : int) : int
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (type_declaration
+    name: (identifier)
+    type_spec: (function_type
+      name: (identifier)
+      params: (param_spec
+        (function_type
+          name: (identifier)
+          params: (param_spec)
+          result_type: (primitive_type)))
+      result_type: (primitive_type))))
+
+================================================================================
+function ty - with named procedure param
+================================================================================
+
+type a : function name(proc a()) : int
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (type_declaration
+    name: (identifier)
+    type_spec: (function_type
+      name: (identifier)
+      params: (param_spec
+        (procedure_type
+          name: (identifier)
+          params: (param_spec)))
+      result_type: (primitive_type))))
+
+================================================================================
+procedure ty - normal
+================================================================================
+
+type a : procedure()
+type a : proc()
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (type_declaration
+    name: (identifier)
+    type_spec: (procedure_type
+      params: (param_spec)))
+  (type_declaration
+    name: (identifier)
+    type_spec: (procedure_type
+      params: (param_spec))))
+
+================================================================================
+procedure ty - with unused name
+================================================================================
+
+type a : procedure name()
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (type_declaration
+    name: (identifier)
+    type_spec: (procedure_type
+      name: (identifier)
+      params: (param_spec))))
+
+================================================================================
+procedure ty - with no params
+================================================================================
+
+type a : procedure
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (type_declaration
+    name: (identifier)
+    type_spec: (procedure_type)))
+
+================================================================================
+procedure ty - with constvar param
+================================================================================
+
+type a : procedure name(a : int)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (type_declaration
+    name: (identifier)
+    type_spec: (procedure_type
+      name: (identifier)
+      params: (param_spec
+        (constvar_param
+          name: (identifier)
+          param_type: (primitive_type))))))
+
+================================================================================
+procedure ty - with function param
+================================================================================
+
+type a : procedure name(fcn() : int)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (type_declaration
+    name: (identifier)
+    type_spec: (procedure_type
+      name: (identifier)
+      params: (param_spec
+        (function_type
+          params: (param_spec)
+          result_type: (primitive_type))))))
+
+================================================================================
+procedure ty - with named function param
+================================================================================
+
+type a : procedure name(fcn a() : int)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (type_declaration
+    name: (identifier)
+    type_spec: (procedure_type
+      name: (identifier)
+      params: (param_spec
+        (function_type
+          name: (identifier)
+          params: (param_spec)
+          result_type: (primitive_type))))))
+
+================================================================================
+procedure ty - with named procedure param
+================================================================================
+
+type a : procedure name(proc a())
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (type_declaration
+    name: (identifier)
+    type_spec: (procedure_type
+      name: (identifier)
+      params: (param_spec
+        (procedure_type
+          name: (identifier)
+          params: (param_spec))))))
