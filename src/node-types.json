@@ -114,6 +114,10 @@
         "named": true
       },
       {
+        "type": "deferred_declaration",
+        "named": true
+      },
+      {
         "type": "exit_statement",
         "named": true
       },
@@ -123,6 +127,10 @@
       },
       {
         "type": "for_statement",
+        "named": true
+      },
+      {
+        "type": "forward_declaration",
         "named": true
       },
       {
@@ -921,6 +929,72 @@
     }
   },
   {
+    "type": "deferred_declaration",
+    "named": true,
+    "fields": {
+      "device_spec": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "_expression",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "params": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "param_spec",
+            "named": true
+          }
+        ]
+      },
+      "result_name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "result_type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "_type",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "pervasive_attr",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "deref_expression",
     "named": true,
     "fields": {
@@ -1198,6 +1272,76 @@
     "type": "forward_attr",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "forward_declaration",
+    "named": true,
+    "fields": {
+      "device_spec": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "_expression",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "params": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "param_spec",
+            "named": true
+          }
+        ]
+      },
+      "result_name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "result_type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "_type",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "import_item",
+          "named": true
+        },
+        {
+          "type": "pervasive_attr",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "forward_type",
@@ -2341,6 +2485,10 @@
   },
   {
     "type": "decreasing",
+    "named": false
+  },
+  {
+    "type": "deferred",
     "named": false
   },
   {

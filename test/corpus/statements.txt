@@ -1430,6 +1430,117 @@ external "someProc" proc someProc()
     params: (param_spec)))
 
 ================================================================================
+forward declaration - forward function
+================================================================================
+
+forward function someFn() : int
+forward fcn someFn() : int
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (forward_declaration
+    name: (identifier)
+    params: (param_spec)
+    result_type: (primitive_type))
+  (forward_declaration
+    name: (identifier)
+    params: (param_spec)
+    result_type: (primitive_type)))
+
+================================================================================
+forward declaration - forward function with imports
+================================================================================
+
+forward function someFn() : int import var a, const b
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (forward_declaration
+    name: (identifier)
+    params: (param_spec)
+    result_type: (primitive_type)
+    (import_item
+      (var_attr)
+      name: (identifier))
+    (import_item
+      (const_attr)
+      name: (identifier))))
+
+================================================================================
+forward declaration - forward procedure
+================================================================================
+
+forward procedure someProc()
+forward proc someProc()
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (forward_declaration
+    name: (identifier)
+    params: (param_spec))
+  (forward_declaration
+    name: (identifier)
+    params: (param_spec)))
+
+================================================================================
+forward declaration - forward procedure with imports
+================================================================================
+
+forward procedure someProc() import var a, const b
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (forward_declaration
+    name: (identifier)
+    params: (param_spec)
+    (import_item
+      (var_attr)
+      name: (identifier))
+    (import_item
+      (const_attr)
+      name: (identifier))))
+
+================================================================================
+deferred declaration - function
+================================================================================
+
+deferred function someFn() : int
+deferred fcn someFn() : int
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (deferred_declaration
+    name: (identifier)
+    params: (param_spec)
+    result_type: (primitive_type))
+  (deferred_declaration
+    name: (identifier)
+    params: (param_spec)
+    result_type: (primitive_type)))
+
+================================================================================
+deferred declaration - procedure
+================================================================================
+
+deferred procedure someProc()
+deferred proc someProc()
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (deferred_declaration
+    name: (identifier)
+    params: (param_spec))
+  (deferred_declaration
+    name: (identifier)
+    params: (param_spec)))
+
+================================================================================
 loop statement - normal
 ================================================================================
 loop end loop

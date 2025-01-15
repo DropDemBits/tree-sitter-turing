@@ -89,6 +89,14 @@
         },
         {
           "type": "SYMBOL",
+          "name": "forward_declaration"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "deferred_declaration"
+        },
+        {
+          "type": "SYMBOL",
           "name": "assign_statement"
         },
         {
@@ -1060,6 +1068,57 @@
               "type": "BLANK"
             }
           ]
+        }
+      ]
+    },
+    "forward_declaration": {
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "forward"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_subprogram_header"
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": "import"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "_import_list"
+                  }
+                ]
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "deferred_declaration": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "deferred"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_subprogram_header"
         }
       ]
     },

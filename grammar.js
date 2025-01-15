@@ -81,8 +81,8 @@ module.exports = grammar({
       $.procedure_declaration,
       $.process_declaration,
       $.external_declaration,
-      // $.forward_declaration,
-      // $.deferred_declaration,
+      $.forward_declaration,
+      $.deferred_declaration,
       // $.body_declaration,
       // $.module_declaration,
       // $.class_declaration,
@@ -250,6 +250,14 @@ module.exports = grammar({
       optional(seq(':', field('type_spec', $._type))),
       optional(seq(':=', field('initializer', $._expression))),
     ),
+
+    forward_declaration: $ => prec.right(seq(
+      'forward',
+      $._subprogram_header,
+      optional(seq('import', $._import_list)),
+    )),
+
+    deferred_declaration: $ => seq('deferred', $._subprogram_header),
 
     assign_statement: $ => prec.right(PREC.assign, seq(
       field('left', $._expression),
