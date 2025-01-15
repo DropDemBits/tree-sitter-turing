@@ -424,19 +424,9 @@
     "type": "bits_expression",
     "named": true,
     "fields": {
-      "end": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "_expression",
-            "named": true
-          }
-        ]
-      },
       "start": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "_expression",
@@ -446,11 +436,15 @@
       }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
           "type": "_expression",
+          "named": true
+        },
+        {
+          "type": "range_expression",
           "named": true
         }
       ]
@@ -641,6 +635,16 @@
       "operand": {
         "multiple": false,
         "required": true,
+        "types": [
+          {
+            "type": "_expression",
+            "named": true
+          }
+        ]
+      },
+      "size_spec": {
+        "multiple": false,
+        "required": false,
         "types": [
           {
             "type": "_expression",
@@ -943,21 +947,11 @@
         "required": true,
         "types": [
           {
-            "type": "..",
-            "named": false
-          },
-          {
             "type": "_expression",
             "named": true
-          }
-        ]
-      },
-      "end": {
-        "multiple": false,
-        "required": false,
-        "types": [
+          },
           {
-            "type": "_expression",
+            "type": "range_expression",
             "named": true
           }
         ]
@@ -968,16 +962,6 @@
         "types": [
           {
             "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "start": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "_expression",
             "named": true
           }
         ]
@@ -1300,6 +1284,32 @@
     }
   },
   {
+    "type": "range_expression",
+    "named": true,
+    "fields": {
+      "end": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_expression",
+            "named": true
+          }
+        ]
+      },
+      "start": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "range_type",
     "named": true,
     "fields": {
@@ -1344,7 +1354,18 @@
   {
     "type": "sizeof_expression",
     "named": true,
-    "fields": {},
+    "fields": {
+      "size_spec": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "_expression",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": false,
       "required": true,

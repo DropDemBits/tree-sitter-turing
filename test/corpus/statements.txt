@@ -495,16 +495,18 @@ for a : 1 .. 3 by 1 end for
 (source_file
   (for_statement
     name: (identifier)
-    start: (literal_expression
-      (integer_literal))
-    end: (literal_expression
-      (integer_literal)))
+    bounds: (range_expression
+      start: (literal_expression
+        (integer_literal))
+      end: (literal_expression
+        (integer_literal))))
   (for_statement
     name: (identifier)
-    start: (literal_expression
-      (integer_literal))
-    end: (literal_expression
-      (integer_literal))
+    bounds: (range_expression
+      start: (literal_expression
+        (integer_literal))
+      end: (literal_expression
+        (integer_literal)))
     step_by: (literal_expression
       (integer_literal))))
 
@@ -520,16 +522,18 @@ for decreasing a : 1 .. 3 by 1 end for
 (source_file
   (for_statement
     name: (identifier)
-    start: (literal_expression
-      (integer_literal))
-    end: (literal_expression
-      (integer_literal)))
+    bounds: (range_expression
+      start: (literal_expression
+        (integer_literal))
+      end: (literal_expression
+        (integer_literal))))
   (for_statement
     name: (identifier)
-    start: (literal_expression
-      (integer_literal))
-    end: (literal_expression
-      (integer_literal))
+    bounds: (range_expression
+      start: (literal_expression
+        (integer_literal))
+      end: (literal_expression
+        (integer_literal)))
     step_by: (literal_expression
       (integer_literal))))
 
@@ -544,15 +548,17 @@ for decreasing : 1 .. 3 end for
 
 (source_file
   (for_statement
-    start: (literal_expression
-      (integer_literal))
-    end: (literal_expression
-      (integer_literal)))
+    bounds: (range_expression
+      start: (literal_expression
+        (integer_literal))
+      end: (literal_expression
+        (integer_literal))))
   (for_statement
-    start: (literal_expression
-      (integer_literal))
-    end: (literal_expression
-      (integer_literal))))
+    bounds: (range_expression
+      start: (literal_expression
+        (integer_literal))
+      end: (literal_expression
+        (integer_literal)))))
 
 ================================================================================
 for statement - single bound

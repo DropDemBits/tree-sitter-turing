@@ -19,8 +19,10 @@ const PREC = {
   negation: 9,
   exp: 10,
   nat_cheat: 11,
-  // also arrow, dot
   call: 12,
+  arrow: 12,
+  field: 12,
+  range: 12,
   deref: 13,
 };
 
@@ -194,15 +196,10 @@ module.exports = grammar({
     for_statement: $ => seq(
       'for',
       optional('decreasing'), optional(field('name', $.identifier)), ':',
-      // ???: Could either use real range expr, or use version that doesn't exclude anything
       field('bounds',
         choice(
           $._expression,
-          seq(
-            field('start', $._expression),
-            '..',
-            field('end', $._expression)
-          )
+          $.range_expression,
         ),
       ),
       field('step_by', optional(seq(
@@ -385,11 +382,15 @@ module.exports = grammar({
     )),
 
     sizeof_expression: $ => seq(
-      // Not planning to support the size_spec part, since while the acceptable
-      // values are only 1, 2 and 4, those can be computed in an arbitrary
-      // manner, and that's not fun for incremental compilation
+      // Not planning to support the size_spec part in sema, since while the
+      // acceptable values are only 1, 2 and 4, those can be computed in an
+      // arbitrary manner, and that's not fun for incremental compilation
       'sizeof', '(',
       choice($._expression, $._type),
+      optional(seq(
+        ':',
+        field('size_spec', $._expression),
+      )),
       ')',
     ),
 
@@ -449,7 +450,7 @@ module.exports = grammar({
 
     paren_expression: $ => seq('(', $._expression, ')'),
 
-    field_expression: $ => prec.left(PREC.call, seq(
+    field_expression: $ => prec.left(PREC.field, seq(
       field('left', $._expression),
       field('operator', '.'),
       field('field', $.path_component)
@@ -461,12 +462,16 @@ module.exports = grammar({
     )),
 
     cheat_expression: $ => seq(
-      // Not planning to support the size_spec part, since while the acceptable
-      // values are only 1, 2 and 4, those can be computed in an arbitrary
-      // manner, and that's not fun for incremental compilation
+      // Not planning to support the size_spec part in sema, since while the
+      // acceptable values are only 1, 2 and 4, those can be computed in an
+      // arbitrary manner, and that's not fun for incremental compilation
       'cheat', '(',
       field('to_type', $._type), ',',
-      field('operand', $._expression), optional(','),
+      field('operand', $._expression),
+      optional(choice(
+        ',',
+        seq(':', field('size_spec', $._expression)),
+      )),
       ')'
     ),
 
@@ -475,7 +480,7 @@ module.exports = grammar({
       field('right', $._expression),
     )),
 
-    arrow_expression: $ => prec.left(PREC.call, seq(
+    arrow_expression: $ => prec.left(PREC.arrow, seq(
       field('left', $._expression),
       field('operator', '->'),
       field('field', $.identifier)
@@ -491,13 +496,16 @@ module.exports = grammar({
       'bits', '(', $._expression, ',', $._bit_range, optional(','), ')',
     )),
 
-    _bit_range: $ => seq(
+    _bit_range: $ => choice(
       field('start', $._expression),
-      optional(seq(
-        '..',
-        field('end', $._expression),
-      ))
+      $.range_expression,
     ),
+
+    range_expression: $ => prec.left(PREC.range, seq(
+      field('start', $._expression),
+      '..',
+      field('end', $._expression)
+    )),
 
     call_expression: $ => prec.left(PREC.call, seq(
       field('left', $._expression), $._argument_list
@@ -514,13 +522,13 @@ module.exports = grammar({
     slice_expression: $ => choice(
       field('start', $.slice_from_end_bound),
       seq(
-        field('start', $._slice_range_bound),
+        field('start', $._slice_index),
         field('operator', '..'),
-        field('end', $._slice_range_bound),
+        field('end', $._slice_index),
       )
     ),
 
-    _slice_range_bound: $ => choice($._expression, $.slice_from_end_bound),
+    _slice_index: $ => choice($._expression, $.slice_from_end_bound),
 
     slice_from_end_bound: $ => seq('*', optional(seq(
       '-',

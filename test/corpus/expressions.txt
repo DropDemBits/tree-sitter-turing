@@ -883,15 +883,17 @@ const a := sizeof(int)
       (primitive_type))))
 
 ================================================================================
-sizeof expression - reject size specs
+sizeof expression - accept size specs
 ================================================================================
 
-% size specs aren't planned to be supported
+% size specs aren't planned to be supported in sema, but we still should
+% parse them
 const a := sizeof(uwu : 3)
 
 --------------------------------------------------------------------------------
 
 (source_file
+  (line_comment)
   (line_comment)
   (constvar_declaration
     (identifier)
@@ -899,7 +901,8 @@ const a := sizeof(uwu : 3)
       (nameref_expression
         (path_component
           (identifier)))
-      (ERROR))))
+      (literal_expression
+        (integer_literal)))))
 
 ================================================================================
 binary expression - left associative
@@ -1312,6 +1315,30 @@ a := cheat(1 .. 2, 3)
         (integer_literal)))))
 
 ================================================================================
+cheat expression - accept size specs
+================================================================================
+
+a := cheat(1 .. 2, 3 : 4)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (assign_statement
+    left: (nameref_expression
+      (path_component
+        (identifier)))
+    right: (cheat_expression
+      to_type: (range_type
+        start: (literal_expression
+          (integer_literal))
+        end: (literal_expression
+          (integer_literal)))
+      operand: (literal_expression
+        (integer_literal))
+      size_spec: (literal_expression
+        (integer_literal)))))
+
+================================================================================
 cheat expression - as lhs
 ================================================================================
 
@@ -1404,10 +1431,11 @@ bits(aaaa, 1 .. 3) := 3
       (nameref_expression
         (path_component
           (identifier)))
-      start: (literal_expression
-        (integer_literal))
-      end: (literal_expression
-        (integer_literal)))
+      (range_expression
+        start: (literal_expression
+          (integer_literal))
+        end: (literal_expression
+          (integer_literal))))
     right: (literal_expression
       (integer_literal))))
 
