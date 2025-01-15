@@ -80,7 +80,7 @@ module.exports = grammar({
       $.function_declaration,
       $.procedure_declaration,
       $.process_declaration,
-      // $.external_declaration,
+      $.external_declaration,
       // $.forward_declaration,
       // $.deferred_declaration,
       // $.body_declaration,
@@ -160,6 +160,14 @@ module.exports = grammar({
       // constvar_declaration and is ambiguous with the bind item list
     ),
 
+    bind_item: $ => seq(
+      optional($.var_attr),
+      optional($.register_attr),
+      field('name', $.identifier),
+      'to',
+      $._expression
+    ),
+
     function_declaration: $ => seq(
       $._function_header,
       _statement_list($),
@@ -189,6 +197,8 @@ module.exports = grammar({
       optional(field('params', $.param_spec)),
       optional(seq(':', field('device_spec', $._expression))),
     )),
+
+    _subprogram_header: $ => choice($._function_header, $._procedure_header),
 
     process_declaration: $ => seq(
       $._process_header,
@@ -225,12 +235,20 @@ module.exports = grammar({
 
     _subprogram_param: $ => choice($.function_type, $.procedure_type),
 
-    bind_item: $ => seq(
-      optional($.var_attr),
-      optional($.register_attr),
+    external_declaration: $ => seq(
+      'external',
+      optional(field('external_spec', $._expression)),
+      choice(
+        $._external_var,
+        $._subprogram_header,
+      )
+    ),
+
+    _external_var: $ => seq(
+      'var',
       field('name', $.identifier),
-      'to',
-      $._expression
+      optional(seq(':', field('type_spec', $._type))),
+      optional(seq(':=', field('initializer', $._expression))),
     ),
 
     assign_statement: $ => prec.right(PREC.assign, seq(

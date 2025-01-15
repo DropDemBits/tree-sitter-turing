@@ -85,6 +85,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "external_declaration"
+        },
+        {
+          "type": "SYMBOL",
           "name": "assign_statement"
         },
         {
@@ -305,6 +309,51 @@
               }
             }
           ]
+        }
+      ]
+    },
+    "bind_item": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "var_attr"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "register_attr"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "to"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_expression"
         }
       ]
     },
@@ -566,6 +615,19 @@
           }
         ]
       }
+    },
+    "_subprogram_header": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_function_header"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_procedure_header"
+        }
+      ]
     },
     "process_declaration": {
       "type": "SEQ",
@@ -880,15 +942,23 @@
         }
       ]
     },
-    "bind_item": {
+    "external_declaration": {
       "type": "SEQ",
       "members": [
+        {
+          "type": "STRING",
+          "value": "external"
+        },
         {
           "type": "CHOICE",
           "members": [
             {
-              "type": "SYMBOL",
-              "name": "var_attr"
+              "type": "FIELD",
+              "name": "external_spec",
+              "content": {
+                "type": "SYMBOL",
+                "name": "_expression"
+              }
             },
             {
               "type": "BLANK"
@@ -900,12 +970,22 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "register_attr"
+              "name": "_external_var"
             },
             {
-              "type": "BLANK"
+              "type": "SYMBOL",
+              "name": "_subprogram_header"
             }
           ]
+        }
+      ]
+    },
+    "_external_var": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "var"
         },
         {
           "type": "FIELD",
@@ -916,12 +996,54 @@
           }
         },
         {
-          "type": "STRING",
-          "value": "to"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": ":"
+                },
+                {
+                  "type": "FIELD",
+                  "name": "type_spec",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "_type"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         },
         {
-          "type": "SYMBOL",
-          "name": "_expression"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": ":="
+                },
+                {
+                  "type": "FIELD",
+                  "name": "initializer",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "_expression"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },

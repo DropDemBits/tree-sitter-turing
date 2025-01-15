@@ -1280,6 +1280,156 @@ process noParams end noParams
     end_name: (identifier)))
 
 ================================================================================
+external declaration - external var
+================================================================================
+
+external var externVar
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (external_declaration
+    name: (identifier)))
+
+================================================================================
+external declaration - external var with name spec
+================================================================================
+
+external "externVar" var externVar
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (external_declaration
+    external_spec: (literal_expression
+      (string_literal))
+    name: (identifier)))
+
+================================================================================
+external declaration - external var with type spec
+================================================================================
+
+external var externVar : int
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (external_declaration
+    name: (identifier)
+    type_spec: (primitive_type)))
+
+================================================================================
+external declaration - external var with initializer
+================================================================================
+
+external var externVar := 1
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (external_declaration
+    name: (identifier)
+    initializer: (literal_expression
+      (integer_literal))))
+
+================================================================================
+external declaration - external var with everything
+================================================================================
+
+external "externVar" var externVar : int := 1
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (external_declaration
+    external_spec: (literal_expression
+      (string_literal))
+    name: (identifier)
+    type_spec: (primitive_type)
+    initializer: (literal_expression
+      (integer_literal))))
+
+================================================================================
+external declaration - external function
+================================================================================
+
+external function someFn() : int
+external fcn someFn() : int
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (external_declaration
+    name: (identifier)
+    params: (param_spec)
+    result_type: (primitive_type))
+  (external_declaration
+    name: (identifier)
+    params: (param_spec)
+    result_type: (primitive_type)))
+
+================================================================================
+external declaration - external function with name spec
+================================================================================
+
+external "someFn" function someFn() : int
+external "someFn" fcn someFn() : int
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (external_declaration
+    external_spec: (literal_expression
+      (string_literal))
+    name: (identifier)
+    params: (param_spec)
+    result_type: (primitive_type))
+  (external_declaration
+    external_spec: (literal_expression
+      (string_literal))
+    name: (identifier)
+    params: (param_spec)
+    result_type: (primitive_type)))
+
+================================================================================
+external declaration - external procedure
+================================================================================
+
+external procedure someProc()
+external proc someProc()
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (external_declaration
+    name: (identifier)
+    params: (param_spec))
+  (external_declaration
+    name: (identifier)
+    params: (param_spec)))
+
+================================================================================
+external declaration - external procedure with name spec
+================================================================================
+
+external "someProc" procedure someProc()
+external "someProc" proc someProc()
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (external_declaration
+    external_spec: (literal_expression
+      (string_literal))
+    name: (identifier)
+    params: (param_spec))
+  (external_declaration
+    external_spec: (literal_expression
+      (string_literal))
+    name: (identifier)
+    params: (param_spec)))
+
+================================================================================
 loop statement - normal
 ================================================================================
 loop end loop
