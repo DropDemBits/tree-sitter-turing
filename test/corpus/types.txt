@@ -194,6 +194,264 @@ type a : 1 + 1
         (integer_literal)))))
 
 ================================================================================
+enum ty - no variants
+================================================================================
+
+type e : enum()
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (type_declaration
+    name: (identifier)
+    type_spec: (enum_type)))
+
+================================================================================
+enum ty - no variants with size
+================================================================================
+
+type e : enum() : 4
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (type_declaration
+    name: (identifier)
+    type_spec: (enum_type
+      size_spec: (literal_expression
+        (integer_literal)))))
+
+================================================================================
+enum ty - one variant
+================================================================================
+
+type e : enum(a)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (type_declaration
+    name: (identifier)
+    type_spec: (enum_type
+      variant: (identifier))))
+
+================================================================================
+enum ty - packed one variant
+================================================================================
+
+type e : packed enum(a)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (type_declaration
+    name: (identifier)
+    type_spec: (enum_type
+      (packed_attr)
+      variant: (identifier))))
+
+================================================================================
+enum ty - one variant with size
+================================================================================
+
+type e : enum(a) : 4
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (type_declaration
+    name: (identifier)
+    type_spec: (enum_type
+      variant: (identifier)
+      size_spec: (literal_expression
+        (integer_literal)))))
+
+================================================================================
+enum ty - many variants
+================================================================================
+
+type e : enum(a, b, c, d, e, f)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (type_declaration
+    name: (identifier)
+    type_spec: (enum_type
+      variant: (identifier)
+      variant: (identifier)
+      variant: (identifier)
+      variant: (identifier)
+      variant: (identifier)
+      variant: (identifier))))
+
+================================================================================
+enum ty - packed many variants
+================================================================================
+
+type e : packed enum(a, b, c, d, e, f)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (type_declaration
+    name: (identifier)
+    type_spec: (enum_type
+      (packed_attr)
+      variant: (identifier)
+      variant: (identifier)
+      variant: (identifier)
+      variant: (identifier)
+      variant: (identifier)
+      variant: (identifier))))
+
+================================================================================
+enum ty - many variants with size
+================================================================================
+
+type e : enum(a, b, c, d, e, f) : 4
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (type_declaration
+    name: (identifier)
+    type_spec: (enum_type
+      variant: (identifier)
+      variant: (identifier)
+      variant: (identifier)
+      variant: (identifier)
+      variant: (identifier)
+      variant: (identifier)
+      size_spec: (literal_expression
+        (integer_literal)))))
+
+================================================================================
+set ty - normal
+================================================================================
+
+type e : set of int1
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (type_declaration
+    name: (identifier)
+    type_spec: (set_type
+      element_type: (primitive_type))))
+
+================================================================================
+set ty - packed
+================================================================================
+
+type e : packed set of int1
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (type_declaration
+    name: (identifier)
+    type_spec: (set_type
+      (packed_attr)
+      element_type: (primitive_type))))
+
+================================================================================
+set ty - with size
+================================================================================
+
+type e : set of int1 : 2
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (type_declaration
+    name: (identifier)
+    type_spec: (set_type
+      element_type: (primitive_type)
+      size_spec: (literal_expression
+        (integer_literal)))))
+
+================================================================================
+pointer ty - normal
+================================================================================
+
+type p : pointer to int
+type p : ^int
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (type_declaration
+    name: (identifier)
+    type_spec: (pointer_type
+      element_type: (primitive_type)))
+  (type_declaration
+    name: (identifier)
+    type_spec: (pointer_type
+      element_type: (primitive_type))))
+
+================================================================================
+pointer ty - checked
+================================================================================
+
+type p : checked pointer to int
+type p : checked ^int
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (type_declaration
+    name: (identifier)
+    type_spec: (pointer_type
+      checkedness: (checked_attr)
+      element_type: (primitive_type)))
+  (type_declaration
+    name: (identifier)
+    type_spec: (pointer_type
+      checkedness: (checked_attr)
+      element_type: (primitive_type))))
+
+================================================================================
+pointer ty - unchecked
+================================================================================
+
+type p : unchecked pointer to int
+type p : unchecked ^int
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (type_declaration
+    name: (identifier)
+    type_spec: (pointer_type
+      checkedness: (unchecked_attr)
+      element_type: (primitive_type)))
+  (type_declaration
+    name: (identifier)
+    type_spec: (pointer_type
+      checkedness: (unchecked_attr)
+      element_type: (primitive_type))))
+
+================================================================================
+pointer ty - nested
+================================================================================
+
+type p : unchecked pointer to checked^^ pointer to int
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (type_declaration
+    name: (identifier)
+    type_spec: (pointer_type
+      checkedness: (unchecked_attr)
+      element_type: (pointer_type
+        checkedness: (checked_attr)
+        element_type: (pointer_type
+          element_type: (pointer_type
+            element_type: (primitive_type)))))))
+
+================================================================================
 function ty - normal
 ================================================================================
 
@@ -440,3 +698,56 @@ type a : procedure name(proc a())
         (procedure_type
           name: (identifier)
           params: (param_spec))))))
+
+===============================================================================
+collection type - concrete type
+===============================================================================
+
+type a : collection of int
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (type_declaration
+    name: (identifier)
+    type_spec: (collection_type
+      element_type: (primitive_type))))
+
+===============================================================================
+collection type - forward declared type
+===============================================================================
+
+type a : collection of forward thing
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (type_declaration
+    name: (identifier)
+    type_spec: (collection_type
+      name: (identifier))))
+
+===============================================================================
+condition type
+===============================================================================
+
+type a : condition
+type a : priority condition
+type a : deferred condition
+type a : timeout condition
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (type_declaration
+    name: (identifier)
+    type_spec: (condition_type))
+  (type_declaration
+    name: (identifier)
+    type_spec: (condition_type))
+  (type_declaration
+    name: (identifier)
+    type_spec: (condition_type))
+  (type_declaration
+    name: (identifier)
+    type_spec: (condition_type)))

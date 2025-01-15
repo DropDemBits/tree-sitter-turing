@@ -150,7 +150,7 @@ module.exports = grammar({
       optional($.pervasive_attr),
       field('name', $.identifier),
       ':',
-      field('type_spec', $._type),
+      field('type_spec', choice($._type, $.forward_type)),
     ),
 
     bind_declaration: $ => seq(
@@ -659,18 +659,17 @@ module.exports = grammar({
       // TODO: commented items
 
       $.primitive_type,
-      $.forward_type,
       $.range_type,
-      // $.enum_type,
+      $.enum_type,
       // $.array_type,
-      // $.set_type,
+      $.set_type,
       // $.record_type,
       // $.union_type,
-      // $.pointer_type,
+      $.pointer_type,
       $.function_type,
       $.procedure_type,
-      // $.collection_type,
-      // $.condition_type,
+      $.collection_type,
+      $.condition_type,
     ),
 
     primitive_type: $ => prec.right(choice(
@@ -706,6 +705,34 @@ module.exports = grammar({
       field('end', $._expression)
     ),
 
+    // ???:
+    // - does a cheat expression allow inline set/enum type defs?
+    // - does a cheat expression allow overriding size spec, or does it use the same size spec here?
+    enum_type: $ => prec.right(seq(
+      optional($.packed_attr),
+      'enum',
+      '(',
+      sepBy(',', field('variant', $.identifier)), optional(','),
+      ')',
+      optional(seq(':', field('size_spec', $._expression))),
+    )),
+
+    set_type: $ => prec.right(seq(
+      optional($.packed_attr),
+      'set',
+      'of',
+      field('element_type', $._type),
+      optional(seq(':', field('size_spec', $._expression))),
+    )),
+
+    pointer_type: $ => seq(
+      optional(field('checkedness', $._checkedness)),
+      choice(seq('pointer', 'to'), '^'),
+      field('element_type', $._type),
+    ),
+
+    _checkedness: $ => choice($.checked_attr, $.unchecked_attr),
+
     function_type: $ => prec.right(seq(
       choice('function', 'fcn'),
       optional(field('name', $.identifier)),
@@ -720,9 +747,28 @@ module.exports = grammar({
       optional(field('params', $.param_spec)),
     )),
 
+    collection_type: $ => seq(
+      'collection', 'of',
+      choice(
+        field('element_type', $._type),
+        seq('forward', field('name', $.identifier)),
+      ),
+    ),
+
+    condition_type: $ => seq(
+      optional(choice('priority', 'deferred', 'timeout')),
+      'condition',
+    ),
+
     forward_type: $ => 'forward',
 
     // Attrs //
+    checked_attr: $ => 'checked',
+
+    unchecked_attr: $ => 'unchecked',
+
+    packed_attr: $ => 'packed',
+
     pervasive_attr: $ => choice('pervasive', '*'),
 
     unqualified_attr: $ => choice('unqualified', seq('~', '.')),
