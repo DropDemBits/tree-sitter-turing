@@ -1003,6 +1003,283 @@ procedure noParams end noParams
     end_name: (identifier)))
 
 ================================================================================
+process declaration - normal
+================================================================================
+
+process someProcess() end someProcess
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (process_declaration
+    name: (identifier)
+    params: (param_spec)
+    end_name: (identifier)))
+
+================================================================================
+process declaration - pervasive attr
+================================================================================
+
+process pervasive someProcess() end someProcess
+process * someProcess() end someProcess
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (process_declaration
+    (pervasive_attr)
+    name: (identifier)
+    params: (param_spec)
+    end_name: (identifier))
+  (process_declaration
+    (pervasive_attr)
+    name: (identifier)
+    params: (param_spec)
+    end_name: (identifier)))
+
+================================================================================
+process declaration - with statements
+================================================================================
+
+process someProcess()
+  begin end
+  return
+end someProcess
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (process_declaration
+    name: (identifier)
+    params: (param_spec)
+    (block_statement)
+    (return_statement)
+    end_name: (identifier)))
+
+================================================================================
+process declaration - one constvar param with one name
+================================================================================
+
+process someProcess(i : int) end someProcess
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (process_declaration
+    name: (identifier)
+    params: (param_spec
+      (constvar_param
+        name: (identifier)
+        param_type: (primitive_type)))
+    end_name: (identifier)))
+
+================================================================================
+process declaration - multiple constvar param with shared type
+================================================================================
+
+process someProcess(i, j, k, l : int) end someProcess
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (process_declaration
+    name: (identifier)
+    params: (param_spec
+      (constvar_param
+        name: (identifier)
+        name: (identifier)
+        name: (identifier)
+        name: (identifier)
+        param_type: (primitive_type)))
+    end_name: (identifier)))
+
+================================================================================
+process declaration - multiple constvar param with shared type optional comma
+================================================================================
+
+process someProcess(i, j, : int) end someProcess
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (process_declaration
+    name: (identifier)
+    params: (param_spec
+      (constvar_param
+        name: (identifier)
+        name: (identifier)
+        param_type: (primitive_type)))
+    end_name: (identifier)))
+
+================================================================================
+process declaration - multiple constvar param
+================================================================================
+
+process someProcess(i : int, j : int, k : int) end someProcess
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (process_declaration
+    name: (identifier)
+    params: (param_spec
+      (constvar_param
+        name: (identifier)
+        param_type: (primitive_type))
+      (constvar_param
+        name: (identifier)
+        param_type: (primitive_type))
+      (constvar_param
+        name: (identifier)
+        param_type: (primitive_type)))
+    end_name: (identifier)))
+
+================================================================================
+process declaration - multiple constvar param with optional comma
+================================================================================
+
+process someProcess(i : int, j : int, k : int,) end someProcess
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (process_declaration
+    name: (identifier)
+    params: (param_spec
+      (constvar_param
+        name: (identifier)
+        param_type: (primitive_type))
+      (constvar_param
+        name: (identifier)
+        param_type: (primitive_type))
+      (constvar_param
+        name: (identifier)
+        param_type: (primitive_type)))
+    end_name: (identifier)))
+
+================================================================================
+process declaration - subprogram params
+================================================================================
+
+process someProcess(fcn i() : int, function : int, proc j(), proc) end someProcess
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (process_declaration
+    name: (identifier)
+    params: (param_spec
+      (function_type
+        name: (identifier)
+        params: (param_spec)
+        result_type: (primitive_type))
+      (function_type
+        result_type: (primitive_type))
+      (procedure_type
+        name: (identifier)
+        params: (param_spec))
+      (procedure_type))
+    end_name: (identifier)))
+
+================================================================================
+process declaration - mixed params
+================================================================================
+
+process someProcess(function : int, i : int, proc) end someProcess
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (process_declaration
+    name: (identifier)
+    params: (param_spec
+      (function_type
+        result_type: (primitive_type))
+      (constvar_param
+        name: (identifier)
+        param_type: (primitive_type))
+      (procedure_type))
+    end_name: (identifier)))
+
+================================================================================
+process declaration - all constvar attrs
+================================================================================
+
+process someProcess(
+  i : int,
+  register i : int,
+  var register i : int,
+  i : cheat int,
+  register i : cheat int,
+  var register i : cheat int,
+)
+end someProcess
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (process_declaration
+    name: (identifier)
+    params: (param_spec
+      (constvar_param
+        name: (identifier)
+        param_type: (primitive_type))
+      (constvar_param
+        bind_to_register: (register_attr)
+        name: (identifier)
+        param_type: (primitive_type))
+      (constvar_param
+        by_ref: (var_attr)
+        bind_to_register: (register_attr)
+        name: (identifier)
+        param_type: (primitive_type))
+      (constvar_param
+        name: (identifier)
+        coerce_type: (cheat_attr)
+        param_type: (primitive_type))
+      (constvar_param
+        bind_to_register: (register_attr)
+        name: (identifier)
+        coerce_type: (cheat_attr)
+        param_type: (primitive_type))
+      (constvar_param
+        by_ref: (var_attr)
+        bind_to_register: (register_attr)
+        name: (identifier)
+        coerce_type: (cheat_attr)
+        param_type: (primitive_type)))
+    end_name: (identifier)))
+
+================================================================================
+process declaration - with stack size
+================================================================================
+
+process withStack() : 1 end withStack
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (process_declaration
+    name: (identifier)
+    params: (param_spec)
+    stack_size: (literal_expression
+      (integer_literal))
+    end_name: (identifier)))
+
+================================================================================
+process declaration - no params
+================================================================================
+
+process noParams end noParams
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (process_declaration
+    name: (identifier)
+    end_name: (identifier)))
+
+================================================================================
 loop statement - normal
 ================================================================================
 loop end loop

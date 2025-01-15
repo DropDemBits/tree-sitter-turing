@@ -79,7 +79,7 @@ module.exports = grammar({
       $.bind_declaration,
       $.function_declaration,
       $.procedure_declaration,
-      // $.process_declaration,
+      $.process_declaration,
       // $.external_declaration,
       // $.forward_declaration,
       // $.deferred_declaration,
@@ -188,6 +188,20 @@ module.exports = grammar({
       field('name', $.identifier),
       optional(field('params', $.param_spec)),
       optional(seq(':', field('device_spec', $._expression))),
+    )),
+
+    process_declaration: $ => seq(
+      $._process_header,
+      _statement_list($),
+      end_named_tail($),
+    ),
+
+    _process_header: $ => prec.right(seq(
+      'process',
+      optional($.pervasive_attr),
+      field('name', $.identifier),
+      optional(field('params', $.param_spec)),
+      optional(seq(':', field('stack_size', $._expression))),
     )),
 
     param_spec: $ => seq(
