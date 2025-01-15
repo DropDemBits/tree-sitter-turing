@@ -122,10 +122,10 @@ module.exports = grammar({
       // $.init_statement,
       // $.post_statement,
       // $.handler_statement,
-      // $.inherit_statement,
-      // $.implement_statement,
-      // $.implement_by_statement,
-      // $.import_statement,
+      $.inherit_statement,
+      $.implement_statement,
+      $.implement_by_statement,
+      $.import_statement,
       // $.export_statement,
 
       // other
@@ -354,6 +354,35 @@ module.exports = grammar({
     return_statement: $ => 'return',
 
     result_statement: $ => seq('result', field('value', $._expression)),
+
+    inherit_statement: $ => seq('inherit', $._external_item),
+
+    implement_statement: $ => seq('implement', $._external_item),
+
+    implement_by_statement: $ => seq('implement', 'by', $._external_item),
+
+    import_statement: $ => seq(
+      'import',
+      choice(
+        $._import_list,
+        seq('(', sepBy(',', $.import_item), optional(','), ')'),
+      ),
+    ),
+
+    _import_list: $ => sepBy1(',', $.import_item),
+
+    import_item: $ => seq(
+      repeat(choice($.var_attr, $.const_attr, $.forward_attr)),
+      $._external_item,
+    ),
+
+    _external_item: $ => choice(
+      field('path', $.string_literal),
+      seq(
+        field('name', $.identifier),
+        optional(seq('in', field('path', $.string_literal))),
+      )
+    ),
 
     _macro_directive: $ => choice(
       // TODO: commented items + pp_expression

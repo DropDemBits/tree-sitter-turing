@@ -134,6 +134,22 @@
         "named": true
       },
       {
+        "type": "implement_by_statement",
+        "named": true
+      },
+      {
+        "type": "implement_statement",
+        "named": true
+      },
+      {
+        "type": "import_statement",
+        "named": true
+      },
+      {
+        "type": "inherit_statement",
+        "named": true
+      },
+      {
         "type": "invariant_statement",
         "named": true
       },
@@ -794,6 +810,11 @@
     }
   },
   {
+    "type": "const_attr",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "constvar_declaration",
     "named": true,
     "fields": {
@@ -1174,6 +1195,16 @@
     }
   },
   {
+    "type": "forward_attr",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "forward_type",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "function_declaration",
     "named": true,
     "fields": {
@@ -1314,6 +1345,117 @@
     }
   },
   {
+    "type": "implement_by_statement",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "path": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "string_literal",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "implement_statement",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "path": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "string_literal",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "import_item",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "path": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "string_literal",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "const_attr",
+          "named": true
+        },
+        {
+          "type": "forward_attr",
+          "named": true
+        },
+        {
+          "type": "var_attr",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "import_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "import_item",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "indirect_expression",
     "named": true,
     "fields": {
@@ -1351,6 +1493,32 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "inherit_statement",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "path": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "string_literal",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -2212,8 +2380,8 @@
     "named": false
   },
   {
-    "type": "forward_type",
-    "named": true
+    "type": "forward",
+    "named": false
   },
   {
     "type": "function",
@@ -2228,7 +2396,19 @@
     "named": false
   },
   {
+    "type": "implement",
+    "named": false
+  },
+  {
+    "type": "import",
+    "named": false
+  },
+  {
     "type": "in",
+    "named": false
+  },
+  {
+    "type": "inherit",
     "named": false
   },
   {
