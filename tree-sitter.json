@@ -1,0 +1,37 @@
+{
+  "grammars": [
+    {
+      "name": "turing",
+      "camelcase": "Turing/Toco",
+      "scope": "source.turing",
+      "file-types": [
+        ".tu",
+        ".t"
+      ],
+      "injection-regex": "^turing|toco$"
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0",
+    "license": "MIT",
+    "description": "Tree Sitter parser for the Turing and Toco languages",
+    "authors": [
+      {
+        "name": "DropDemBits",
+        "email": "r3usrlnd@gmail.com",
+        "url": "https://github.com/DropDemBits"
+      }
+    ],
+    "links": {
+      "repository": "ttps://github.com/DropDemBits/tree-sitter-turing"
+    }
+  },
+  "bindings": {
+    "c": false,
+    "go": false,
+    "node": true,
+    "python": false,
+    "rust": true,
+    "swift": false
+  }
+}

@@ -1009,11 +1009,6 @@
     }
   },
   {
-    "type": "forward_type",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "if_statement",
     "named": true,
     "fields": {
@@ -1428,6 +1423,7 @@
   {
     "type": "source_file",
     "named": true,
+    "root": true,
     "fields": {},
     "children": {
       "multiple": true,
@@ -1731,8 +1727,8 @@
     "named": false
   },
   {
-    "type": "forward",
-    "named": false
+    "type": "forward_type",
+    "named": true
   },
   {
     "type": "identifier",
@@ -1900,10 +1896,6 @@
   },
   {
     "type": "unit",
-    "named": false
-  },
-  {
-    "type": "unqualified",
     "named": false
   },
   {

@@ -1,3 +1,12 @@
+/**
+ * @file Tree Sitter parser for the Turing and Toco languages
+ * @author DropDemBits <r3usrlnd@gmail.com>
+ * @license MIT
+ */
+
+/// <reference types="tree-sitter-cli/dsl" />
+// @ts-check
+
 const PREC = {
   assign: 0,
   imply: 2,
@@ -389,6 +398,7 @@ module.exports = grammar({
     nameref_expression: $ => prec.left($.path_component),
 
     binary_expression: $ => {
+      /** @type {[number, string | ChoiceRule][]} */
       const left_assoc = [
         [PREC.imply, '=>'],
         [PREC.or, choice('or', '|')],
@@ -407,6 +417,7 @@ module.exports = grammar({
       //
       // Since we're targeting toco anyways, we're keeping
       // it right associative.
+      /** @type {[number, string | ChoiceRule][]} */
       const right_assoc = [
         [PREC.exp, '**']
       ];
