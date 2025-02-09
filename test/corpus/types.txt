@@ -914,7 +914,7 @@ end union
           field_type: (primitive_type))))))
 
 ================================================================================
-record ty - several semicolons
+union ty variant - several semicolons
 ================================================================================
 
 type u : union : 1 .. 2 of
@@ -924,23 +924,39 @@ label 1:
 label:
   f1, f2 : int;;;;;;;;;;;
   f3, f4 : int;
-end record
+end union
 
 --------------------------------------------------------------------------------
 
 (source_file
-  (line_comment)
   (type_declaration
     name: (identifier)
-    type_spec: (record_type
-      (record_field
-        name: (identifier)
-        name: (identifier)
-        field_type: (primitive_type))
-      (record_field
-        name: (identifier)
-        name: (identifier)
-        field_type: (primitive_type)))))
+    type_spec: (union_type
+      tag_range: (range_type
+        start: (literal_expression
+          (integer_literal))
+        end: (literal_expression
+          (integer_literal)))
+      (union_variant
+        selector: (literal_expression
+          (integer_literal))
+        (record_field
+          name: (identifier)
+          name: (identifier)
+          field_type: (primitive_type))
+        (record_field
+          name: (identifier)
+          name: (identifier)
+          field_type: (primitive_type)))
+      (union_variant
+        (record_field
+          name: (identifier)
+          name: (identifier)
+          field_type: (primitive_type))
+        (record_field
+          name: (identifier)
+          name: (identifier)
+          field_type: (primitive_type))))))
 
 ================================================================================
 union ty variant field - multiple names
