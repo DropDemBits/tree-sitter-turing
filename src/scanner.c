@@ -9,12 +9,37 @@
 enum TOKEN_TYPE {
   BLOCK_COMMENT,
   STRING_CONTENT,
+  CHAR_CONTENT,
   REAL_LITERAL,
+  ERROR_SENTINEL,
 };
 
 static void bump(TSLexer *lexer) { lexer->advance(lexer, false); }
 
 static bool is_num_char(int32_t c) { return c == '_' || iswdigit(c); }
+
+static inline bool parse_text_content(TSLexer *lexer, enum TOKEN_TYPE as_token,
+                                      int32_t end_char) {
+  bool has_content = false;
+
+  for (;;) {
+    if (lexer->lookahead == end_char || lexer->lookahead == '\\' ||
+        lexer->lookahead == '^' || lexer->lookahead == '\n') {
+      // End of a content fragment
+      break;
+    } else if (lexer->eof(lexer)) {
+      // End of a file, not a content fragment
+      return false;
+    }
+
+    has_content = true;
+    bump(lexer);
+  }
+
+  lexer->result_symbol = as_token;
+  lexer->mark_end(lexer);
+  return has_content;
+}
 
 void *tree_sitter_turing_external_scanner_create() { return NULL; }
 
@@ -31,27 +56,11 @@ void tree_sitter_turing_external_scanner_deserialize(void *payload,
 
 bool tree_sitter_turing_external_scanner_scan(void *payload, TSLexer *lexer,
                                               const bool *valid_symbols) {
-  // checking against `valid_symbols[REAL_LITERAL]` so that we don't eat content
-  // during recovery
   if (valid_symbols[STRING_CONTENT] && !valid_symbols[REAL_LITERAL]) {
-    bool has_content = false;
-
-    for (;;) {
-      if (lexer->lookahead == '\"' || lexer->lookahead == '\\' ||
-          lexer->lookahead == '^') {
-        // End of a content fragment
-        break;
-      } else if (lexer->lookahead == EOF_CHAR) {
-        // End of a file, not a content fragment
-        return false;
-      }
-
-      has_content = true;
-      bump(lexer);
-    }
-
-    lexer->result_symbol = STRING_CONTENT;
-    return has_content;
+    return parse_text_content(lexer, STRING_CONTENT, '\"');
+  }
+  if (valid_symbols[CHAR_CONTENT] && !valid_symbols[REAL_LITERAL]) {
+    return parse_text_content(lexer, CHAR_CONTENT, '\'');
   }
 
   // eat any leading ws

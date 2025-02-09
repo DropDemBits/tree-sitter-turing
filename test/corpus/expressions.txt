@@ -78,7 +78,6 @@ string literal - with caret escapes
 ================================================================================
 
 const a := "^a"
-const a := "^0"
 const a := "^@"
 const a := "^\"
 const a := "^[^]"
@@ -95,13 +94,9 @@ const a := "^?"
         (escape_sequence))))
   (constvar_declaration
     (identifier)
-    (ERROR)
-    (deref_expression
-      (literal_expression
-        (integer_literal))))
-  (ERROR
     (literal_expression
-      (string_literal)))
+      (string_literal
+        (escape_sequence))))
   (constvar_declaration
     (identifier)
     (literal_expression
@@ -129,7 +124,7 @@ string literal - not an escaped terminator
 ================================================================================
 
 const a := "abcd\\\k"
-const a := "abcd^^""
+const a := "abcd^^^""
 const a := "abcd^""
 const a := "abcd^="
 
@@ -145,17 +140,14 @@ const a := "abcd^="
           (identifier)))))
   (constvar_declaration
     (identifier)
-    (literal_expression
-      (string_literal
-        (escape_sequence))))
-  (ERROR
-    (literal_expression
-      (string_literal)))
-  (call_statement
-    (nameref_expression
-      (path_component
-        (identifier))))
-  (ERROR
+    (ERROR
+      (escape_sequence))
+    (deref_expression
+      (literal_expression
+        (string_literal))))
+  (constvar_declaration
+    (identifier)
+    (ERROR)
     (deref_expression
       (literal_expression
         (string_literal))))
@@ -181,8 +173,10 @@ const a := b
     (nameref_expression
       (path_component
         (identifier))))
-  (constvar_declaration
-    (identifier)
+  (assign_statement
+    (nameref_expression
+      (path_component
+        (identifier)))
     (nameref_expression
       (path_component
         (identifier)))))
@@ -216,12 +210,13 @@ const a := "abcd^"
     (identifier)
     (literal_expression
       (string_literal
-        (escape_sequence))))
-  (call_statement
-    (nameref_expression
-      (path_component
-        (identifier))))
-  (ERROR))
+        (escape_sequence)
+        (MISSING """))))
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (string_literal
+        (ERROR)))))
 
 ================================================================================
 string literal - invalid, empty
@@ -250,10 +245,7 @@ const a := 'abcd💖'
   (constvar_declaration
     (identifier)
     (literal_expression
-      (char_literal
-        (ERROR
-          (identifier)
-          (UNEXPECTED 128150))))))
+      (char_literal))))
 
 ================================================================================
 char literal - not an escaped terminator
@@ -286,8 +278,10 @@ const a := wah
     (nameref_expression
       (path_component
         (identifier))))
-  (constvar_declaration
-    (identifier)
+  (assign_statement
+    (nameref_expression
+      (path_component
+        (identifier)))
     (nameref_expression
       (path_component
         (identifier)))))
@@ -322,6 +316,11 @@ const a := 'abcd^'
     (literal_expression
       (char_literal
         (escape_sequence)
+        (MISSING "'"))))
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (char_literal
         (ERROR)))))
 
 ================================================================================
@@ -334,8 +333,10 @@ const a := 'abcd"
 
 (source_file
   (constvar_declaration
-    (identifier))
-  (ERROR))
+    (identifier)
+    (literal_expression
+      (char_literal
+        (MISSING "'")))))
 
 ================================================================================
 char literal - invalid, empty

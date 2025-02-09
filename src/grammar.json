@@ -2980,7 +2980,7 @@
               },
               {
                 "type": "SYMBOL",
-                "name": "_string_content"
+                "name": "_char_content"
               }
             ]
           }
@@ -5064,7 +5064,15 @@
     },
     {
       "type": "SYMBOL",
+      "name": "_char_content"
+    },
+    {
+      "type": "SYMBOL",
       "name": "real_literal"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_error_sentinel"
     }
   ],
   "inline": [
