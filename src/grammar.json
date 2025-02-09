@@ -301,7 +301,7 @@
           "name": "name",
           "content": {
             "type": "SYMBOL",
-            "name": "identifier"
+            "name": "_type_identifier"
           }
         },
         {
@@ -1171,7 +1171,7 @@
           "name": "name",
           "content": {
             "type": "SYMBOL",
-            "name": "identifier"
+            "name": "_type_identifier"
           }
         },
         {
@@ -1248,7 +1248,7 @@
           "name": "name",
           "content": {
             "type": "SYMBOL",
-            "name": "identifier"
+            "name": "_type_identifier"
           }
         },
         {
@@ -1338,7 +1338,7 @@
           "name": "name",
           "content": {
             "type": "SYMBOL",
-            "name": "identifier"
+            "name": "_type_identifier"
           }
         },
         {
@@ -2609,7 +2609,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "_external_item"
+          "name": "external_item"
         }
       ]
     },
@@ -2622,7 +2622,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "_external_item"
+          "name": "external_item"
         }
       ]
     },
@@ -2639,7 +2639,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "_external_item"
+          "name": "external_item"
         }
       ]
     },
@@ -2769,11 +2769,11 @@
         },
         {
           "type": "SYMBOL",
-          "name": "_external_item"
+          "name": "external_item"
         }
       ]
     },
-    "_external_item": {
+    "external_item": {
       "type": "CHOICE",
       "members": [
         {
@@ -4777,12 +4777,8 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "PREC_RIGHT",
-          "value": 0,
-          "content": {
-            "type": "SYMBOL",
-            "name": "_name_list"
-          }
+          "type": "SYMBOL",
+          "name": "_field_name_list"
         },
         {
           "type": "STRING",
@@ -4828,7 +4824,7 @@
                 "name": "tag_name",
                 "content": {
                   "type": "SYMBOL",
-                  "name": "identifier"
+                  "name": "_field_identifier"
                 }
               },
               {
@@ -5163,7 +5159,7 @@
                   "name": "name",
                   "content": {
                     "type": "SYMBOL",
-                    "name": "identifier"
+                    "name": "_type_identifier"
                   }
                 }
               ]
@@ -5289,6 +5285,24 @@
       "type": "PATTERN",
       "value": "[a-zA-Z_][a-zA-Z_0-9]*"
     },
+    "_type_identifier": {
+      "type": "ALIAS",
+      "content": {
+        "type": "SYMBOL",
+        "name": "identifier"
+      },
+      "named": true,
+      "value": "type_identifier"
+    },
+    "_field_identifier": {
+      "type": "ALIAS",
+      "content": {
+        "type": "SYMBOL",
+        "name": "identifier"
+      },
+      "named": true,
+      "value": "field_identifier"
+    },
     "_name_list": {
       "type": "SEQ",
       "members": [
@@ -5315,6 +5329,39 @@
                 "content": {
                   "type": "SYMBOL",
                   "name": "identifier"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "_field_name_list": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_field_identifier"
+          }
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": ","
+              },
+              {
+                "type": "FIELD",
+                "name": "name",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_field_identifier"
                 }
               }
             ]
@@ -5402,5 +5449,6 @@
     "_statement",
     "_type",
     "_expression"
-  ]
+  ],
+  "reserved": {}
 }

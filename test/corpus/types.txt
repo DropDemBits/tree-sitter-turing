@@ -22,49 +22,49 @@ type a : string
 
 (source_file
   (type_declaration
-    (identifier)
+    (type_identifier)
     (primitive_type))
   (type_declaration
-    (identifier)
+    (type_identifier)
     (primitive_type))
   (type_declaration
-    (identifier)
+    (type_identifier)
     (primitive_type))
   (type_declaration
-    (identifier)
+    (type_identifier)
     (primitive_type))
   (type_declaration
-    (identifier)
+    (type_identifier)
     (primitive_type))
   (type_declaration
-    (identifier)
+    (type_identifier)
     (primitive_type))
   (type_declaration
-    (identifier)
+    (type_identifier)
     (primitive_type))
   (type_declaration
-    (identifier)
+    (type_identifier)
     (primitive_type))
   (type_declaration
-    (identifier)
+    (type_identifier)
     (primitive_type))
   (type_declaration
-    (identifier)
+    (type_identifier)
     (primitive_type))
   (type_declaration
-    (identifier)
+    (type_identifier)
     (primitive_type))
   (type_declaration
-    (identifier)
+    (type_identifier)
     (primitive_type))
   (type_declaration
-    (identifier)
+    (type_identifier)
     (primitive_type))
   (type_declaration
-    (identifier)
+    (type_identifier)
     (primitive_type))
   (type_declaration
-    (identifier)
+    (type_identifier)
     (primitive_type)))
 
 ================================================================================
@@ -78,14 +78,14 @@ type a : string(a)
 
 (source_file
   (type_declaration
-    (identifier)
+    (type_identifier)
     (primitive_type
       (charseq_size
         (nameref_expression
           (path_component
             (identifier))))))
   (type_declaration
-    (identifier)
+    (type_identifier)
     (primitive_type
       (charseq_size
         (nameref_expression
@@ -103,11 +103,11 @@ type a : string(*)
 
 (source_file
   (type_declaration
-    (identifier)
+    (type_identifier)
     (primitive_type
       (charseq_size)))
   (type_declaration
-    (identifier)
+    (type_identifier)
     (primitive_type
       (charseq_size))))
 
@@ -121,7 +121,7 @@ type a : 1 .. 2
 
 (source_file
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (range_type
       start: (literal_expression
         (integer_literal))
@@ -138,7 +138,7 @@ type a : 1 ..
 
 (source_file
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (range_type
       start: (literal_expression
         (integer_literal))
@@ -156,7 +156,7 @@ type a : .. 2
 
 (source_file
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (range_type
       start: (nameref_expression
         (path_component
@@ -174,7 +174,7 @@ type a : ..
 
 (source_file
   (ERROR
-    (identifier)))
+    (type_identifier)))
 
 ================================================================================
 expression in type position
@@ -186,7 +186,7 @@ type a : 1 + 1
 
 (source_file
   (ERROR
-    (identifier)
+    (type_identifier)
     (binary_expression
       (literal_expression
         (integer_literal))
@@ -203,7 +203,7 @@ type e : enum()
 
 (source_file
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (enum_type)))
 
 ================================================================================
@@ -216,7 +216,7 @@ type e : enum() : 4
 
 (source_file
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (enum_type
       size_spec: (literal_expression
         (integer_literal)))))
@@ -231,7 +231,7 @@ type e : enum(a)
 
 (source_file
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (enum_type
       variant: (identifier))))
 
@@ -245,7 +245,7 @@ type e : packed enum(a)
 
 (source_file
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (enum_type
       (packed_attr)
       variant: (identifier))))
@@ -260,7 +260,7 @@ type e : enum(a) : 4
 
 (source_file
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (enum_type
       variant: (identifier)
       size_spec: (literal_expression
@@ -276,7 +276,7 @@ type e : enum(a, b, c, d, e, f)
 
 (source_file
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (enum_type
       variant: (identifier)
       variant: (identifier)
@@ -295,7 +295,7 @@ type e : packed enum(a, b, c, d, e, f)
 
 (source_file
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (enum_type
       (packed_attr)
       variant: (identifier)
@@ -315,7 +315,7 @@ type e : enum(a, b, c, d, e, f) : 4
 
 (source_file
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (enum_type
       variant: (identifier)
       variant: (identifier)
@@ -336,7 +336,7 @@ type a : array 1 .. 3, int, char, boolean of int
 
 (source_file
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (array_type
       index_range: (range_type
         start: (literal_expression
@@ -358,7 +358,7 @@ type a : packed array 1 .. 3, int, char, boolean of int
 
 (source_file
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (array_type
       (packed_attr)
       index_range: (range_type
@@ -381,7 +381,7 @@ type a : array 1 .. 3, of int
 
 (source_file
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (array_type
       index_range: (range_type
         start: (literal_expression
@@ -400,7 +400,7 @@ type e : set of int1
 
 (source_file
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (set_type
       element_type: (primitive_type))))
 
@@ -414,7 +414,7 @@ type e : packed set of int1
 
 (source_file
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (set_type
       (packed_attr)
       element_type: (primitive_type))))
@@ -429,7 +429,7 @@ type e : set of int1 : 2
 
 (source_file
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (set_type
       element_type: (primitive_type)
       size_spec: (literal_expression
@@ -448,13 +448,13 @@ end record
 
 (source_file
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (record_type
       (record_field
-        name: (identifier)
+        name: (field_identifier)
         field_type: (primitive_type))
       (record_field
-        name: (identifier)
+        name: (field_identifier)
         field_type: (range_type
           start: (literal_expression
             (integer_literal))
@@ -473,11 +473,11 @@ end record
 
 (source_file
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (record_type
       (packed_attr)
       (record_field
-        name: (identifier)
+        name: (field_identifier)
         field_type: (range_type
           start: (literal_expression
             (integer_literal))
@@ -497,7 +497,7 @@ end record
 (source_file
   (line_comment)
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (record_type)))
 
 ================================================================================
@@ -513,15 +513,15 @@ end record
 
 (source_file
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (record_type
       (record_field
-        name: (identifier)
-        name: (identifier)
+        name: (field_identifier)
+        name: (field_identifier)
         field_type: (primitive_type))
       (record_field
-        name: (identifier)
-        name: (identifier)
+        name: (field_identifier)
+        name: (field_identifier)
         field_type: (primitive_type)))))
 
 ================================================================================
@@ -537,15 +537,15 @@ end record
 
 (source_file
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (record_type
       (record_field
-        name: (identifier)
-        name: (identifier)
+        name: (field_identifier)
+        name: (field_identifier)
         field_type: (primitive_type))
       (record_field
-        name: (identifier)
-        name: (identifier)
+        name: (field_identifier)
+        name: (field_identifier)
         field_type: (primitive_type)))))
 
 ================================================================================
@@ -562,10 +562,10 @@ begin end
 
 (source_file
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (record_type
       (record_field
-        name: (identifier)
+        name: (field_identifier)
         field_type: (primitive_type))
       (MISSING "record")))
   (block_statement))
@@ -582,12 +582,12 @@ end record
 
 (source_file
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (record_type
       (record_field
-        name: (identifier)
-        name: (identifier)
-        name: (identifier)
+        name: (field_identifier)
+        name: (field_identifier)
+        name: (field_identifier)
         field_type: (primitive_type)))))
 
 ================================================================================
@@ -606,11 +606,11 @@ end record
   (line_comment)
   (line_comment)
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (record_type
       (record_field
-        name: (identifier)
-        name: (identifier)
+        name: (field_identifier)
+        name: (field_identifier)
         (ERROR)
         field_type: (primitive_type)))))
 
@@ -630,7 +630,7 @@ end union
 
 (source_file
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (union_type
       tag_range: (range_type
         start: (literal_expression
@@ -641,10 +641,10 @@ end union
         selector: (literal_expression
           (integer_literal))
         (record_field
-          name: (identifier)
+          name: (field_identifier)
           field_type: (primitive_type))
         (record_field
-          name: (identifier)
+          name: (field_identifier)
           field_type: (range_type
             start: (literal_expression
               (integer_literal))
@@ -652,7 +652,7 @@ end union
               (integer_literal)))))
       (union_variant
         (record_field
-          name: (identifier)
+          name: (field_identifier)
           field_type: (primitive_type))))))
 
 ================================================================================
@@ -671,9 +671,9 @@ end union
 
 (source_file
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (union_type
-      tag_name: (identifier)
+      tag_name: (field_identifier)
       tag_range: (range_type
         start: (literal_expression
           (integer_literal))
@@ -683,10 +683,10 @@ end union
         selector: (literal_expression
           (integer_literal))
         (record_field
-          name: (identifier)
+          name: (field_identifier)
           field_type: (primitive_type))
         (record_field
-          name: (identifier)
+          name: (field_identifier)
           field_type: (range_type
             start: (literal_expression
               (integer_literal))
@@ -694,7 +694,7 @@ end union
               (integer_literal)))))
       (union_variant
         (record_field
-          name: (identifier)
+          name: (field_identifier)
           field_type: (primitive_type))))))
 
 ================================================================================
@@ -710,7 +710,7 @@ end union
 
 (source_file
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (union_type
       (packed_attr)
       tag_range: (range_type
@@ -720,7 +720,7 @@ end union
           (integer_literal)))
       (union_variant
         (record_field
-          name: (identifier)
+          name: (field_identifier)
           field_type: (range_type
             start: (literal_expression
               (integer_literal))
@@ -740,10 +740,10 @@ end union
 
 (source_file
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (union_type
       (packed_attr)
-      tag_name: (identifier)
+      tag_name: (field_identifier)
       tag_range: (range_type
         start: (literal_expression
           (integer_literal))
@@ -751,7 +751,7 @@ end union
           (integer_literal)))
       (union_variant
         (record_field
-          name: (identifier)
+          name: (field_identifier)
           field_type: (range_type
             start: (literal_expression
               (integer_literal))
@@ -771,7 +771,7 @@ end union
 (source_file
   (line_comment)
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (union_type
       tag_range: (range_type
         start: (literal_expression
@@ -793,7 +793,7 @@ begin end
 
 (source_file
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (union_type
       tag_range: (range_type
         start: (literal_expression
@@ -816,7 +816,7 @@ end union
 
 (source_file
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (union_type
       tag_range: (range_type
         start: (literal_expression
@@ -843,7 +843,7 @@ end union
 
 (source_file
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (union_type
       tag_range: (range_type
         start: (literal_expression
@@ -864,7 +864,7 @@ end union
 
 (source_file
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (union_type
       tag_range: (range_type
         start: (literal_expression
@@ -896,7 +896,7 @@ end union
 
 (source_file
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (union_type
       tag_range: (range_type
         start: (literal_expression
@@ -905,12 +905,12 @@ end union
           (integer_literal)))
       (union_variant
         (record_field
-          name: (identifier)
-          name: (identifier)
+          name: (field_identifier)
+          name: (field_identifier)
           field_type: (primitive_type))
         (record_field
-          name: (identifier)
-          name: (identifier)
+          name: (field_identifier)
+          name: (field_identifier)
           field_type: (primitive_type))))))
 
 ================================================================================
@@ -930,7 +930,7 @@ end union
 
 (source_file
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (union_type
       tag_range: (range_type
         start: (literal_expression
@@ -941,21 +941,21 @@ end union
         selector: (literal_expression
           (integer_literal))
         (record_field
-          name: (identifier)
-          name: (identifier)
+          name: (field_identifier)
+          name: (field_identifier)
           field_type: (primitive_type))
         (record_field
-          name: (identifier)
-          name: (identifier)
+          name: (field_identifier)
+          name: (field_identifier)
           field_type: (primitive_type)))
       (union_variant
         (record_field
-          name: (identifier)
-          name: (identifier)
+          name: (field_identifier)
+          name: (field_identifier)
           field_type: (primitive_type))
         (record_field
-          name: (identifier)
-          name: (identifier)
+          name: (field_identifier)
+          name: (field_identifier)
           field_type: (primitive_type))))))
 
 ================================================================================
@@ -971,7 +971,7 @@ end union
 
 (source_file
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (union_type
       tag_range: (range_type
         start: (literal_expression
@@ -980,9 +980,9 @@ end union
           (integer_literal)))
       (union_variant
         (record_field
-          name: (identifier)
-          name: (identifier)
-          name: (identifier)
+          name: (field_identifier)
+          name: (field_identifier)
+          name: (field_identifier)
           field_type: (primitive_type))))))
 
 ================================================================================
@@ -1002,7 +1002,7 @@ end union
   (line_comment)
   (line_comment)
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (union_type
       tag_range: (range_type
         start: (literal_expression
@@ -1011,8 +1011,8 @@ end union
           (integer_literal)))
       (union_variant
         (record_field
-          name: (identifier)
-          name: (identifier)
+          name: (field_identifier)
+          name: (field_identifier)
           (ERROR)
           field_type: (primitive_type))))))
 
@@ -1027,11 +1027,11 @@ type p : ^int
 
 (source_file
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (pointer_type
       element_type: (primitive_type)))
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (pointer_type
       element_type: (primitive_type))))
 
@@ -1046,12 +1046,12 @@ type p : checked ^int
 
 (source_file
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (pointer_type
       checkedness: (checked_attr)
       element_type: (primitive_type)))
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (pointer_type
       checkedness: (checked_attr)
       element_type: (primitive_type))))
@@ -1067,12 +1067,12 @@ type p : unchecked ^int
 
 (source_file
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (pointer_type
       checkedness: (unchecked_attr)
       element_type: (primitive_type)))
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (pointer_type
       checkedness: (unchecked_attr)
       element_type: (primitive_type))))
@@ -1087,7 +1087,7 @@ type p : unchecked pointer to checked^^ pointer to int
 
 (source_file
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (pointer_type
       checkedness: (unchecked_attr)
       element_type: (pointer_type
@@ -1107,12 +1107,12 @@ type a : fcn() : int
 
 (source_file
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (function_type
       params: (param_spec)
       result_type: (primitive_type)))
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (function_type
       params: (param_spec)
       result_type: (primitive_type))))
@@ -1127,7 +1127,7 @@ type a : function name() : int
 
 (source_file
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (function_type
       name: (identifier)
       params: (param_spec)
@@ -1143,7 +1143,7 @@ type a : function : int
 
 (source_file
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (function_type
       result_type: (primitive_type))))
 
@@ -1157,7 +1157,7 @@ type a : function name(a : int) : int
 
 (source_file
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (function_type
       name: (identifier)
       params: (param_spec
@@ -1176,7 +1176,7 @@ type a : function name(fcn() : int) : int
 
 (source_file
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (function_type
       name: (identifier)
       params: (param_spec
@@ -1195,7 +1195,7 @@ type a : function name(fcn a() : int) : int
 
 (source_file
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (function_type
       name: (identifier)
       params: (param_spec
@@ -1215,7 +1215,7 @@ type a : function name(proc a()) : int
 
 (source_file
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (function_type
       name: (identifier)
       params: (param_spec
@@ -1235,11 +1235,11 @@ type a : proc()
 
 (source_file
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (procedure_type
       params: (param_spec)))
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (procedure_type
       params: (param_spec))))
 
@@ -1253,7 +1253,7 @@ type a : procedure name()
 
 (source_file
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (procedure_type
       name: (identifier)
       params: (param_spec))))
@@ -1268,7 +1268,7 @@ type a : procedure
 
 (source_file
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (procedure_type)))
 
 ================================================================================
@@ -1281,7 +1281,7 @@ type a : procedure name(a : int)
 
 (source_file
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (procedure_type
       name: (identifier)
       params: (param_spec
@@ -1299,7 +1299,7 @@ type a : procedure name(fcn() : int)
 
 (source_file
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (procedure_type
       name: (identifier)
       params: (param_spec
@@ -1317,7 +1317,7 @@ type a : procedure name(fcn a() : int)
 
 (source_file
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (procedure_type
       name: (identifier)
       params: (param_spec
@@ -1336,7 +1336,7 @@ type a : procedure name(proc a())
 
 (source_file
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (procedure_type
       name: (identifier)
       params: (param_spec
@@ -1354,7 +1354,7 @@ type a : collection of int
 
 (source_file
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (collection_type
       element_type: (primitive_type))))
 
@@ -1368,9 +1368,9 @@ type a : collection of forward thing
 
 (source_file
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (collection_type
-      name: (identifier))))
+      name: (type_identifier))))
 
 ===============================================================================
 condition type
@@ -1385,14 +1385,14 @@ type a : timeout condition
 
 (source_file
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (condition_type))
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (condition_type))
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (condition_type))
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (condition_type)))

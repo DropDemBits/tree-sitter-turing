@@ -15,7 +15,7 @@ type q : int;
     (literal_expression
       (integer_literal)))
   (type_declaration
-    (identifier)
+    (type_identifier)
     (primitive_type)))
 
 ================================================================================
@@ -33,7 +33,7 @@ type q : int;
     (literal_expression
       (integer_literal)))
   (type_declaration
-    (identifier)
+    (type_identifier)
     (primitive_type)))
 
 ================================================================================
@@ -221,10 +221,10 @@ type a : forward
 
 (source_file
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (primitive_type))
   (type_declaration
-    name: (identifier)
+    name: (type_identifier)
     type_spec: (forward_type)))
 
 ================================================================================
@@ -239,11 +239,11 @@ type * a : boolean
 (source_file
   (type_declaration
     (pervasive_attr)
-    (identifier)
+    (type_identifier)
     (primitive_type))
   (type_declaration
     (pervasive_attr)
-    (identifier)
+    (type_identifier)
     (primitive_type)))
 
 ================================================================================
@@ -256,7 +256,7 @@ type a boolean
 
 (source_file
   (ERROR
-    (identifier)
+    (type_identifier)
     (identifier)))
 
 ================================================================================
@@ -1469,10 +1469,12 @@ forward function someFn() : int import var a, const b
     result_type: (primitive_type)
     (import_item
       (var_attr)
-      name: (identifier))
+      (external_item
+        name: (identifier)))
     (import_item
       (const_attr)
-      name: (identifier))))
+      (external_item
+        name: (identifier)))))
 
 ================================================================================
 forward declaration - forward procedure
@@ -1505,10 +1507,12 @@ forward procedure someProc() import var a, const b
     params: (param_spec)
     (import_item
       (var_attr)
-      name: (identifier))
+      (external_item
+        name: (identifier)))
     (import_item
       (const_attr)
-      name: (identifier))))
+      (external_item
+        name: (identifier)))))
 
 ================================================================================
 deferred declaration - function
@@ -1557,7 +1561,7 @@ end a
 
 (source_file
   (module_declaration
-    name: (identifier)
+    name: (type_identifier)
     (block_statement)
     end_name: (identifier)))
 
@@ -1577,12 +1581,12 @@ end a
 (source_file
   (module_declaration
     (pervasive_attr)
-    name: (identifier)
+    name: (type_identifier)
     (block_statement)
     end_name: (identifier))
   (module_declaration
     (pervasive_attr)
-    name: (identifier)
+    name: (type_identifier)
     (block_statement)
     end_name: (identifier)))
 
@@ -1599,7 +1603,7 @@ begin end
 
 (source_file
   (module_declaration
-    name: (identifier)
+    name: (type_identifier)
     (block_statement))
   (block_statement))
 
@@ -1618,11 +1622,11 @@ end a
 
 (source_file
   (class_declaration
-    name: (identifier)
+    name: (type_identifier)
     (block_statement)
     end_name: (identifier))
   (class_declaration
-    name: (identifier)
+    name: (type_identifier)
     (block_statement)
     end_name: (identifier)))
 
@@ -1650,22 +1654,22 @@ end a
 (source_file
   (class_declaration
     (pervasive_attr)
-    name: (identifier)
+    name: (type_identifier)
     (block_statement)
     end_name: (identifier))
   (class_declaration
     (pervasive_attr)
-    name: (identifier)
+    name: (type_identifier)
     (block_statement)
     end_name: (identifier))
   (class_declaration
     (pervasive_attr)
-    name: (identifier)
+    name: (type_identifier)
     (block_statement)
     end_name: (identifier))
   (class_declaration
     (pervasive_attr)
-    name: (identifier)
+    name: (type_identifier)
     (block_statement)
     end_name: (identifier)))
 
@@ -1686,10 +1690,10 @@ begin end
 
 (source_file
   (class_declaration
-    name: (identifier)
+    name: (type_identifier)
     (block_statement))
   (class_declaration
-    name: (identifier)
+    name: (type_identifier)
     (block_statement))
   (block_statement))
 
@@ -1710,13 +1714,13 @@ end a
 (source_file
   (line_comment)
   (class_declaration
-    name: (identifier)
+    name: (type_identifier)
     device_spec: (literal_expression
       (integer_literal))
     (block_statement)
     end_name: (identifier))
   (class_declaration
-    name: (identifier)
+    name: (type_identifier)
     device_spec: (literal_expression
       (integer_literal))
     (block_statement)
@@ -1733,7 +1737,7 @@ end a
 
 (source_file
   (monitor_declaration
-    name: (identifier)
+    name: (type_identifier)
     (block_statement)
     end_name: (identifier)))
 
@@ -1753,12 +1757,12 @@ end a
 (source_file
   (monitor_declaration
     (pervasive_attr)
-    name: (identifier)
+    name: (type_identifier)
     (block_statement)
     end_name: (identifier))
   (monitor_declaration
     (pervasive_attr)
-    name: (identifier)
+    name: (type_identifier)
     (block_statement)
     end_name: (identifier)))
 
@@ -1775,7 +1779,7 @@ begin end
 
 (source_file
   (monitor_declaration
-    name: (identifier)
+    name: (type_identifier)
     (block_statement))
   (block_statement))
 
@@ -1796,13 +1800,13 @@ end a
 (source_file
   (line_comment)
   (class_declaration
-    name: (identifier)
+    name: (type_identifier)
     device_spec: (literal_expression
       (integer_literal))
     (block_statement)
     end_name: (identifier))
   (class_declaration
-    name: (identifier)
+    name: (type_identifier)
     device_spec: (literal_expression
       (integer_literal))
     (block_statement)
@@ -2856,7 +2860,8 @@ inherit something
 
 (source_file
   (inherit_statement
-    name: (identifier)))
+    (external_item
+      name: (identifier))))
 
 ================================================================================
 inherit statement - name in path
@@ -2868,9 +2873,10 @@ inherit something in "path"
 
 (source_file
   (inherit_statement
-    name: (identifier)
-    path: (string_literal
-      (string_content))))
+    (external_item
+      name: (identifier)
+      path: (string_literal
+        (string_content)))))
 
 ================================================================================
 inherit statement - at path
@@ -2882,8 +2888,9 @@ inherit "path"
 
 (source_file
   (inherit_statement
-    path: (string_literal
-      (string_content))))
+    (external_item
+      path: (string_literal
+        (string_content)))))
 
 ================================================================================
 implement statement - same name
@@ -2895,7 +2902,8 @@ implement something
 
 (source_file
   (implement_statement
-    name: (identifier)))
+    (external_item
+      name: (identifier))))
 
 ================================================================================
 implement statement - name in path
@@ -2907,9 +2915,10 @@ implement something in "path"
 
 (source_file
   (implement_statement
-    name: (identifier)
-    path: (string_literal
-      (string_content))))
+    (external_item
+      name: (identifier)
+      path: (string_literal
+        (string_content)))))
 
 ================================================================================
 implement statement - at path
@@ -2921,8 +2930,9 @@ implement "path"
 
 (source_file
   (implement_statement
-    path: (string_literal
-      (string_content))))
+    (external_item
+      path: (string_literal
+        (string_content)))))
 
 ================================================================================
 implement by statement - same name
@@ -2934,7 +2944,8 @@ implement by something
 
 (source_file
   (implement_by_statement
-    name: (identifier)))
+    (external_item
+      name: (identifier))))
 
 ================================================================================
 implement by statement - name in path
@@ -2946,9 +2957,10 @@ implement by something in "path"
 
 (source_file
   (implement_by_statement
-    name: (identifier)
-    path: (string_literal
-      (string_content))))
+    (external_item
+      name: (identifier)
+      path: (string_literal
+        (string_content)))))
 
 ================================================================================
 implement by statement - at path
@@ -2960,8 +2972,9 @@ implement by "path"
 
 (source_file
   (implement_by_statement
-    path: (string_literal
-      (string_content))))
+    (external_item
+      path: (string_literal
+        (string_content)))))
 
 ================================================================================
 import statement - empty
@@ -2985,7 +2998,8 @@ import something
 (source_file
   (import_statement
     (import_item
-      name: (identifier))))
+      (external_item
+        name: (identifier)))))
 
 ================================================================================
 import statement - one item with parens
@@ -2998,7 +3012,8 @@ import (something)
 (source_file
   (import_statement
     (import_item
-      name: (identifier))))
+      (external_item
+        name: (identifier)))))
 
 ================================================================================
 import statement - one item with parens and optional comma
@@ -3011,7 +3026,8 @@ import (something,)
 (source_file
   (import_statement
     (import_item
-      name: (identifier))))
+      (external_item
+        name: (identifier)))))
 
 ================================================================================
 import statement - one item in path
@@ -3024,9 +3040,10 @@ import something in "path"
 (source_file
   (import_statement
     (import_item
-      name: (identifier)
-      path: (string_literal
-        (string_content)))))
+      (external_item
+        name: (identifier)
+        path: (string_literal
+          (string_content))))))
 
 ================================================================================
 import statement - from path
@@ -3039,8 +3056,9 @@ import "path"
 (source_file
   (import_statement
     (import_item
-      path: (string_literal
-        (string_content)))))
+      (external_item
+        path: (string_literal
+          (string_content))))))
 
 ================================================================================
 import statement - all attrs
@@ -3062,33 +3080,41 @@ import(
 (source_file
   (import_statement
     (import_item
-      name: (identifier))
+      (external_item
+        name: (identifier)))
     (import_item
       (var_attr)
-      name: (identifier))
+      (external_item
+        name: (identifier)))
     (import_item
       (const_attr)
-      name: (identifier))
+      (external_item
+        name: (identifier)))
     (import_item
       (var_attr)
       (const_attr)
-      name: (identifier))
+      (external_item
+        name: (identifier)))
     (import_item
       (const_attr)
       (var_attr)
-      name: (identifier))
+      (external_item
+        name: (identifier)))
     (import_item
       (forward_attr)
       (const_attr)
       (var_attr)
-      name: (identifier))
+      (external_item
+        name: (identifier)))
     (import_item
       (const_attr)
       (var_attr)
       (forward_attr)
-      name: (identifier))
+      (external_item
+        name: (identifier)))
     (import_item
       (const_attr)
       (const_attr)
       (const_attr)
-      name: (identifier))))
+      (external_item
+        name: (identifier)))))

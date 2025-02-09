@@ -144,12 +144,12 @@ const a := "abcd^="
           (identifier)))))
   (constvar_declaration
     (identifier)
-    (literal_expression
-      (string_literal
-        (string_content)
-        (escape_sequence)
-        (ERROR))))
-  (ERROR)
+    (ERROR
+      (string_content)
+      (escape_sequence))
+    (deref_expression
+      (literal_expression
+        (string_literal))))
   (constvar_declaration
     (identifier)
     (ERROR

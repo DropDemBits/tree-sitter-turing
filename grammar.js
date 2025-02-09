@@ -150,7 +150,7 @@ module.exports = grammar({
     type_declaration: $ => seq(
       'type',
       optional($.pervasive_attr),
-      field('name', $.identifier),
+      field('name', $._type_identifier),
       ':',
       field('type_spec', choice($._type, $.forward_type)),
     ),
@@ -264,7 +264,7 @@ module.exports = grammar({
     module_declaration: $ => seq(
       'module',
       optional($.pervasive_attr),
-      field('name', $.identifier),
+      field('name', $._type_identifier),
       _statement_list($),
       end_named_tail($),
     ),
@@ -272,7 +272,7 @@ module.exports = grammar({
     class_declaration: $ => seq(
       optional('monitor'), 'class',
       optional($.pervasive_attr),
-      field('name', $.identifier),
+      field('name', $._type_identifier),
       optional(seq(':', field('device_spec', $._expression))),
       _statement_list($),
       end_named_tail($),
@@ -281,7 +281,7 @@ module.exports = grammar({
     monitor_declaration: $ => seq(
       'monitor',
       optional($.pervasive_attr),
-      field('name', $.identifier),
+      field('name', $._type_identifier),
       optional(seq(':', field('device_spec', $._expression))),
       _statement_list($),
       end_named_tail($),
@@ -393,11 +393,11 @@ module.exports = grammar({
 
     checkedness_statement: $ => $._checkedness,
 
-    inherit_statement: $ => seq('inherit', $._external_item),
+    inherit_statement: $ => seq('inherit', $.external_item),
 
-    implement_statement: $ => seq('implement', $._external_item),
+    implement_statement: $ => seq('implement', $.external_item),
 
-    implement_by_statement: $ => seq('implement', 'by', $._external_item),
+    implement_by_statement: $ => seq('implement', 'by', $.external_item),
 
     import_statement: $ => seq(
       'import',
@@ -411,10 +411,10 @@ module.exports = grammar({
 
     import_item: $ => seq(
       repeat(choice($.var_attr, $.const_attr, $.forward_attr)),
-      $._external_item,
+      $.external_item,
     ),
 
-    _external_item: $ => choice(
+    external_item: $ => choice(
       field('path', $.string_literal),
       seq(
         field('name', $.identifier),
@@ -773,14 +773,14 @@ module.exports = grammar({
     )),
 
     record_field: $ => seq(
-      prec.right($._name_list),
+      $._field_name_list,
       ':', field('field_type', $._type),
     ),
 
     union_type: $ => prec.right(seq(
       optional($.packed_attr),
       'union',
-      optional(field('tag_name', $.identifier)),
+      optional(field('tag_name', $._field_identifier)),
       ':', field("tag_range", $._type), 'of',
       repeat($.union_variant),
       end_keyword_tail('union'),
@@ -817,7 +817,7 @@ module.exports = grammar({
       'collection', 'of',
       choice(
         field('element_type', $._type),
-        seq('forward', field('name', $.identifier)),
+        seq('forward', field('name', $._type_identifier)),
       ),
     ),
 
@@ -853,7 +853,11 @@ module.exports = grammar({
 
     identifier: $ => /[a-zA-Z_][a-zA-Z_0-9]*/,
 
+    _type_identifier: $ => alias($.identifier, $.type_identifier),
+    _field_identifier: $ => alias($.identifier, $.field_identifier),
+
     _name_list: $ => sepBy1(',', field('name', $.identifier)),
+    _field_name_list: $ => sepBy1(',', field('name', $._field_identifier)),
 
     item_path: $ => sepBy1(',', $.path_component),
 
