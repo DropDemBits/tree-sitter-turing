@@ -208,6 +208,10 @@
     "named": true,
     "subtypes": [
       {
+        "type": "array_type",
+        "named": true
+      },
+      {
         "type": "collection_type",
         "named": true
       },
@@ -240,10 +244,54 @@
         "named": true
       },
       {
+        "type": "record_type",
+        "named": true
+      },
+      {
         "type": "set_type",
+        "named": true
+      },
+      {
+        "type": "union_type",
         "named": true
       }
     ]
+  },
+  {
+    "type": "array_type",
+    "named": true,
+    "fields": {
+      "element_type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_type",
+            "named": true
+          }
+        ]
+      },
+      "index_range": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "_type",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "packed_attr",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "arrow_expression",
@@ -2396,6 +2444,51 @@
     }
   },
   {
+    "type": "record_field",
+    "named": true,
+    "fields": {
+      "field_type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_type",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "record_type",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "packed_attr",
+          "named": true
+        },
+        {
+          "type": "record_field",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "result_statement",
     "named": true,
     "fields": {
@@ -2651,6 +2744,72 @@
     }
   },
   {
+    "type": "union_type",
+    "named": true,
+    "fields": {
+      "tag_name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "tag_range": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_type",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "packed_attr",
+          "named": true
+        },
+        {
+          "type": "union_variant",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "union_variant",
+    "named": true,
+    "fields": {
+      "selector": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "_expression",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "record_field",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "var_attr",
     "named": true,
     "fields": {}
@@ -2773,6 +2932,10 @@
   },
   {
     "type": "and",
+    "named": false
+  },
+  {
+    "type": "array",
     "named": false
   },
   {
@@ -3052,6 +3215,10 @@
     "named": true
   },
   {
+    "type": "record",
+    "named": false
+  },
+  {
     "type": "register_attr",
     "named": true
   },
@@ -3118,6 +3285,10 @@
   {
     "type": "unchecked_attr",
     "named": true
+  },
+  {
+    "type": "union",
+    "named": false
   },
   {
     "type": "unit",

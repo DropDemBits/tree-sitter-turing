@@ -691,10 +691,10 @@ module.exports = grammar({
       $.primitive_type,
       $.range_type,
       $.enum_type,
-      // $.array_type,
+      $.array_type,
       $.set_type,
-      // $.record_type,
-      // $.union_type,
+      $.record_type,
+      $.union_type,
       $.pointer_type,
       $.function_type,
       $.procedure_type,
@@ -737,7 +737,9 @@ module.exports = grammar({
 
     // ???:
     // - does a cheat expression allow inline set/enum type defs?
+    //   - no
     // - does a cheat expression allow overriding size spec, or does it use the same size spec here?
+    //   - allows overriding, smaller size means can get a value that's too big
     enum_type: $ => prec.right(seq(
       optional($.packed_attr),
       'enum',
@@ -747,6 +749,14 @@ module.exports = grammar({
       optional(seq(':', field('size_spec', $._expression))),
     )),
 
+    array_type: $ => prec.right(seq(
+      optional($.packed_attr),
+      'array',
+      sepBy1(',', field('index_range', $._type)), optional(','),
+      'of',
+      field('element_type', $._type),
+    )),
+
     set_type: $ => prec.right(seq(
       optional($.packed_attr),
       'set',
@@ -754,6 +764,32 @@ module.exports = grammar({
       field('element_type', $._type),
       optional(seq(':', field('size_spec', $._expression))),
     )),
+
+    record_type: $ => prec.right(seq(
+      optional($.packed_attr),
+      'record',
+      repeat(choice($.record_field, ';')),
+      end_keyword_tail('record'),
+    )),
+
+    record_field: $ => seq(
+      prec.right($._name_list),
+      ':', field('field_type', $._type),
+    ),
+
+    union_type: $ => prec.right(seq(
+      optional($.packed_attr),
+      'union',
+      optional(field('tag_name', $.identifier)),
+      ':', field("tag_range", $._type), 'of',
+      repeat($.union_variant),
+      end_keyword_tail('union'),
+    )),
+
+    union_variant: $ => seq(
+      'label', sepBy(',', field('selector', $._expression)), ':',
+      repeat(choice($.record_field, ';')),
+    ),
 
     pointer_type: $ => seq(
       optional(field('checkedness', $._checkedness)),
