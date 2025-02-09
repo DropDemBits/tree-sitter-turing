@@ -1541,6 +1541,268 @@ deferred proc someProc()
     params: (param_spec)))
 
 ================================================================================
+module declaration - standard
+================================================================================
+module a
+begin end
+end a
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (module_declaration
+    name: (identifier)
+    (block_statement)
+    end_name: (identifier)))
+
+================================================================================
+module declaration - pervasive
+================================================================================
+module *a
+begin end
+end a
+
+module pervasive a
+begin end
+end a
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (module_declaration
+    (pervasive_attr)
+    name: (identifier)
+    (block_statement)
+    end_name: (identifier))
+  (module_declaration
+    (pervasive_attr)
+    name: (identifier)
+    (block_statement)
+    end_name: (identifier)))
+
+================================================================================
+module declaration - missing final end name
+================================================================================
+module a
+begin end
+end 
+
+begin end
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (module_declaration
+    name: (identifier)
+    (block_statement))
+  (block_statement))
+
+================================================================================
+class declaration - standard
+================================================================================
+class a
+begin end
+end a
+
+monitor class a
+begin end
+end a
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_declaration
+    name: (identifier)
+    (block_statement)
+    end_name: (identifier))
+  (class_declaration
+    name: (identifier)
+    (block_statement)
+    end_name: (identifier)))
+
+================================================================================
+class declaration - pervasive
+================================================================================
+class *a
+begin end
+end a
+
+class pervasive a
+begin end
+end a
+
+monitor class *a
+begin end
+end a
+
+monitor class pervasive a
+begin end
+end a
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_declaration
+    (pervasive_attr)
+    name: (identifier)
+    (block_statement)
+    end_name: (identifier))
+  (class_declaration
+    (pervasive_attr)
+    name: (identifier)
+    (block_statement)
+    end_name: (identifier))
+  (class_declaration
+    (pervasive_attr)
+    name: (identifier)
+    (block_statement)
+    end_name: (identifier))
+  (class_declaration
+    (pervasive_attr)
+    name: (identifier)
+    (block_statement)
+    end_name: (identifier)))
+
+================================================================================
+class declaration - missing final end name
+================================================================================
+class a
+begin end
+end 
+
+monitor class a
+begin end
+end 
+
+begin end
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (class_declaration
+    name: (identifier)
+    (block_statement))
+  (class_declaration
+    name: (identifier)
+    (block_statement))
+  (block_statement))
+
+================================================================================
+class declaration - device spec
+================================================================================
+% semantically not valid but should still be parsed correctly
+class a : 1
+begin end
+end a 
+
+monitor class a : 1
+begin end
+end a 
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line_comment)
+  (class_declaration
+    name: (identifier)
+    device_spec: (literal_expression
+      (integer_literal))
+    (block_statement)
+    end_name: (identifier))
+  (class_declaration
+    name: (identifier)
+    device_spec: (literal_expression
+      (integer_literal))
+    (block_statement)
+    end_name: (identifier)))
+
+================================================================================
+monitor declaration - standard
+================================================================================
+monitor a
+begin end
+end a
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (monitor_declaration
+    name: (identifier)
+    (block_statement)
+    end_name: (identifier)))
+
+================================================================================
+monitor declaration - pervasive
+================================================================================
+monitor *a
+begin end
+end a
+
+monitor pervasive a
+begin end
+end a
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (monitor_declaration
+    (pervasive_attr)
+    name: (identifier)
+    (block_statement)
+    end_name: (identifier))
+  (monitor_declaration
+    (pervasive_attr)
+    name: (identifier)
+    (block_statement)
+    end_name: (identifier)))
+
+================================================================================
+monitor declaration - missing final end name
+================================================================================
+monitor a
+begin end
+end 
+
+begin end
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (monitor_declaration
+    name: (identifier)
+    (block_statement))
+  (block_statement))
+
+================================================================================
+class declaration - device spec
+================================================================================
+% semantically not valid but should still be parsed correctly
+class a : 1
+begin end
+end a 
+
+monitor class a : 1
+begin end
+end a 
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line_comment)
+  (class_declaration
+    name: (identifier)
+    device_spec: (literal_expression
+      (integer_literal))
+    (block_statement)
+    end_name: (identifier))
+  (class_declaration
+    name: (identifier)
+    device_spec: (literal_expression
+      (integer_literal))
+    (block_statement)
+    end_name: (identifier)))
+
+================================================================================
 loop statement - normal
 ================================================================================
 loop end loop
@@ -2549,6 +2811,34 @@ result
 
 (source_file
   (ERROR))
+
+===============================================================================
+checkedness statement - checked
+===============================================================================
+
+checked
+begin end
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (checkedness_statement
+    (checked_attr))
+  (block_statement))
+
+===============================================================================
+checkedness statement - unchecked
+===============================================================================
+
+unchecked
+begin end
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (checkedness_statement
+    (unchecked_attr))
+  (block_statement))
 
 ================================================================================
 inherit statement - same name

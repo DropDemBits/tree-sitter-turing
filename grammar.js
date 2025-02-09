@@ -84,9 +84,9 @@ module.exports = grammar({
       $.forward_declaration,
       $.deferred_declaration,
       // $.body_declaration,
-      // $.module_declaration,
-      // $.class_declaration,
-      // $.monitor_declaration,
+      $.module_declaration,
+      $.class_declaration,
+      $.monitor_declaration,
 
       // Simple statements //
       $.assign_statement,
@@ -117,7 +117,7 @@ module.exports = grammar({
       // $.pause_statement,
       // $.quit_statement,
       // $.break_statement,
-      // $.checkedness_statement,
+      $.checkedness_statement,
       // $.pre_statement,
       // $.init_statement,
       // $.post_statement,
@@ -259,6 +259,32 @@ module.exports = grammar({
 
     deferred_declaration: $ => seq('deferred', $._subprogram_header),
 
+    module_declaration: $ => seq(
+      'module',
+      optional($.pervasive_attr),
+      field('name', $.identifier),
+      _statement_list($),
+      end_named_tail($),
+    ),
+
+    class_declaration: $ => seq(
+      optional('monitor'), 'class',
+      optional($.pervasive_attr),
+      field('name', $.identifier),
+      optional(seq(':', field('device_spec', $._expression))),
+      _statement_list($),
+      end_named_tail($),
+    ),
+
+    monitor_declaration: $ => seq(
+      'monitor',
+      optional($.pervasive_attr),
+      field('name', $.identifier),
+      optional(seq(':', field('device_spec', $._expression))),
+      _statement_list($),
+      end_named_tail($),
+    ),
+
     assign_statement: $ => prec.right(PREC.assign, seq(
       field('left', $._expression),
       ':=',
@@ -362,6 +388,8 @@ module.exports = grammar({
     return_statement: $ => 'return',
 
     result_statement: $ => seq('result', field('value', $._expression)),
+
+    checkedness_statement: $ => $._checkedness,
 
     inherit_statement: $ => seq('inherit', $._external_item),
 
