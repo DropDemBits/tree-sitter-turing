@@ -31,8 +31,8 @@ module.exports = grammar({
 
   externals: $ => [
     $.block_comment,
-    $._string_content,
-    $._char_content,
+    $.string_content,
+    $.char_content,
     $.real_literal,
     $._error_sentinel,
   ],
@@ -466,7 +466,7 @@ module.exports = grammar({
       repeat(
         choice(
           $.escape_sequence,
-          $._string_content,
+          $.string_content,
         )
       ),
       token.immediate('"'),
@@ -477,7 +477,7 @@ module.exports = grammar({
       repeat(
         choice(
           $.escape_sequence,
-          $._char_content,
+          $.char_content,
         )
       ),
       token.immediate('\''),

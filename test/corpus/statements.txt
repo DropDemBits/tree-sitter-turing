@@ -1302,7 +1302,8 @@ external "externVar" var externVar
 (source_file
   (external_declaration
     external_spec: (literal_expression
-      (string_literal))
+      (string_literal
+        (string_content)))
     name: (identifier)))
 
 ================================================================================
@@ -1343,7 +1344,8 @@ external "externVar" var externVar : int := 1
 (source_file
   (external_declaration
     external_spec: (literal_expression
-      (string_literal))
+      (string_literal
+        (string_content)))
     name: (identifier)
     type_spec: (primitive_type)
     initializer: (literal_expression
@@ -1380,13 +1382,15 @@ external "someFn" fcn someFn() : int
 (source_file
   (external_declaration
     external_spec: (literal_expression
-      (string_literal))
+      (string_literal
+        (string_content)))
     name: (identifier)
     params: (param_spec)
     result_type: (primitive_type))
   (external_declaration
     external_spec: (literal_expression
-      (string_literal))
+      (string_literal
+        (string_content)))
     name: (identifier)
     params: (param_spec)
     result_type: (primitive_type)))
@@ -1420,12 +1424,14 @@ external "someProc" proc someProc()
 (source_file
   (external_declaration
     external_spec: (literal_expression
-      (string_literal))
+      (string_literal
+        (string_content)))
     name: (identifier)
     params: (param_spec))
   (external_declaration
     external_spec: (literal_expression
-      (string_literal))
+      (string_literal
+        (string_content)))
     name: (identifier)
     params: (param_spec)))
 
@@ -2863,7 +2869,8 @@ inherit something in "path"
 (source_file
   (inherit_statement
     name: (identifier)
-    path: (string_literal)))
+    path: (string_literal
+      (string_content))))
 
 ================================================================================
 inherit statement - at path
@@ -2875,7 +2882,8 @@ inherit "path"
 
 (source_file
   (inherit_statement
-    path: (string_literal)))
+    path: (string_literal
+      (string_content))))
 
 ================================================================================
 implement statement - same name
@@ -2900,7 +2908,8 @@ implement something in "path"
 (source_file
   (implement_statement
     name: (identifier)
-    path: (string_literal)))
+    path: (string_literal
+      (string_content))))
 
 ================================================================================
 implement statement - at path
@@ -2912,7 +2921,8 @@ implement "path"
 
 (source_file
   (implement_statement
-    path: (string_literal)))
+    path: (string_literal
+      (string_content))))
 
 ================================================================================
 implement by statement - same name
@@ -2937,7 +2947,8 @@ implement by something in "path"
 (source_file
   (implement_by_statement
     name: (identifier)
-    path: (string_literal)))
+    path: (string_literal
+      (string_content))))
 
 ================================================================================
 implement by statement - at path
@@ -2949,7 +2960,8 @@ implement by "path"
 
 (source_file
   (implement_by_statement
-    path: (string_literal)))
+    path: (string_literal
+      (string_content))))
 
 ================================================================================
 import statement - empty
@@ -3013,7 +3025,8 @@ import something in "path"
   (import_statement
     (import_item
       name: (identifier)
-      path: (string_literal))))
+      path: (string_literal
+        (string_content)))))
 
 ================================================================================
 import statement - from path
@@ -3026,7 +3039,8 @@ import "path"
 (source_file
   (import_statement
     (import_item
-      path: (string_literal))))
+      path: (string_literal
+        (string_content)))))
 
 ================================================================================
 import statement - all attrs

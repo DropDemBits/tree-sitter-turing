@@ -10,7 +10,8 @@ const a := "abcd💖"
   (constvar_declaration
     (identifier)
     (literal_expression
-      (string_literal))))
+      (string_literal
+        (string_content)))))
 
 ================================================================================
 string literal - with backslash escapes
@@ -71,7 +72,9 @@ const a := "  \t  "
     (identifier)
     (literal_expression
       (string_literal
-        (escape_sequence)))))
+        (string_content)
+        (escape_sequence)
+        (string_content)))))
 
 ================================================================================
 string literal - with caret escapes
@@ -135,19 +138,22 @@ const a := "abcd^="
     (identifier)
     (literal_expression
       (string_literal
+        (string_content)
         (escape_sequence)
         (ERROR
           (identifier)))))
   (constvar_declaration
     (identifier)
-    (ERROR
-      (escape_sequence))
-    (deref_expression
-      (literal_expression
-        (string_literal))))
+    (literal_expression
+      (string_literal
+        (string_content)
+        (escape_sequence)
+        (ERROR))))
+  (ERROR)
   (constvar_declaration
     (identifier)
-    (ERROR)
+    (ERROR
+      (string_content))
     (deref_expression
       (literal_expression
         (string_literal))))
@@ -155,6 +161,7 @@ const a := "abcd^="
     (identifier)
     (literal_expression
       (string_literal
+        (string_content)
         (ERROR)))))
 
 ================================================================================
@@ -169,14 +176,12 @@ const a := b
 (source_file
   (constvar_declaration
     (identifier)
-    (ERROR)
-    (nameref_expression
-      (path_component
-        (identifier))))
-  (assign_statement
-    (nameref_expression
-      (path_component
-        (identifier)))
+    (literal_expression
+      (string_literal
+        (string_content)
+        (MISSING """))))
+  (constvar_declaration
+    (identifier)
     (nameref_expression
       (path_component
         (identifier)))))
@@ -210,12 +215,14 @@ const a := "abcd^"
     (identifier)
     (literal_expression
       (string_literal
+        (string_content)
         (escape_sequence)
         (MISSING """))))
   (constvar_declaration
     (identifier)
     (literal_expression
       (string_literal
+        (string_content)
         (ERROR)))))
 
 ================================================================================
@@ -245,7 +252,8 @@ const a := 'abcd💖'
   (constvar_declaration
     (identifier)
     (literal_expression
-      (char_literal))))
+      (char_literal
+        (char_content)))))
 
 ================================================================================
 char literal - not an escaped terminator
@@ -260,6 +268,7 @@ const a := 'abcd\\'
     (identifier)
     (literal_expression
       (char_literal
+        (char_content)
         (escape_sequence)))))
 
 ================================================================================
@@ -274,14 +283,12 @@ const a := wah
 (source_file
   (constvar_declaration
     (identifier)
-    (ERROR)
-    (nameref_expression
-      (path_component
-        (identifier))))
-  (assign_statement
-    (nameref_expression
-      (path_component
-        (identifier)))
+    (literal_expression
+      (char_literal
+        (char_content)
+        (MISSING "'"))))
+  (constvar_declaration
+    (identifier)
     (nameref_expression
       (path_component
         (identifier)))))
@@ -315,12 +322,14 @@ const a := 'abcd^'
     (identifier)
     (literal_expression
       (char_literal
+        (char_content)
         (escape_sequence)
         (MISSING "'"))))
   (constvar_declaration
     (identifier)
     (literal_expression
       (char_literal
+        (char_content)
         (ERROR)))))
 
 ================================================================================
@@ -336,6 +345,7 @@ const a := 'abcd"
     (identifier)
     (literal_expression
       (char_literal
+        (char_content)
         (MISSING "'")))))
 
 ================================================================================

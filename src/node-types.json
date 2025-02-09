@@ -687,6 +687,10 @@
       "required": false,
       "types": [
         {
+          "type": "char_content",
+          "named": true
+        },
+        {
           "type": "escape_sequence",
           "named": true
         }
@@ -2560,6 +2564,10 @@
         {
           "type": "escape_sequence",
           "named": true
+        },
+        {
+          "type": "string_content",
+          "named": true
         }
       ]
     }
@@ -2802,6 +2810,10 @@
   {
     "type": "char",
     "named": false
+  },
+  {
+    "type": "char_content",
+    "named": true
   },
   {
     "type": "cheat",
@@ -3078,6 +3090,10 @@
   {
     "type": "string",
     "named": false
+  },
+  {
+    "type": "string_content",
+    "named": true
   },
   {
     "type": "then",
