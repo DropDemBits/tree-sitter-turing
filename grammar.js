@@ -349,7 +349,7 @@ module.exports = grammar({
     ),
 
     elsif_clause: $ => seq(
-      'elsif', field('condition', $._expression), 'then', _statement_list($),
+      choice('elsif', 'elseif', 'elif'), field('condition', $._expression), 'then', _statement_list($),
     ),
 
     else_clause: $ => seq(

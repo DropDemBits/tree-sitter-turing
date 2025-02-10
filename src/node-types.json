@@ -3011,7 +3011,15 @@
     "named": false
   },
   {
+    "type": "elif",
+    "named": false
+  },
+  {
     "type": "else",
+    "named": false
+  },
+  {
+    "type": "elseif",
     "named": false
   },
   {

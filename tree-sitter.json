@@ -8,7 +8,8 @@
         ".tu",
         ".t"
       ],
-      "injection-regex": "^turing|toco$"
+      "injection-regex": "^turing|toco$",
+      "highlights": "queries/highlights.scm"
     }
   ],
   "metadata": {
