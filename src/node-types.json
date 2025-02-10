@@ -228,6 +228,10 @@
         "named": true
       },
       {
+        "type": "nameref_type",
+        "named": true
+      },
+      {
         "type": "pointer_type",
         "named": true
       },
@@ -2059,6 +2063,21 @@
     }
   },
   {
+    "type": "nameref_type",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "item_path",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "nat_cheat_expression",
     "named": true,
     "fields": {
@@ -3001,6 +3020,30 @@
   },
   {
     "type": "end",
+    "named": false
+  },
+  {
+    "type": "endcase",
+    "named": false
+  },
+  {
+    "type": "endfor",
+    "named": false
+  },
+  {
+    "type": "endif",
+    "named": false
+  },
+  {
+    "type": "endloop",
+    "named": false
+  },
+  {
+    "type": "endrecord",
+    "named": false
+  },
+  {
+    "type": "endunion",
     "named": false
   },
   {

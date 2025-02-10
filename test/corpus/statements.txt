@@ -1863,15 +1863,11 @@ var a := 1
 --------------------------------------------------------------------------------
 
 (source_file
-  (ERROR
-    (call_statement
-      (nameref_expression
-        (path_component
-          (identifier))))
-    (constvar_declaration
-      (identifier)
-      (literal_expression
-        (integer_literal)))))
+  (loop_statement)
+  (constvar_declaration
+    (identifier)
+    (literal_expression
+      (integer_literal))))
 
 ================================================================================
 for statement - increasing
@@ -1995,12 +1991,9 @@ for : 1 endfor
 --------------------------------------------------------------------------------
 
 (source_file
-  (ERROR
+  (for_statement
     (literal_expression
-      (integer_literal))
-    (nameref_expression
-      (path_component
-        (identifier)))))
+      (integer_literal))))
 
 ================================================================================
 for statement - missing final for
@@ -2202,7 +2195,7 @@ end if
         (boolean_literal)))))
 
 ================================================================================
-if statement - endif
+if statement - with endif
 ================================================================================
 
 if true then
@@ -2213,17 +2206,13 @@ endif
 --------------------------------------------------------------------------------
 
 (source_file
-  (ERROR
-    (literal_expression
+  (if_statement
+    condition: (literal_expression
       (boolean_literal))
     (elsif_clause
       condition: (literal_expression
         (boolean_literal)))
-    (else_clause
-      (call_statement
-        left: (nameref_expression
-          (path_component
-            (identifier)))))))
+    (else_clause)))
 
 ================================================================================
 if statement - missing final if
@@ -2507,10 +2496,9 @@ case true of endcase
 --------------------------------------------------------------------------------
 
 (source_file
-  (ERROR
+  (case_statement
     (literal_expression
-      (boolean_literal))
-    (identifier)))
+      (boolean_literal))))
 
 ================================================================================
 case statement - missing final case
@@ -2749,6 +2737,31 @@ aaaa
 
 ================================================================================
 call statement - bare, fields
+================================================================================
+
+(^a).bbb.cc.d
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (call_statement
+    left: (field_expression
+      left: (field_expression
+        left: (field_expression
+          left: (paren_expression
+            (deref_expression
+              right: (nameref_expression
+                (path_component
+                  (identifier)))))
+          field: (path_component
+            (identifier)))
+        field: (path_component
+          (identifier)))
+      field: (path_component
+        (identifier)))))
+
+================================================================================
+call statement - bare, item path
 ================================================================================
 
 aaaa.bbb.cc.d

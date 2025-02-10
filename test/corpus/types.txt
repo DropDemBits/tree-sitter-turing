@@ -194,6 +194,93 @@ type a : 1 + 1
         (integer_literal)))))
 
 ================================================================================
+name type - normal, not expression
+================================================================================
+
+type a : b
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (type_declaration
+    (type_identifier)
+    (nameref_type
+      (item_path
+        (path_component
+          (identifier))))))
+
+================================================================================
+name type - type path
+================================================================================
+
+type a : b.c.d.e.f
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (type_declaration
+    (type_identifier)
+    (nameref_type
+      (item_path
+        (path_component
+          (identifier))
+        (path_component
+          (identifier))
+        (path_component
+          (identifier))
+        (path_component
+          (identifier))
+        (path_component
+          (identifier))))))
+
+================================================================================
+range type - prioritize expressions
+================================================================================
+
+type a : b .. b
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (type_declaration
+    (type_identifier)
+    (range_type
+      (nameref_expression
+        (path_component
+          (identifier)))
+      (nameref_expression
+        (path_component
+          (identifier))))))
+
+================================================================================
+range type - prioritize expressions - field lookup
+================================================================================
+
+type a : (1).b.c.d .. f
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (type_declaration
+    (type_identifier)
+    (range_type
+      (field_expression
+        (field_expression
+          (field_expression
+            (paren_expression
+              (literal_expression
+                (integer_literal)))
+            (path_component
+              (identifier)))
+          (path_component
+            (identifier)))
+        (path_component
+          (identifier)))
+      (nameref_expression
+        (path_component
+          (identifier))))))
+
+================================================================================
 enum ty - no variants
 ================================================================================
 

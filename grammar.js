@@ -24,6 +24,8 @@ const PREC = {
   field: 12,
   range: 12,
   deref: 13,
+
+  item_path: 14,
 };
 
 module.exports = grammar({
@@ -54,7 +56,7 @@ module.exports = grammar({
     // A painful core ambiguity...
     // toco solves this by parsing all expressions in statement position as calls,
     // and then disambiguating later
-    [$.call_statement, $._expression]
+    [$.call_statement, $._expression],
   ],
 
   rules: {
@@ -546,7 +548,7 @@ module.exports = grammar({
 
     self_expression: $ => 'self',
 
-    nameref_expression: $ => prec.left($.path_component),
+    nameref_expression: $ => $.path_component,
 
     binary_expression: $ => {
       /** @type {[number, string | ChoiceRule][]} */
@@ -625,7 +627,7 @@ module.exports = grammar({
       ')'
     ),
 
-    nat_cheat_expression: $ => prec.left(PREC.deref, seq(
+    nat_cheat_expression: $ => prec.left(PREC.nat_cheat, seq(
       field('operator', '#'),
       field('right', $._expression),
     )),
@@ -636,11 +638,11 @@ module.exports = grammar({
       field('field', $.identifier)
     )),
 
-    indirect_expression: $ => seq(
+    indirect_expression: $ => prec.right(PREC.call, seq(
       field('type_spec', choice($.field_expression, $.primitive_type)),
       field('operator', '@'),
       '(', $._expression, ')'
-    ),
+    )),
 
     bits_expression: $ => prec.left(PREC.call, seq(
       'bits', '(', $._expression, ',', $._bit_range, optional(','), ')',
@@ -686,9 +688,8 @@ module.exports = grammar({
     ))),
 
     _type: $ => choice(
-      // TODO: commented items
-
       $.primitive_type,
+      $.nameref_type,
       $.range_type,
       $.enum_type,
       $.array_type,
@@ -701,6 +702,8 @@ module.exports = grammar({
       $.collection_type,
       $.condition_type,
     ),
+
+    nameref_type: $ => $.item_path,
 
     primitive_type: $ => prec.right(choice(
       'boolean',
@@ -859,7 +862,7 @@ module.exports = grammar({
     _name_list: $ => sepBy1(',', field('name', $.identifier)),
     _field_name_list: $ => sepBy1(',', field('name', $._field_identifier)),
 
-    item_path: $ => sepBy1(',', $.path_component),
+    item_path: $ => prec.right(PREC.item_path, sepBy1('.', $.path_component)),
 
     path_component: $ => $.identifier,
   }
@@ -874,7 +877,7 @@ function sepBy(sep, rule) {
 }
 
 function end_keyword_tail(bit) {
-  return seq('end', bit)
+  return choice(seq('end', bit), `end${bit}`)
 }
 
 function end_named_tail($) {

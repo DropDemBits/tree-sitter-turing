@@ -909,9 +909,10 @@ const a := sizeof(uwu : 3)
   (constvar_declaration
     (identifier)
     (sizeof_expression
-      (nameref_expression
-        (path_component
-          (identifier)))
+      (nameref_type
+        (item_path
+          (path_component
+            (identifier))))
       (literal_expression
         (integer_literal)))))
 
@@ -1208,7 +1209,7 @@ a := 1 * (2 + 3)
 field expression
 ================================================================================
 
-a.b.c.d.e := a.b.c.d.e
+(^a).b.c.d.e := (^a).b.c.d.e
 
 --------------------------------------------------------------------------------
 
@@ -1218,9 +1219,11 @@ a.b.c.d.e := a.b.c.d.e
       left: (field_expression
         left: (field_expression
           left: (field_expression
-            left: (nameref_expression
-              (path_component
-                (identifier)))
+            left: (paren_expression
+              (deref_expression
+                right: (nameref_expression
+                  (path_component
+                    (identifier)))))
             field: (path_component
               (identifier)))
           field: (path_component
@@ -1233,9 +1236,11 @@ a.b.c.d.e := a.b.c.d.e
       left: (field_expression
         left: (field_expression
           left: (field_expression
-            left: (nameref_expression
-              (path_component
-                (identifier)))
+            left: (paren_expression
+              (deref_expression
+                right: (nameref_expression
+                  (path_component
+                    (identifier)))))
             field: (path_component
               (identifier)))
           field: (path_component
@@ -1269,19 +1274,21 @@ deref expression
 nat cheat expression
 ================================================================================
 
+% field expression binds tighter than nat cheat
 #a.b := 1
 
 --------------------------------------------------------------------------------
 
 (source_file
+  (line_comment)
   (assign_statement
-    left: (field_expression
-      left: (nat_cheat_expression
-        right: (nameref_expression
+    left: (nat_cheat_expression
+      right: (field_expression
+        left: (nameref_expression
           (path_component
-            (identifier))))
-      field: (path_component
-        (identifier)))
+            (identifier)))
+        field: (path_component
+          (identifier))))
     right: (literal_expression
       (integer_literal))))
 
