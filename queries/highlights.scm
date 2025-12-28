@@ -11,6 +11,9 @@
 (param_spec (function_type name: (identifier) @variable.parameter))
 (param_spec (procedure_type name: (identifier) @variable.parameter))
 
+(assign_statement ":=" @operator)
+(compound_assign_statement operator: [_] @operator)
+
 (line_comment) @comment
 (block_comment) @comment
 
