@@ -87,7 +87,7 @@ module.exports = grammar({
       $.external_declaration,
       $.forward_declaration,
       $.deferred_declaration,
-      // $.body_declaration,
+      $.body_declaration,
       $.module_declaration,
       $.class_declaration,
       $.monitor_declaration,
@@ -262,6 +262,21 @@ module.exports = grammar({
     )),
 
     deferred_declaration: $ => seq('deferred', $._subprogram_header),
+
+    body_declaration: $ => seq(
+      'body', $._body_header,
+      _statement_list($),
+      end_named_tail($),
+    ),
+
+    _body_header: $ => choice($._plain_header, $._function_header, $._procedure_header),
+
+    _plain_header: $ => prec.right(seq(
+      field('name', $.identifier),
+      optional(field('params', $.param_spec)),
+      optional(field('result_name', $.identifier)),
+      optional(seq(':', field('result_type', $._type))),
+    )),
 
     module_declaration: $ => seq(
       'module',

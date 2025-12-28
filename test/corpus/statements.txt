@@ -1851,7 +1851,7 @@ var a := 1
   (constvar_declaration
     (identifier)
     (literal_expression
-      (integer_literal))))
+      (integer_literal)))
 
 ================================================================================
 loop statement - with endloop
@@ -3131,3 +3131,211 @@ import(
       (const_attr)
       (external_item
         name: (identifier)))))
+
+================================================================================
+body declaration - normal plain
+================================================================================
+
+body something
+  begin end
+end something
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (body_declaration
+    name: (identifier)
+    (block_statement)
+    end_name: (identifier)))
+
+================================================================================
+body declaration - plain with params
+================================================================================
+
+body something (a, b : int, fcn i() : int, function : int, proc j(), proc)
+  begin end
+end something
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (body_declaration
+    name: (identifier)
+    params: (param_spec
+      (constvar_param
+        name: (identifier)
+        name: (identifier)
+        param_type: (primitive_type))
+      (function_type
+        name: (identifier)
+        params: (param_spec)
+        result_type: (primitive_type))
+      (function_type
+        result_type: (primitive_type))
+      (procedure_type
+        name: (identifier)
+        params: (param_spec))
+      (procedure_type))
+    (block_statement)
+    end_name: (identifier)))
+
+================================================================================
+body declaration - plain with result type
+================================================================================
+
+body something : int
+  begin end
+end something
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (body_declaration
+    name: (identifier)
+    result_type: (primitive_type)
+    (block_statement)
+    end_name: (identifier)))
+
+================================================================================
+body declaration - plain with named result type
+================================================================================
+
+body something named : int
+  begin end
+end something
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (body_declaration
+    name: (identifier)
+    result_name: (identifier)
+    result_type: (primitive_type)
+    (block_statement)
+    end_name: (identifier)))
+
+================================================================================
+body declaration - plain with params and named result type
+================================================================================
+
+body something (a, b : int, fcn i() : int, function : int, proc j(), proc) named : int
+  begin end
+end something
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (body_declaration
+    name: (identifier)
+    params: (param_spec
+      (constvar_param
+        name: (identifier)
+        name: (identifier)
+        param_type: (primitive_type))
+      (function_type
+        name: (identifier)
+        params: (param_spec)
+        result_type: (primitive_type))
+      (function_type
+        result_type: (primitive_type))
+      (procedure_type
+        name: (identifier)
+        params: (param_spec))
+      (procedure_type))
+    result_name: (identifier)
+    result_type: (primitive_type)
+    (block_statement)
+    end_name: (identifier)))
+
+================================================================================
+body declaration - function header
+================================================================================
+
+body function something (a, b : int) named : int
+  begin end
+end something
+body fcn something (a, b : int) named : int
+  begin end
+end something
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (body_declaration
+    name: (identifier)
+    params: (param_spec
+      (constvar_param
+        name: (identifier)
+        name: (identifier)
+        param_type: (primitive_type)))
+    result_name: (identifier)
+    result_type: (primitive_type)
+    (block_statement)
+    end_name: (identifier))
+  (body_declaration
+    name: (identifier)
+    params: (param_spec
+      (constvar_param
+        name: (identifier)
+        name: (identifier)
+        param_type: (primitive_type)))
+    result_name: (identifier)
+    result_type: (primitive_type)
+    (block_statement)
+    end_name: (identifier)))
+
+================================================================================
+body declaration - procedure header
+================================================================================
+
+body procedure something (a, b : int) : 1
+  begin end
+end something
+body proc something (a, b : int) : 1
+  begin end
+end something
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (body_declaration
+    name: (identifier)
+    params: (param_spec
+      (constvar_param
+        name: (identifier)
+        name: (identifier)
+        param_type: (primitive_type)))
+    device_spec: (literal_expression
+      (integer_literal))
+    (block_statement)
+    end_name: (identifier))
+  (body_declaration
+    name: (identifier)
+    params: (param_spec
+      (constvar_param
+        name: (identifier)
+        name: (identifier)
+        param_type: (primitive_type)))
+    device_spec: (literal_expression
+      (integer_literal))
+    (block_statement)
+    end_name: (identifier)))
+
+================================================================================
+body declaration - nothing but the keyword
+================================================================================
+
+body
+  begin end
+end nothing
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (body_declaration
+    name: (identifier)
+    end_name: (identifier))
+  (call_statement
+    left: (nameref_expression
+      (path_component
+        (identifier)))))
