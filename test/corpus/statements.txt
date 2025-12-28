@@ -1851,7 +1851,7 @@ var a := 1
   (constvar_declaration
     (identifier)
     (literal_expression
-      (integer_literal)))
+      (integer_literal)
 
 ================================================================================
 loop statement - with endloop
@@ -3337,5 +3337,831 @@ end nothing
     end_name: (identifier))
   (call_statement
     left: (nameref_expression
+      (path_component
+        (identifier)))))
+
+================================================================================
+open statement - old kind
+================================================================================
+
+open(handle, "blaah", "rw+")
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (open_statement
+    stream: (nameref_expression
+      (path_component
+        (identifier)))
+    open_path: (literal_expression
+      (string_literal
+        (string_content)))
+    open_mode: (literal_expression
+      (string_literal
+        (string_content)))))
+
+================================================================================
+open statement - new kind
+================================================================================
+
+open : handle, "blaah", put, get, read, write, seek, mod
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (open_statement
+    stream: (nameref_expression
+      (path_component
+        (identifier)))
+    open_path: (literal_expression
+      (string_literal
+        (string_content)))
+    (io_capability)
+    (io_capability)
+    (io_capability)
+    (io_capability)
+    (io_capability)
+    (io_capability)))
+
+================================================================================
+close statement - old kind
+================================================================================
+
+close(handle)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (close_statement
+    stream: (nameref_expression
+      (path_component
+        (identifier)))))
+
+================================================================================
+close statement - new kind
+================================================================================
+
+close : handle
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (close_statement
+    stream: (nameref_expression
+      (path_component
+        (identifier)))))
+
+================================================================================
+put statement - simple
+================================================================================
+
+put 1
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (put_statement
+    (put_item
+      (literal_expression
+        (integer_literal)))))
+
+================================================================================
+put statement - multiple
+================================================================================
+
+put 1, b, '3'
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (put_statement
+    (put_item
+      (literal_expression
+        (integer_literal)))
+    (put_item
+      (nameref_expression
+        (path_component
+          (identifier))))
+    (put_item
+      (literal_expression
+        (char_literal
+          (char_content))))))
+
+================================================================================
+put statement - no newline
+================================================================================
+
+put 1 ..
+put 1, 2 ..
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (put_statement
+    (put_item
+      (literal_expression
+        (integer_literal))))
+  (put_statement
+    (put_item
+      (literal_expression
+        (integer_literal)))
+    (put_item
+      (literal_expression
+        (integer_literal)))))
+
+================================================================================
+put statement - with stream handle
+================================================================================
+
+put : handle, 1, 2, 3 ..
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (put_statement
+    stream: (nameref_expression
+      (path_component
+        (identifier)))
+    (put_item
+      (literal_expression
+        (integer_literal)))
+    (put_item
+      (literal_expression
+        (integer_literal)))
+    (put_item
+      (literal_expression
+        (integer_literal)))))
+
+================================================================================
+put item - with widths
+================================================================================
+
+put 1 : width
+put 1 : width : fract
+put 1 : width : fract : expo
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (put_statement
+    (put_item
+      (literal_expression
+        (integer_literal))
+      width: (nameref_expression
+        (path_component
+          (identifier)))))
+  (put_statement
+    (put_item
+      (literal_expression
+        (integer_literal))
+      width: (nameref_expression
+        (path_component
+          (identifier)))
+      fraction: (nameref_expression
+        (path_component
+          (identifier)))))
+  (put_statement
+    (put_item
+      (literal_expression
+        (integer_literal))
+      width: (nameref_expression
+        (path_component
+          (identifier)))
+      fraction: (nameref_expression
+        (path_component
+          (identifier)))
+      exponent_width: (nameref_expression
+        (path_component
+          (identifier))))))
+
+================================================================================
+put item - with multiple widths
+================================================================================
+
+put 1 : width, 2 : width
+put 1 : width : fract, 2 : width : fract
+put 1 : width : fract : expo, 2 : width : fract : expo
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (put_statement
+    (put_item
+      (literal_expression
+        (integer_literal))
+      width: (nameref_expression
+        (path_component
+          (identifier))))
+    (put_item
+      (literal_expression
+        (integer_literal))
+      width: (nameref_expression
+        (path_component
+          (identifier)))))
+  (put_statement
+    (put_item
+      (literal_expression
+        (integer_literal))
+      width: (nameref_expression
+        (path_component
+          (identifier)))
+      fraction: (nameref_expression
+        (path_component
+          (identifier))))
+    (put_item
+      (literal_expression
+        (integer_literal))
+      width: (nameref_expression
+        (path_component
+          (identifier)))
+      fraction: (nameref_expression
+        (path_component
+          (identifier)))))
+  (put_statement
+    (put_item
+      (literal_expression
+        (integer_literal))
+      width: (nameref_expression
+        (path_component
+          (identifier)))
+      fraction: (nameref_expression
+        (path_component
+          (identifier)))
+      exponent_width: (nameref_expression
+        (path_component
+          (identifier))))
+    (put_item
+      (literal_expression
+        (integer_literal))
+      width: (nameref_expression
+        (path_component
+          (identifier)))
+      fraction: (nameref_expression
+        (path_component
+          (identifier)))
+      exponent_width: (nameref_expression
+        (path_component
+          (identifier))))))
+
+================================================================================
+put item - skip
+================================================================================
+
+put skip, skip, skip
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (put_statement
+    (skip_item)
+    (skip_item)
+    (skip_item)))
+
+================================================================================
+put statement - everything
+================================================================================
+
+put : handle, 1 : width : fract : expo, skip, '3' : width : fract : expo ..
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (put_statement
+    stream: (nameref_expression
+      (path_component
+        (identifier)))
+    (put_item
+      (literal_expression
+        (integer_literal))
+      width: (nameref_expression
+        (path_component
+          (identifier)))
+      fraction: (nameref_expression
+        (path_component
+          (identifier)))
+      exponent_width: (nameref_expression
+        (path_component
+          (identifier))))
+    (skip_item)
+    (put_item
+      (literal_expression
+        (char_literal
+          (char_content)))
+      width: (nameref_expression
+        (path_component
+          (identifier)))
+      fraction: (nameref_expression
+        (path_component
+          (identifier)))
+      exponent_width: (nameref_expression
+        (path_component
+          (identifier))))))
+
+================================================================================
+get statement - simple
+================================================================================
+
+get a
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (get_statement
+    (get_item
+      (nameref_expression
+        (path_component
+          (identifier))))))
+
+================================================================================
+get statement - multiple
+================================================================================
+
+get a, b, c
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (get_statement
+    (get_item
+      (nameref_expression
+        (path_component
+          (identifier))))
+    (get_item
+      (nameref_expression
+        (path_component
+          (identifier))))
+    (get_item
+      (nameref_expression
+        (path_component
+          (identifier))))))
+
+================================================================================
+get statement - with stream handle
+================================================================================
+
+get : handle, a, b, c
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (get_statement
+    stream: (nameref_expression
+      (path_component
+        (identifier)))
+    (get_item
+      (nameref_expression
+        (path_component
+          (identifier))))
+    (get_item
+      (nameref_expression
+        (path_component
+          (identifier))))
+    (get_item
+      (nameref_expression
+        (path_component
+          (identifier))))))
+
+================================================================================
+get item - with fixed width
+================================================================================
+
+get a : width
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (get_statement
+    (get_item
+      (nameref_expression
+        (path_component
+          (identifier)))
+      width: (nameref_expression
+        (path_component
+          (identifier))))))
+
+================================================================================
+get item - with star width
+================================================================================
+
+get a : *
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (get_statement
+    (get_item
+      (nameref_expression
+        (path_component
+          (identifier)))
+      (star_width))))
+
+================================================================================
+get item - with multiple widths
+================================================================================
+
+get a : *, b : width
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (get_statement
+    (get_item
+      (nameref_expression
+        (path_component
+          (identifier)))
+      (star_width))
+    (get_item
+      (nameref_expression
+        (path_component
+          (identifier)))
+      width: (nameref_expression
+        (path_component
+          (identifier))))))
+
+================================================================================
+get item - skip
+================================================================================
+
+get skip, skip, skip
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (get_statement
+    (skip_item)
+    (skip_item)
+    (skip_item)))
+
+================================================================================
+get statement - everything
+================================================================================
+
+get : handle, a, b : width, skip, c : *
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (get_statement
+    stream: (nameref_expression
+      (path_component
+        (identifier)))
+    (get_item
+      (nameref_expression
+        (path_component
+          (identifier))))
+    (get_item
+      (nameref_expression
+        (path_component
+          (identifier)))
+      width: (nameref_expression
+        (path_component
+          (identifier))))
+    (skip_item)
+    (get_item
+      (nameref_expression
+        (path_component
+          (identifier)))
+      (star_width))))
+
+================================================================================
+read statement - simple
+================================================================================
+
+read : handle, a
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (read_statement
+    stream: (nameref_expression
+      (path_component
+        (identifier)))
+    (binary_item
+      (nameref_expression
+        (path_component
+          (identifier))))))
+
+================================================================================
+read statement - multiple
+================================================================================
+
+read : handle, a, b, c
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (read_statement
+    stream: (nameref_expression
+      (path_component
+        (identifier)))
+    (binary_item
+      (nameref_expression
+        (path_component
+          (identifier))))
+    (binary_item
+      (nameref_expression
+        (path_component
+          (identifier))))
+    (binary_item
+      (nameref_expression
+        (path_component
+          (identifier))))))
+
+================================================================================
+read statement - with status handle
+================================================================================
+
+read : handle : status, a, b, c
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (read_statement
+    stream: (nameref_expression
+      (path_component
+        (identifier)))
+    status: (nameref_expression
+      (path_component
+        (identifier)))
+    (binary_item
+      (nameref_expression
+        (path_component
+          (identifier))))
+    (binary_item
+      (nameref_expression
+        (path_component
+          (identifier))))
+    (binary_item
+      (nameref_expression
+        (path_component
+          (identifier))))))
+
+================================================================================
+read statement - with sizes
+================================================================================
+
+read : handle, a : request_size
+read : handle, a : request_size : actual_size
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (read_statement
+    stream: (nameref_expression
+      (path_component
+        (identifier)))
+    (binary_item
+      (nameref_expression
+        (path_component
+          (identifier)))
+      request_size: (nameref_expression
+        (path_component
+          (identifier)))))
+  (read_statement
+    stream: (nameref_expression
+      (path_component
+        (identifier)))
+    (binary_item
+      (nameref_expression
+        (path_component
+          (identifier)))
+      request_size: (nameref_expression
+        (path_component
+          (identifier)))
+      actual_size: (nameref_expression
+        (path_component
+          (identifier))))))
+
+================================================================================
+read statement - everything
+================================================================================
+
+read : handle : status, a, b : request_size, c : request_size : actual_size
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (read_statement
+    stream: (nameref_expression
+      (path_component
+        (identifier)))
+    status: (nameref_expression
+      (path_component
+        (identifier)))
+    (binary_item
+      (nameref_expression
+        (path_component
+          (identifier))))
+    (binary_item
+      (nameref_expression
+        (path_component
+          (identifier)))
+      request_size: (nameref_expression
+        (path_component
+          (identifier))))
+    (binary_item
+      (nameref_expression
+        (path_component
+          (identifier)))
+      request_size: (nameref_expression
+        (path_component
+          (identifier)))
+      actual_size: (nameref_expression
+        (path_component
+          (identifier))))))
+
+================================================================================
+write statement - simple
+================================================================================
+
+write : handle, a
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (write_statement
+    stream: (nameref_expression
+      (path_component
+        (identifier)))
+    (binary_item
+      (nameref_expression
+        (path_component
+          (identifier))))))
+
+================================================================================
+write statement - multiple
+================================================================================
+
+write : handle, a, b, c
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (write_statement
+    stream: (nameref_expression
+      (path_component
+        (identifier)))
+    (binary_item
+      (nameref_expression
+        (path_component
+          (identifier))))
+    (binary_item
+      (nameref_expression
+        (path_component
+          (identifier))))
+    (binary_item
+      (nameref_expression
+        (path_component
+          (identifier))))))
+
+================================================================================
+write statement - with status handle
+================================================================================
+
+write : handle : status, a, b, c
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (write_statement
+    stream: (nameref_expression
+      (path_component
+        (identifier)))
+    status: (nameref_expression
+      (path_component
+        (identifier)))
+    (binary_item
+      (nameref_expression
+        (path_component
+          (identifier))))
+    (binary_item
+      (nameref_expression
+        (path_component
+          (identifier))))
+    (binary_item
+      (nameref_expression
+        (path_component
+          (identifier))))))
+
+================================================================================
+write statement - with sizes
+================================================================================
+
+write : handle, a : request_size
+write : handle, a : request_size : actual_size
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (write_statement
+    stream: (nameref_expression
+      (path_component
+        (identifier)))
+    (binary_item
+      (nameref_expression
+        (path_component
+          (identifier)))
+      request_size: (nameref_expression
+        (path_component
+          (identifier)))))
+  (write_statement
+    stream: (nameref_expression
+      (path_component
+        (identifier)))
+    (binary_item
+      (nameref_expression
+        (path_component
+          (identifier)))
+      request_size: (nameref_expression
+        (path_component
+          (identifier)))
+      actual_size: (nameref_expression
+        (path_component
+          (identifier))))))
+
+================================================================================
+write statement - everything
+================================================================================
+
+write : handle : status, a, b : request_size, c : request_size : actual_size
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (write_statement
+    stream: (nameref_expression
+      (path_component
+        (identifier)))
+    status: (nameref_expression
+      (path_component
+        (identifier)))
+    (binary_item
+      (nameref_expression
+        (path_component
+          (identifier))))
+    (binary_item
+      (nameref_expression
+        (path_component
+          (identifier)))
+      request_size: (nameref_expression
+        (path_component
+          (identifier))))
+    (binary_item
+      (nameref_expression
+        (path_component
+          (identifier)))
+      request_size: (nameref_expression
+        (path_component
+          (identifier)))
+      actual_size: (nameref_expression
+        (path_component
+          (identifier))))))
+
+================================================================================
+seek statement - to exact
+================================================================================
+
+seek : handle, to_exact
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (seek_statement
+    stream: (nameref_expression
+      (path_component
+        (identifier)))
+    seek_to: (nameref_expression
+      (path_component
+        (identifier)))))
+
+================================================================================
+seek statement - to end
+================================================================================
+
+seek : handle, *
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (seek_statement
+    stream: (nameref_expression
+      (path_component
+        (identifier)))
+    (star_width)))
+
+================================================================================
+tell statement - normal
+================================================================================
+
+tell : handle, to_tell
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (tell_statement
+    stream: (nameref_expression
+      (path_component
+        (identifier)))
+    tell_to: (nameref_expression
       (path_component
         (identifier)))))

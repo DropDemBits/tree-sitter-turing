@@ -41,7 +41,12 @@ module.exports = grammar({
 
   extras: $ => [/\s/, $.line_comment, $.block_comment],
 
-  inline: $ => [$._statement_line],
+  inline: $ => [
+    $._statement_line,
+    $._stream_handle,
+    $._skippable_put,
+    $._skippable_get,
+  ],
 
   word: $ => $.identifier,
 
@@ -95,14 +100,14 @@ module.exports = grammar({
       // Simple statements //
       $.assign_statement,
       $.compound_assign_statement,
-      // $.open_statement,
-      // $.close_statement,
-      // $.put_statement,
-      // $.get_statement,
-      // $.read_statement,
-      // $.write_statement,
-      // $.seek_statement,
-      // $.tell_statement,
+      $.open_statement,
+      $.close_statement,
+      $.put_statement,
+      $.get_statement,
+      $.read_statement,
+      $.write_statement,
+      $.seek_statement,
+      $.tell_statement,
       $.for_statement,
       $.loop_statement,
       $.exit_statement,
@@ -328,6 +333,113 @@ module.exports = grammar({
         ))),
       )
     },
+
+    open_statement: $ => seq(
+      'open', $._open_variants
+    ),
+
+    _open_variants: $ => choice($._old_open, $._new_open),
+
+    _old_open: $ => seq(
+      '(',
+      field('stream', $._expression), ',',
+      field('open_path', $._expression), ',',
+      field('open_mode', $._expression), optional(','),
+      ')',
+    ),
+    _new_open: $ => prec.right(seq(
+      $._stream_handle, ',',
+      field('open_path', $._expression), ',',
+      sepBy1(',', $.io_capability), optional(','),
+    )),
+
+    io_capability: $ => choice(
+      'get', 'put',
+      'read', 'write',
+      'seek', 'mod',
+    ),
+
+    close_statement: $ => seq(
+      'close', $._close_variants,
+    ),
+
+    _close_variants: $ => choice($._old_close, $._new_close),
+
+    _old_close: $ => seq('(', field('stream', $._expression), optional(','), ')'),
+    _new_close: $ => $._stream_handle,
+
+    put_statement: $ => seq(
+      'put',
+      optional(seq($._stream_handle, ',')),
+      sepBy1(',', $._skippable_put),
+      optional('..'),
+    ),
+
+    _skippable_put: $ => choice($.put_item, $.skip_item),
+
+    put_item: $ => seq(
+      $._expression,
+      optional_chain(
+        ':',
+        field('width', $._expression),
+        field('fraction', $._expression),
+        field('exponent_width', $._expression),
+      ),
+    ),
+
+    get_statement: $ => seq(
+      'get',
+      optional(seq($._stream_handle, ',')),
+      sepBy1(',', $._skippable_get),
+    ),
+
+    _skippable_get: $ => choice($.get_item, $.skip_item),
+
+    get_item: $ => seq(
+      $._expression,
+      optional(seq(':', choice(
+        field('width', $._expression),
+        $.star_width,
+      )))
+    ),
+
+    read_statement: $ => seq('read', $._binary_io),
+    write_statement: $ => seq('write', $._binary_io),
+
+    _binary_io: $ => seq(
+      $._stream_handle,
+      optional(seq(':', field('status', $._expression))),
+      ',',
+      sepBy1(',', $.binary_item),
+    ),
+
+    binary_item: $ => seq(
+      $._expression,
+      optional_chain(
+        ':',
+        field('request_size', $._expression),
+        field('actual_size', $._expression),
+      ),
+    ),
+
+    seek_statement: $ => seq(
+      'seek',
+      $._stream_handle, ',',
+      choice(
+        field('seek_to', $._expression),
+        $.star_width,
+      ),
+    ),
+
+    tell_statement: $ => seq(
+      'tell',
+      $._stream_handle, ',',
+      field('tell_to', $._expression),
+    ),
+
+    skip_item: $ => 'skip',
+    star_width: $ => '*',
+    _stream_handle: $ => seq(':', field('stream', $._expression)),
 
     for_statement: $ => seq(
       'for',
@@ -905,6 +1017,13 @@ function end_named_tail($) {
 
 function _statement_list($) {
   return repeat($._statement_line);
+}
+
+/** @type {(prefix: string | Rule, ...rules: [...Rule[], Rule]) => Rule} */
+function optional_chain(prefix, ...rules) {
+  let [last, ...rest] = rules.reverse();
+  return rest.reduce((next, current) => optional(seq(prefix, current, next)), optional(seq(prefix, last)))
+
 }
 
 // - Range exprs should be hoisted into the precedence tree

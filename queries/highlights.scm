@@ -64,7 +64,7 @@
 "cheat" @keyword
 (checked_attr) @keyword
 "class" @keyword
-; "close" @keyword
+"close" @keyword
 "collection" @keyword
 "condition" @keyword
 "const" @keyword
@@ -104,13 +104,14 @@
 ; "invariant" @keyword
 "label" @keyword
 "loop" @keyword
+"mod" @keyword
 "module" @keyword
 "monitor" @keyword
 ; "new" @keyword
 "objectclass" @keyword
 "of" @keyword
 ; "opaque" @keyword
-; "open" @keyword
+"open" @keyword
 "or" @keyword
 (packed_attr) @keyword
 ; "pause" @keyword
@@ -122,14 +123,14 @@
 "proc" @keyword
 "procedure" @keyword
 "process" @keyword
-; "put" @keyword
+"put" @keyword
 ; "quit" @keyword
-; "read" @keyword
+"read" @keyword
 "record" @keyword
 (register_attr) @keyword
 "result" @keyword
 (return_statement) @keyword
-; "seek" @keyword
+"seek" @keyword
 (self_expression) @variable.builtin
 ; "set" @keyword
 ; "signal" @keyword
@@ -148,7 +149,7 @@
 "var" @keyword
 ; "wait" @keyword
 "when" @keyword
-; "write" @keyword
+"write" @keyword
 
 (external_item "in" @keyword)
 
