@@ -4,18 +4,48 @@
 (constvar_declaration
   name: (identifier) @variable)
 
+(type_declaration
+  name: (type_identifier) @type)
+
 (bind_item
   name: (identifier) @variable)
+
+(function_header
+  name: (identifier) @function)
+(function_header
+  result_name: (identifier) @variable.parameter)
+
+(procedure_header
+  name: (identifier) @function)
+
+(process_header
+  name: (identifier) @function)
+
+(plain_header
+  name: (identifier) @function)
+(plain_header
+  result_name: (identifier) @variable.parameter)
 
 (constvar_param name: (identifier) @variable.parameter)
 (param_spec (function_type name: (identifier) @variable.parameter))
 (param_spec (procedure_type name: (identifier) @variable.parameter))
+
+(module_declaration
+  name: (type_identifier) @module)
+
+(monitor_declaration
+  name: (type_identifier) @module)
 
 (assign_statement ":=" @operator)
 (compound_assign_statement operator: [_] @operator)
 
 (line_comment) @comment
 (block_comment) @comment
+
+((line_comment) @comment.documentation
+  (#match? @comment.documentation "^%%%\\s.*"))
+((block_comment) @comment.documentation
+  (#match? @comment.documentation "^/\\*\\*\\s.*"))
 
 (binary_expression
   operator: [
@@ -150,7 +180,6 @@
 "union" @keyword
 "unit" @keyword
 (unqualified_attr) @keyword
- @keyword
 "var" @keyword
 ; "wait" @keyword
 "when" @keyword
