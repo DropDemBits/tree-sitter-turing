@@ -1851,7 +1851,7 @@ var a := 1
   (constvar_declaration
     (identifier)
     (literal_expression
-      (integer_literal)
+      (integer_literal))))
 
 ================================================================================
 loop statement - with endloop
@@ -2179,19 +2179,11 @@ end if
   (if_statement
     condition: (literal_expression
       (boolean_literal))
-    (call_statement
-      left: (nameref_expression
-        (path_component
-          (identifier))))
-    (ERROR
-      (literal_expression
+    (elsif_clause
+      condition: (literal_expression
         (boolean_literal)))
-    (call_statement
-      left: (nameref_expression
-        (path_component
-          (identifier))))
-    (ERROR
-      (literal_expression
+    (elsif_clause
+      condition: (literal_expression
         (boolean_literal)))))
 
 ================================================================================
@@ -4200,7 +4192,6 @@ export (tee, ooo, vee)
     (export_item
       name: (identifier))))
 
-
 ================================================================================
 export statement - all
 ================================================================================
@@ -4276,7 +4267,6 @@ export (var const unqualified ~. pervasive * all)
       (pervasive_attr)
       (pervasive_attr)
       (all_item))))
-
 
 ================================================================================
 export statement - followed by const declaration
