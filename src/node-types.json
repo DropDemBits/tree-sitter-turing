@@ -327,9 +327,13 @@
       }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "flexible_attr",
+          "named": true
+        },
         {
           "type": "packed_attr",
           "named": true
@@ -3656,6 +3660,10 @@
   },
   {
     "type": "field_identifier",
+    "named": true
+  },
+  {
+    "type": "flexible_attr",
     "named": true
   },
   {

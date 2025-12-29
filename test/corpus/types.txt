@@ -459,6 +459,53 @@ type a : packed array 1 .. 3, int, char, boolean of int
       element_type: (primitive_type))))
 
 ================================================================================
+array ty - flexible
+================================================================================
+
+type a : flexible array 1 .. 3, int, char, boolean of int
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (type_declaration
+    name: (type_identifier)
+    type_spec: (array_type
+      (flexible_attr)
+      index_range: (range_type
+        start: (literal_expression
+          (integer_literal))
+        end: (literal_expression
+          (integer_literal)))
+      index_range: (primitive_type)
+      index_range: (primitive_type)
+      index_range: (primitive_type)
+      element_type: (primitive_type))))
+
+================================================================================
+array ty - packed and flexible
+================================================================================
+
+type a : packed flexible array 1 .. 3, int, char, boolean of int
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (type_declaration
+    name: (type_identifier)
+    type_spec: (array_type
+      (packed_attr)
+      (flexible_attr)
+      index_range: (range_type
+        start: (literal_expression
+          (integer_literal))
+        end: (literal_expression
+          (integer_literal)))
+      index_range: (primitive_type)
+      index_range: (primitive_type)
+      index_range: (primitive_type)
+      element_type: (primitive_type))))
+
+================================================================================
 array ty - trailing comma
 ================================================================================
 

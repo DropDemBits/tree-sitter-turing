@@ -5743,6 +5743,18 @@
             ]
           },
           {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "flexible_attr"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
             "type": "STRING",
             "value": "array"
           },
@@ -6384,6 +6396,10 @@
     "packed_attr": {
       "type": "STRING",
       "value": "packed"
+    },
+    "flexible_attr": {
+      "type": "STRING",
+      "value": "flexible"
     },
     "pervasive_attr": {
       "type": "CHOICE",

@@ -907,6 +907,7 @@ module.exports = grammar({
 
     array_type: $ => prec.right(seq(
       optional($.packed_attr),
+      optional($.flexible_attr),
       'array',
       sepBy1(',', field('index_range', $._type)), optional(','),
       'of',
@@ -990,6 +991,8 @@ module.exports = grammar({
     unchecked_attr: $ => 'unchecked',
 
     packed_attr: $ => 'packed',
+
+    flexible_attr: $ => 'flexible',
 
     pervasive_attr: $ => choice('pervasive', '*'),
 
