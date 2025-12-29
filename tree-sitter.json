@@ -4,10 +4,7 @@
       "name": "turing",
       "camelcase": "Turing/Toco",
       "scope": "source.turing",
-      "file-types": [
-        ".tu",
-        ".t"
-      ],
+      "file-types": [".tu", ".t"],
       "injection-regex": "^turing|toco$",
       "highlights": "queries/highlights.scm"
     }
