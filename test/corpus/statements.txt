@@ -1851,7 +1851,7 @@ var a := 1
   (constvar_declaration
     (identifier)
     (literal_expression
-      (integer_literal))))
+      (integer_literal))
 
 ================================================================================
 loop statement - with endloop
@@ -4288,3 +4288,159 @@ var test : int
   (constvar_declaration
     name: (identifier)
     type_spec: (primitive_type)))
+
+================================================================================
+new statement - single expression
+================================================================================
+
+new a
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (new_statement
+    (nameref_expression
+      (path_component
+        (identifier)))))
+
+================================================================================
+new statement - multiple expressions
+================================================================================
+
+new a, b, c, d
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (new_statement
+    (nameref_expression
+      (path_component
+        (identifier)))
+    (nameref_expression
+      (path_component
+        (identifier)))
+    (nameref_expression
+      (path_component
+        (identifier)))
+    (nameref_expression
+      (path_component
+        (identifier)))))
+
+================================================================================
+new statement - bare new
+================================================================================
+
+new
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (ERROR))
+
+================================================================================
+free statement - single expression
+================================================================================
+
+free a
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (free_statement
+    (nameref_expression
+      (path_component
+        (identifier)))))
+
+================================================================================
+free statement - multiple expressions
+================================================================================
+
+free a, b, c, d
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (free_statement
+    (nameref_expression
+      (path_component
+        (identifier)))
+    (nameref_expression
+      (path_component
+        (identifier)))
+    (nameref_expression
+      (path_component
+        (identifier)))
+    (nameref_expression
+      (path_component
+        (identifier)))))
+
+================================================================================
+free statement - bare free
+================================================================================
+
+free
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (ERROR))
+
+================================================================================
+tag statement - normal
+================================================================================
+
+tag place, 1
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (tag_statement
+    tag_place: (nameref_expression
+      (path_component
+        (identifier)))
+    tag_value: (literal_expression
+      (integer_literal))))
+
+================================================================================
+tag statement - trailing comma
+================================================================================
+
+tag place, 1,
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (tag_statement
+    tag_place: (nameref_expression
+      (path_component
+        (identifier)))
+    tag_value: (literal_expression
+      (integer_literal))))
+
+================================================================================
+tag statement - missing value
+================================================================================
+
+tag place,
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (tag_statement
+    tag_place: (nameref_expression
+      (path_component
+        (identifier)))
+    tag_value: (nameref_expression
+      (path_component
+        (MISSING identifier)))))
+
+================================================================================
+tag statement - bare tag
+================================================================================
+
+tag
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (ERROR))

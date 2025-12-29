@@ -119,9 +119,9 @@ module.exports = grammar({
       $.call_statement,
       $.return_statement,
       $.result_statement,
-      // $.new_statement,
-      // $.free_statement,
-      // $.tag_statement,
+      $.new_statement,
+      $.free_statement,
+      $.tag_statement,
       // $.fork_statement,
       // $.pause_statement,
       // $.quit_statement,
@@ -519,6 +519,16 @@ module.exports = grammar({
     return_statement: $ => 'return',
 
     result_statement: $ => seq('result', field('value', $._expression)),
+
+    new_statement: $ => seq('new', sepBy1(',', $._expression)),
+
+    free_statement: $ => seq('free', sepBy1(',', $._expression)),
+
+    tag_statement: $ => seq(
+      'tag',
+      field('tag_place', $._expression), ',',
+      field('tag_value', $._expression), optional(','),
+    ),
 
     checkedness_statement: $ => $._checkedness,
 

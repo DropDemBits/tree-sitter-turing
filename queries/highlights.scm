@@ -94,7 +94,7 @@
 "for" @keyword
 ; "fork" @keyword
 "forward" @keyword
-; "free" @keyword
+"free" @keyword
 "fcn" @keyword
 "function" @keyword
 "get" @keyword
@@ -111,7 +111,7 @@
 "mod" @keyword
 "module" @keyword
 "monitor" @keyword
-; "new" @keyword
+"new" @keyword
 "objectclass" @keyword
 "of" @keyword
 (opaque_attr) @keyword
@@ -140,7 +140,7 @@
 ; "signal" @keyword
 "sizeof" @keyword
 (skip_item) @keyword
-; "tag" @keyword
+"tag" @keyword
 "tell" @keyword
 "then" @keyword
 "timeout" @keyword

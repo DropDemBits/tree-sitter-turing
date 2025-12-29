@@ -154,6 +154,10 @@
         "named": true
       },
       {
+        "type": "free_statement",
+        "named": true
+      },
+      {
         "type": "function_declaration",
         "named": true
       },
@@ -198,6 +202,10 @@
         "named": true
       },
       {
+        "type": "new_statement",
+        "named": true
+      },
+      {
         "type": "open_statement",
         "named": true
       },
@@ -227,6 +235,10 @@
       },
       {
         "type": "seek_statement",
+        "named": true
+      },
+      {
+        "type": "tag_statement",
         "named": true
       },
       {
@@ -1836,6 +1848,21 @@
     "fields": {}
   },
   {
+    "type": "free_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "function_declaration",
     "named": true,
     "fields": {
@@ -2403,6 +2430,21 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "new_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -3162,6 +3204,32 @@
     }
   },
   {
+    "type": "tag_statement",
+    "named": true,
+    "fields": {
+      "tag_place": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_expression",
+            "named": true
+          }
+        ]
+      },
+      "tag_value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "tell_statement",
     "named": true,
     "fields": {
@@ -3675,6 +3743,10 @@
     "named": false
   },
   {
+    "type": "free",
+    "named": false
+  },
+  {
     "type": "function",
     "named": false
   },
@@ -3773,6 +3845,10 @@
   },
   {
     "type": "nat4",
+    "named": false
+  },
+  {
+    "type": "new",
     "named": false
   },
   {
@@ -3910,6 +3986,10 @@
   {
     "type": "string_content",
     "named": true
+  },
+  {
+    "type": "tag",
+    "named": false
   },
   {
     "type": "tell",
