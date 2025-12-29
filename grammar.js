@@ -135,7 +135,7 @@ module.exports = grammar({
       $.implement_statement,
       $.implement_by_statement,
       $.import_statement,
-      // $.export_statement,
+      $.export_statement,
 
       // other
       // $._macro_directive,
@@ -549,6 +549,32 @@ module.exports = grammar({
         field('name', $.identifier),
         optional(seq('in', field('path', $.string_literal))),
       )
+    ),
+
+    export_statement: $ => prec.right(seq(
+      'export',
+      choice(
+        $._export_list,
+        seq('(', sepBy(',', $.export_item), optional(','), ')'),
+      )
+    )),
+
+    _export_list: $ => sepBy1(',', $.export_item),
+
+    export_item: $ => seq(
+      repeat($._export_attr),
+      choice(
+        field('name', $.identifier),
+        alias('all', $.all_item),
+      )
+    ),
+
+    _export_attr: $ => choice(
+      $.var_attr,
+      $.const_attr, // Note: not in toco-tools yet
+      $.unqualified_attr,
+      $.pervasive_attr,
+      $.opaque_attr,
     ),
 
     _macro_directive: $ => choice(

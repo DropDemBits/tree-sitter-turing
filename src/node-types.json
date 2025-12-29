@@ -138,6 +138,10 @@
         "named": true
       },
       {
+        "type": "export_statement",
+        "named": true
+      },
+      {
         "type": "external_declaration",
         "named": true
       },
@@ -1472,6 +1476,67 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "export_item",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "all_item",
+          "named": true
+        },
+        {
+          "type": "const_attr",
+          "named": true
+        },
+        {
+          "type": "opaque_attr",
+          "named": true
+        },
+        {
+          "type": "pervasive_attr",
+          "named": true
+        },
+        {
+          "type": "unqualified_attr",
+          "named": true
+        },
+        {
+          "type": "var_attr",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "export_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "export_item",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -3263,6 +3328,11 @@
     }
   },
   {
+    "type": "unqualified_attr",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "var_attr",
     "named": true,
     "fields": {}
@@ -3420,6 +3490,10 @@
     "named": true
   },
   {
+    "type": "all_item",
+    "named": true
+  },
+  {
     "type": "and",
     "named": false
   },
@@ -3565,6 +3639,10 @@
     "named": false
   },
   {
+    "type": "export",
+    "named": false
+  },
+  {
     "type": "external",
     "named": false
   },
@@ -3704,6 +3782,10 @@
   {
     "type": "of",
     "named": false
+  },
+  {
+    "type": "opaque_attr",
+    "named": true
   },
   {
     "type": "open",
@@ -3859,6 +3941,10 @@
   },
   {
     "type": "unit",
+    "named": false
+  },
+  {
+    "type": "unqualified",
     "named": false
   },
   {

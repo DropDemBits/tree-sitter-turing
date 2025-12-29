@@ -4165,3 +4165,136 @@ tell : handle, to_tell
     tell_to: (nameref_expression
       (path_component
         (identifier)))))
+
+================================================================================
+export statement - normal
+================================================================================
+
+export tee, ooo, vee
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (export_statement
+    (export_item
+      name: (identifier))
+    (export_item
+      name: (identifier))
+    (export_item
+      name: (identifier))))
+
+================================================================================
+export statement - in parens
+================================================================================
+
+export (tee, ooo, vee)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (export_statement
+    (export_item
+      name: (identifier))
+    (export_item
+      name: (identifier))
+    (export_item
+      name: (identifier))))
+
+
+================================================================================
+export statement - all
+================================================================================
+
+export all, all, all
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (export_statement
+    (export_item
+      (all_item))
+    (export_item
+      (all_item))
+    (export_item
+      (all_item))))
+
+================================================================================
+export statement - all attributes
+================================================================================
+
+export
+  var const unqualified ~. pervasive * tee
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (export_statement
+    (export_item
+      (var_attr)
+      (const_attr)
+      (unqualified_attr)
+      (unqualified_attr)
+      (pervasive_attr)
+      (pervasive_attr)
+      name: (identifier))))
+
+================================================================================
+export statement - all items and all attributes
+================================================================================
+
+export
+  var const unqualified ~. pervasive * all
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (export_statement
+    (export_item
+      (var_attr)
+      (const_attr)
+      (unqualified_attr)
+      (unqualified_attr)
+      (pervasive_attr)
+      (pervasive_attr)
+      (all_item))))
+
+================================================================================
+export statement - all items and all attributes in parens
+================================================================================
+
+export (var const unqualified ~. pervasive * all)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (export_statement
+    (export_item
+      (var_attr)
+      (const_attr)
+      (unqualified_attr)
+      (unqualified_attr)
+      (pervasive_attr)
+      (pervasive_attr)
+      (all_item))))
+
+
+================================================================================
+export statement - followed by const declaration
+================================================================================
+
+export var const test /* , */ % this makes it ambiguous
+var test : int
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (export_statement
+    (export_item
+      (var_attr)
+      (const_attr)
+      name: (identifier)))
+  (block_comment)
+  (line_comment)
+  (constvar_declaration
+    name: (identifier)
+    type_spec: (primitive_type)))
