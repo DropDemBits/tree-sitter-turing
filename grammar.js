@@ -178,12 +178,12 @@ module.exports = grammar({
     ),
 
     function_declaration: $ => seq(
-      $._function_header,
+      $.function_header,
       _statement_list($),
       end_named_tail($),
     ),
 
-    _function_header: $ => prec.right(seq(
+    function_header: $ => prec.right(seq(
       choice('function', 'fcn'),
       optional($.pervasive_attr),
       field('name', $.identifier),
@@ -194,12 +194,12 @@ module.exports = grammar({
     )),
 
     procedure_declaration: $ => seq(
-      $._procedure_header,
+      $.procedure_header,
       _statement_list($),
       end_named_tail($),
     ),
 
-    _procedure_header: $ => prec.right(seq(
+    procedure_header: $ => prec.right(seq(
       choice('procedure', 'proc'),
       optional($.pervasive_attr),
       field('name', $.identifier),
@@ -207,15 +207,15 @@ module.exports = grammar({
       optional(seq(':', field('device_spec', $._expression))),
     )),
 
-    _subprogram_header: $ => choice($._function_header, $._procedure_header),
+    _subprogram_header: $ => choice($.function_header, $.procedure_header),
 
     process_declaration: $ => seq(
-      $._process_header,
+      $.process_header,
       _statement_list($),
       end_named_tail($),
     ),
 
-    _process_header: $ => prec.right(seq(
+    process_header: $ => prec.right(seq(
       'process',
       optional($.pervasive_attr),
       field('name', $.identifier),
@@ -274,9 +274,9 @@ module.exports = grammar({
       end_named_tail($),
     ),
 
-    _body_header: $ => choice($._plain_header, $._function_header, $._procedure_header),
+    _body_header: $ => choice($.plain_header, $._subprogram_header),
 
-    _plain_header: $ => prec.right(seq(
+    plain_header: $ => prec.right(seq(
       field('name', $.identifier),
       optional(field('params', $.param_spec)),
       optional(field('result_name', $.identifier)),

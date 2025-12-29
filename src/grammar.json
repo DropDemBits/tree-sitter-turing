@@ -463,7 +463,7 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "_function_header"
+          "name": "function_header"
         },
         {
           "type": "REPEAT",
@@ -503,7 +503,7 @@
         }
       ]
     },
-    "_function_header": {
+    "function_header": {
       "type": "PREC_RIGHT",
       "value": 0,
       "content": {
@@ -594,7 +594,7 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "_procedure_header"
+          "name": "procedure_header"
         },
         {
           "type": "REPEAT",
@@ -634,7 +634,7 @@
         }
       ]
     },
-    "_procedure_header": {
+    "procedure_header": {
       "type": "PREC_RIGHT",
       "value": 0,
       "content": {
@@ -722,11 +722,11 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "_function_header"
+          "name": "function_header"
         },
         {
           "type": "SYMBOL",
-          "name": "_procedure_header"
+          "name": "procedure_header"
         }
       ]
     },
@@ -735,7 +735,7 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "_process_header"
+          "name": "process_header"
         },
         {
           "type": "REPEAT",
@@ -775,7 +775,7 @@
         }
       ]
     },
-    "_process_header": {
+    "process_header": {
       "type": "PREC_RIGHT",
       "value": 0,
       "content": {
@@ -1253,19 +1253,15 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "_plain_header"
+          "name": "plain_header"
         },
         {
           "type": "SYMBOL",
-          "name": "_function_header"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_procedure_header"
+          "name": "_subprogram_header"
         }
       ]
     },
-    "_plain_header": {
+    "plain_header": {
       "type": "PREC_RIGHT",
       "value": 0,
       "content": {

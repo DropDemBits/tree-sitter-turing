@@ -433,14 +433,16 @@ fcn someFn() : int end someFn
 
 (source_file
   (function_declaration
-    name: (identifier)
-    params: (param_spec)
-    result_type: (primitive_type)
+    (function_header
+      name: (identifier)
+      params: (param_spec)
+      result_type: (primitive_type))
     end_name: (identifier))
   (function_declaration
-    name: (identifier)
-    params: (param_spec)
-    result_type: (primitive_type)
+    (function_header
+      name: (identifier)
+      params: (param_spec)
+      result_type: (primitive_type))
     end_name: (identifier)))
 
 ================================================================================
@@ -454,16 +456,18 @@ fcn * someFn() : int end someFn
 
 (source_file
   (function_declaration
-    (pervasive_attr)
-    name: (identifier)
-    params: (param_spec)
-    result_type: (primitive_type)
+    (function_header
+      (pervasive_attr)
+      name: (identifier)
+      params: (param_spec)
+      result_type: (primitive_type))
     end_name: (identifier))
   (function_declaration
-    (pervasive_attr)
-    name: (identifier)
-    params: (param_spec)
-    result_type: (primitive_type)
+    (function_header
+      (pervasive_attr)
+      name: (identifier)
+      params: (param_spec)
+      result_type: (primitive_type))
     end_name: (identifier)))
 
 ================================================================================
@@ -479,9 +483,10 @@ end someFn
 
 (source_file
   (function_declaration
-    name: (identifier)
-    params: (param_spec)
-    result_type: (primitive_type)
+    (function_header
+      name: (identifier)
+      params: (param_spec)
+      result_type: (primitive_type))
     (block_statement)
     (result_statement
       value: (literal_expression
@@ -498,12 +503,13 @@ function someFn(i : int) : int end someFn
 
 (source_file
   (function_declaration
-    name: (identifier)
-    params: (param_spec
-      (constvar_param
-        name: (identifier)
-        param_type: (primitive_type)))
-    result_type: (primitive_type)
+    (function_header
+      name: (identifier)
+      params: (param_spec
+        (constvar_param
+          name: (identifier)
+          param_type: (primitive_type)))
+      result_type: (primitive_type))
     end_name: (identifier)))
 
 ================================================================================
@@ -516,15 +522,16 @@ function someFn(i, j, k, l : int) : int end someFn
 
 (source_file
   (function_declaration
-    name: (identifier)
-    params: (param_spec
-      (constvar_param
-        name: (identifier)
-        name: (identifier)
-        name: (identifier)
-        name: (identifier)
-        param_type: (primitive_type)))
-    result_type: (primitive_type)
+    (function_header
+      name: (identifier)
+      params: (param_spec
+        (constvar_param
+          name: (identifier)
+          name: (identifier)
+          name: (identifier)
+          name: (identifier)
+          param_type: (primitive_type)))
+      result_type: (primitive_type))
     end_name: (identifier)))
 
 ================================================================================
@@ -537,13 +544,14 @@ function someFn(i, j, : int) : int end someFn
 
 (source_file
   (function_declaration
-    name: (identifier)
-    params: (param_spec
-      (constvar_param
-        name: (identifier)
-        name: (identifier)
-        param_type: (primitive_type)))
-    result_type: (primitive_type)
+    (function_header
+      name: (identifier)
+      params: (param_spec
+        (constvar_param
+          name: (identifier)
+          name: (identifier)
+          param_type: (primitive_type)))
+      result_type: (primitive_type))
     end_name: (identifier)))
 
 ================================================================================
@@ -556,18 +564,19 @@ function someFn(i : int, j : int, k : int) : int end someFn
 
 (source_file
   (function_declaration
-    name: (identifier)
-    params: (param_spec
-      (constvar_param
-        name: (identifier)
-        param_type: (primitive_type))
-      (constvar_param
-        name: (identifier)
-        param_type: (primitive_type))
-      (constvar_param
-        name: (identifier)
-        param_type: (primitive_type)))
-    result_type: (primitive_type)
+    (function_header
+      name: (identifier)
+      params: (param_spec
+        (constvar_param
+          name: (identifier)
+          param_type: (primitive_type))
+        (constvar_param
+          name: (identifier)
+          param_type: (primitive_type))
+        (constvar_param
+          name: (identifier)
+          param_type: (primitive_type)))
+      result_type: (primitive_type))
     end_name: (identifier)))
 
 ================================================================================
@@ -580,18 +589,19 @@ function someFn(i : int, j : int, k : int,) : int end someFn
 
 (source_file
   (function_declaration
-    name: (identifier)
-    params: (param_spec
-      (constvar_param
-        name: (identifier)
-        param_type: (primitive_type))
-      (constvar_param
-        name: (identifier)
-        param_type: (primitive_type))
-      (constvar_param
-        name: (identifier)
-        param_type: (primitive_type)))
-    result_type: (primitive_type)
+    (function_header
+      name: (identifier)
+      params: (param_spec
+        (constvar_param
+          name: (identifier)
+          param_type: (primitive_type))
+        (constvar_param
+          name: (identifier)
+          param_type: (primitive_type))
+        (constvar_param
+          name: (identifier)
+          param_type: (primitive_type)))
+      result_type: (primitive_type))
     end_name: (identifier)))
 
 ================================================================================
@@ -604,19 +614,20 @@ function someFn(fcn i() : int, function : int, proc j(), proc) : int end someFn
 
 (source_file
   (function_declaration
-    name: (identifier)
-    params: (param_spec
-      (function_type
-        name: (identifier)
-        params: (param_spec)
-        result_type: (primitive_type))
-      (function_type
-        result_type: (primitive_type))
-      (procedure_type
-        name: (identifier)
-        params: (param_spec))
-      (procedure_type))
-    result_type: (primitive_type)
+    (function_header
+      name: (identifier)
+      params: (param_spec
+        (function_type
+          name: (identifier)
+          params: (param_spec)
+          result_type: (primitive_type))
+        (function_type
+          result_type: (primitive_type))
+        (procedure_type
+          name: (identifier)
+          params: (param_spec))
+        (procedure_type))
+      result_type: (primitive_type))
     end_name: (identifier)))
 
 ================================================================================
@@ -629,15 +640,16 @@ function someFn(function : int, i : int, proc) : int end someFn
 
 (source_file
   (function_declaration
-    name: (identifier)
-    params: (param_spec
-      (function_type
-        result_type: (primitive_type))
-      (constvar_param
-        name: (identifier)
-        param_type: (primitive_type))
-      (procedure_type))
-    result_type: (primitive_type)
+    (function_header
+      name: (identifier)
+      params: (param_spec
+        (function_type
+          result_type: (primitive_type))
+        (constvar_param
+          name: (identifier)
+          param_type: (primitive_type))
+        (procedure_type))
+      result_type: (primitive_type))
     end_name: (identifier)))
 
 ================================================================================
@@ -658,36 +670,37 @@ end someFn
 
 (source_file
   (function_declaration
-    name: (identifier)
-    params: (param_spec
-      (constvar_param
-        name: (identifier)
-        param_type: (primitive_type))
-      (constvar_param
-        bind_to_register: (register_attr)
-        name: (identifier)
-        param_type: (primitive_type))
-      (constvar_param
-        by_ref: (var_attr)
-        bind_to_register: (register_attr)
-        name: (identifier)
-        param_type: (primitive_type))
-      (constvar_param
-        name: (identifier)
-        coerce_type: (cheat_attr)
-        param_type: (primitive_type))
-      (constvar_param
-        bind_to_register: (register_attr)
-        name: (identifier)
-        coerce_type: (cheat_attr)
-        param_type: (primitive_type))
-      (constvar_param
-        by_ref: (var_attr)
-        bind_to_register: (register_attr)
-        name: (identifier)
-        coerce_type: (cheat_attr)
-        param_type: (primitive_type)))
-    result_type: (primitive_type)
+    (function_header
+      name: (identifier)
+      params: (param_spec
+        (constvar_param
+          name: (identifier)
+          param_type: (primitive_type))
+        (constvar_param
+          bind_to_register: (register_attr)
+          name: (identifier)
+          param_type: (primitive_type))
+        (constvar_param
+          by_ref: (var_attr)
+          bind_to_register: (register_attr)
+          name: (identifier)
+          param_type: (primitive_type))
+        (constvar_param
+          name: (identifier)
+          coerce_type: (cheat_attr)
+          param_type: (primitive_type))
+        (constvar_param
+          bind_to_register: (register_attr)
+          name: (identifier)
+          coerce_type: (cheat_attr)
+          param_type: (primitive_type))
+        (constvar_param
+          by_ref: (var_attr)
+          bind_to_register: (register_attr)
+          name: (identifier)
+          coerce_type: (cheat_attr)
+          param_type: (primitive_type)))
+      result_type: (primitive_type))
     end_name: (identifier)))
 
 ================================================================================
@@ -700,10 +713,11 @@ function namedRes() toName : int end namedRes
 
 (source_file
   (function_declaration
-    name: (identifier)
-    params: (param_spec)
-    result_name: (identifier)
-    result_type: (primitive_type)
+    (function_header
+      name: (identifier)
+      params: (param_spec)
+      result_name: (identifier)
+      result_type: (primitive_type))
     end_name: (identifier)))
 
 ================================================================================
@@ -716,8 +730,9 @@ function noParams : int end noParams
 
 (source_file
   (function_declaration
-    name: (identifier)
-    result_type: (primitive_type)
+    (function_header
+      name: (identifier)
+      result_type: (primitive_type))
     end_name: (identifier)))
 
 ================================================================================
@@ -731,12 +746,14 @@ proc someProc() end someProc
 
 (source_file
   (procedure_declaration
-    name: (identifier)
-    params: (param_spec)
+    (procedure_header
+      name: (identifier)
+      params: (param_spec))
     end_name: (identifier))
   (procedure_declaration
-    name: (identifier)
-    params: (param_spec)
+    (procedure_header
+      name: (identifier)
+      params: (param_spec))
     end_name: (identifier)))
 
 ================================================================================
@@ -750,14 +767,16 @@ proc * someProc() end someProc
 
 (source_file
   (procedure_declaration
-    (pervasive_attr)
-    name: (identifier)
-    params: (param_spec)
+    (procedure_header
+      (pervasive_attr)
+      name: (identifier)
+      params: (param_spec))
     end_name: (identifier))
   (procedure_declaration
-    (pervasive_attr)
-    name: (identifier)
-    params: (param_spec)
+    (procedure_header
+      (pervasive_attr)
+      name: (identifier)
+      params: (param_spec))
     end_name: (identifier)))
 
 ================================================================================
@@ -773,8 +792,9 @@ end someProc
 
 (source_file
   (procedure_declaration
-    name: (identifier)
-    params: (param_spec)
+    (procedure_header
+      name: (identifier)
+      params: (param_spec))
     (block_statement)
     (return_statement)
     end_name: (identifier)))
@@ -789,11 +809,12 @@ procedure someProc(i : int) end someProc
 
 (source_file
   (procedure_declaration
-    name: (identifier)
-    params: (param_spec
-      (constvar_param
-        name: (identifier)
-        param_type: (primitive_type)))
+    (procedure_header
+      name: (identifier)
+      params: (param_spec
+        (constvar_param
+          name: (identifier)
+          param_type: (primitive_type))))
     end_name: (identifier)))
 
 ================================================================================
@@ -806,14 +827,15 @@ procedure someProc(i, j, k, l : int) end someProc
 
 (source_file
   (procedure_declaration
-    name: (identifier)
-    params: (param_spec
-      (constvar_param
-        name: (identifier)
-        name: (identifier)
-        name: (identifier)
-        name: (identifier)
-        param_type: (primitive_type)))
+    (procedure_header
+      name: (identifier)
+      params: (param_spec
+        (constvar_param
+          name: (identifier)
+          name: (identifier)
+          name: (identifier)
+          name: (identifier)
+          param_type: (primitive_type))))
     end_name: (identifier)))
 
 ================================================================================
@@ -826,12 +848,13 @@ procedure someProc(i, j, : int) end someProc
 
 (source_file
   (procedure_declaration
-    name: (identifier)
-    params: (param_spec
-      (constvar_param
-        name: (identifier)
-        name: (identifier)
-        param_type: (primitive_type)))
+    (procedure_header
+      name: (identifier)
+      params: (param_spec
+        (constvar_param
+          name: (identifier)
+          name: (identifier)
+          param_type: (primitive_type))))
     end_name: (identifier)))
 
 ================================================================================
@@ -844,17 +867,18 @@ procedure someProc(i : int, j : int, k : int) end someProc
 
 (source_file
   (procedure_declaration
-    name: (identifier)
-    params: (param_spec
-      (constvar_param
-        name: (identifier)
-        param_type: (primitive_type))
-      (constvar_param
-        name: (identifier)
-        param_type: (primitive_type))
-      (constvar_param
-        name: (identifier)
-        param_type: (primitive_type)))
+    (procedure_header
+      name: (identifier)
+      params: (param_spec
+        (constvar_param
+          name: (identifier)
+          param_type: (primitive_type))
+        (constvar_param
+          name: (identifier)
+          param_type: (primitive_type))
+        (constvar_param
+          name: (identifier)
+          param_type: (primitive_type))))
     end_name: (identifier)))
 
 ================================================================================
@@ -867,17 +891,18 @@ procedure someProc(i : int, j : int, k : int,) end someProc
 
 (source_file
   (procedure_declaration
-    name: (identifier)
-    params: (param_spec
-      (constvar_param
-        name: (identifier)
-        param_type: (primitive_type))
-      (constvar_param
-        name: (identifier)
-        param_type: (primitive_type))
-      (constvar_param
-        name: (identifier)
-        param_type: (primitive_type)))
+    (procedure_header
+      name: (identifier)
+      params: (param_spec
+        (constvar_param
+          name: (identifier)
+          param_type: (primitive_type))
+        (constvar_param
+          name: (identifier)
+          param_type: (primitive_type))
+        (constvar_param
+          name: (identifier)
+          param_type: (primitive_type))))
     end_name: (identifier)))
 
 ================================================================================
@@ -890,18 +915,19 @@ procedure someProc(fcn i() : int, function : int, proc j(), proc) end someProc
 
 (source_file
   (procedure_declaration
-    name: (identifier)
-    params: (param_spec
-      (function_type
-        name: (identifier)
-        params: (param_spec)
-        result_type: (primitive_type))
-      (function_type
-        result_type: (primitive_type))
-      (procedure_type
-        name: (identifier)
-        params: (param_spec))
-      (procedure_type))
+    (procedure_header
+      name: (identifier)
+      params: (param_spec
+        (function_type
+          name: (identifier)
+          params: (param_spec)
+          result_type: (primitive_type))
+        (function_type
+          result_type: (primitive_type))
+        (procedure_type
+          name: (identifier)
+          params: (param_spec))
+        (procedure_type)))
     end_name: (identifier)))
 
 ================================================================================
@@ -914,14 +940,15 @@ procedure someProc(function : int, i : int, proc) end someProc
 
 (source_file
   (procedure_declaration
-    name: (identifier)
-    params: (param_spec
-      (function_type
-        result_type: (primitive_type))
-      (constvar_param
-        name: (identifier)
-        param_type: (primitive_type))
-      (procedure_type))
+    (procedure_header
+      name: (identifier)
+      params: (param_spec
+        (function_type
+          result_type: (primitive_type))
+        (constvar_param
+          name: (identifier)
+          param_type: (primitive_type))
+        (procedure_type)))
     end_name: (identifier)))
 
 ================================================================================
@@ -942,35 +969,36 @@ end someProc
 
 (source_file
   (procedure_declaration
-    name: (identifier)
-    params: (param_spec
-      (constvar_param
-        name: (identifier)
-        param_type: (primitive_type))
-      (constvar_param
-        bind_to_register: (register_attr)
-        name: (identifier)
-        param_type: (primitive_type))
-      (constvar_param
-        by_ref: (var_attr)
-        bind_to_register: (register_attr)
-        name: (identifier)
-        param_type: (primitive_type))
-      (constvar_param
-        name: (identifier)
-        coerce_type: (cheat_attr)
-        param_type: (primitive_type))
-      (constvar_param
-        bind_to_register: (register_attr)
-        name: (identifier)
-        coerce_type: (cheat_attr)
-        param_type: (primitive_type))
-      (constvar_param
-        by_ref: (var_attr)
-        bind_to_register: (register_attr)
-        name: (identifier)
-        coerce_type: (cheat_attr)
-        param_type: (primitive_type)))
+    (procedure_header
+      name: (identifier)
+      params: (param_spec
+        (constvar_param
+          name: (identifier)
+          param_type: (primitive_type))
+        (constvar_param
+          bind_to_register: (register_attr)
+          name: (identifier)
+          param_type: (primitive_type))
+        (constvar_param
+          by_ref: (var_attr)
+          bind_to_register: (register_attr)
+          name: (identifier)
+          param_type: (primitive_type))
+        (constvar_param
+          name: (identifier)
+          coerce_type: (cheat_attr)
+          param_type: (primitive_type))
+        (constvar_param
+          bind_to_register: (register_attr)
+          name: (identifier)
+          coerce_type: (cheat_attr)
+          param_type: (primitive_type))
+        (constvar_param
+          by_ref: (var_attr)
+          bind_to_register: (register_attr)
+          name: (identifier)
+          coerce_type: (cheat_attr)
+          param_type: (primitive_type))))
     end_name: (identifier)))
 
 ================================================================================
@@ -983,10 +1011,11 @@ procedure withDevSpec() : 1 end withDevSpec
 
 (source_file
   (procedure_declaration
-    name: (identifier)
-    params: (param_spec)
-    device_spec: (literal_expression
-      (integer_literal))
+    (procedure_header
+      name: (identifier)
+      params: (param_spec)
+      device_spec: (literal_expression
+        (integer_literal)))
     end_name: (identifier)))
 
 ================================================================================
@@ -999,7 +1028,8 @@ procedure noParams end noParams
 
 (source_file
   (procedure_declaration
-    name: (identifier)
+    (procedure_header
+      name: (identifier))
     end_name: (identifier)))
 
 ================================================================================
@@ -1012,8 +1042,9 @@ process someProcess() end someProcess
 
 (source_file
   (process_declaration
-    name: (identifier)
-    params: (param_spec)
+    (process_header
+      name: (identifier)
+      params: (param_spec))
     end_name: (identifier)))
 
 ================================================================================
@@ -1027,14 +1058,16 @@ process * someProcess() end someProcess
 
 (source_file
   (process_declaration
-    (pervasive_attr)
-    name: (identifier)
-    params: (param_spec)
+    (process_header
+      (pervasive_attr)
+      name: (identifier)
+      params: (param_spec))
     end_name: (identifier))
   (process_declaration
-    (pervasive_attr)
-    name: (identifier)
-    params: (param_spec)
+    (process_header
+      (pervasive_attr)
+      name: (identifier)
+      params: (param_spec))
     end_name: (identifier)))
 
 ================================================================================
@@ -1050,8 +1083,9 @@ end someProcess
 
 (source_file
   (process_declaration
-    name: (identifier)
-    params: (param_spec)
+    (process_header
+      name: (identifier)
+      params: (param_spec))
     (block_statement)
     (return_statement)
     end_name: (identifier)))
@@ -1066,11 +1100,12 @@ process someProcess(i : int) end someProcess
 
 (source_file
   (process_declaration
-    name: (identifier)
-    params: (param_spec
-      (constvar_param
-        name: (identifier)
-        param_type: (primitive_type)))
+    (process_header
+      name: (identifier)
+      params: (param_spec
+        (constvar_param
+          name: (identifier)
+          param_type: (primitive_type))))
     end_name: (identifier)))
 
 ================================================================================
@@ -1083,14 +1118,15 @@ process someProcess(i, j, k, l : int) end someProcess
 
 (source_file
   (process_declaration
-    name: (identifier)
-    params: (param_spec
-      (constvar_param
-        name: (identifier)
-        name: (identifier)
-        name: (identifier)
-        name: (identifier)
-        param_type: (primitive_type)))
+    (process_header
+      name: (identifier)
+      params: (param_spec
+        (constvar_param
+          name: (identifier)
+          name: (identifier)
+          name: (identifier)
+          name: (identifier)
+          param_type: (primitive_type))))
     end_name: (identifier)))
 
 ================================================================================
@@ -1103,12 +1139,13 @@ process someProcess(i, j, : int) end someProcess
 
 (source_file
   (process_declaration
-    name: (identifier)
-    params: (param_spec
-      (constvar_param
-        name: (identifier)
-        name: (identifier)
-        param_type: (primitive_type)))
+    (process_header
+      name: (identifier)
+      params: (param_spec
+        (constvar_param
+          name: (identifier)
+          name: (identifier)
+          param_type: (primitive_type))))
     end_name: (identifier)))
 
 ================================================================================
@@ -1121,17 +1158,18 @@ process someProcess(i : int, j : int, k : int) end someProcess
 
 (source_file
   (process_declaration
-    name: (identifier)
-    params: (param_spec
-      (constvar_param
-        name: (identifier)
-        param_type: (primitive_type))
-      (constvar_param
-        name: (identifier)
-        param_type: (primitive_type))
-      (constvar_param
-        name: (identifier)
-        param_type: (primitive_type)))
+    (process_header
+      name: (identifier)
+      params: (param_spec
+        (constvar_param
+          name: (identifier)
+          param_type: (primitive_type))
+        (constvar_param
+          name: (identifier)
+          param_type: (primitive_type))
+        (constvar_param
+          name: (identifier)
+          param_type: (primitive_type))))
     end_name: (identifier)))
 
 ================================================================================
@@ -1144,17 +1182,18 @@ process someProcess(i : int, j : int, k : int,) end someProcess
 
 (source_file
   (process_declaration
-    name: (identifier)
-    params: (param_spec
-      (constvar_param
-        name: (identifier)
-        param_type: (primitive_type))
-      (constvar_param
-        name: (identifier)
-        param_type: (primitive_type))
-      (constvar_param
-        name: (identifier)
-        param_type: (primitive_type)))
+    (process_header
+      name: (identifier)
+      params: (param_spec
+        (constvar_param
+          name: (identifier)
+          param_type: (primitive_type))
+        (constvar_param
+          name: (identifier)
+          param_type: (primitive_type))
+        (constvar_param
+          name: (identifier)
+          param_type: (primitive_type))))
     end_name: (identifier)))
 
 ================================================================================
@@ -1167,18 +1206,19 @@ process someProcess(fcn i() : int, function : int, proc j(), proc) end someProce
 
 (source_file
   (process_declaration
-    name: (identifier)
-    params: (param_spec
-      (function_type
-        name: (identifier)
-        params: (param_spec)
-        result_type: (primitive_type))
-      (function_type
-        result_type: (primitive_type))
-      (procedure_type
-        name: (identifier)
-        params: (param_spec))
-      (procedure_type))
+    (process_header
+      name: (identifier)
+      params: (param_spec
+        (function_type
+          name: (identifier)
+          params: (param_spec)
+          result_type: (primitive_type))
+        (function_type
+          result_type: (primitive_type))
+        (procedure_type
+          name: (identifier)
+          params: (param_spec))
+        (procedure_type)))
     end_name: (identifier)))
 
 ================================================================================
@@ -1191,14 +1231,15 @@ process someProcess(function : int, i : int, proc) end someProcess
 
 (source_file
   (process_declaration
-    name: (identifier)
-    params: (param_spec
-      (function_type
-        result_type: (primitive_type))
-      (constvar_param
-        name: (identifier)
-        param_type: (primitive_type))
-      (procedure_type))
+    (process_header
+      name: (identifier)
+      params: (param_spec
+        (function_type
+          result_type: (primitive_type))
+        (constvar_param
+          name: (identifier)
+          param_type: (primitive_type))
+        (procedure_type)))
     end_name: (identifier)))
 
 ================================================================================
@@ -1219,35 +1260,36 @@ end someProcess
 
 (source_file
   (process_declaration
-    name: (identifier)
-    params: (param_spec
-      (constvar_param
-        name: (identifier)
-        param_type: (primitive_type))
-      (constvar_param
-        bind_to_register: (register_attr)
-        name: (identifier)
-        param_type: (primitive_type))
-      (constvar_param
-        by_ref: (var_attr)
-        bind_to_register: (register_attr)
-        name: (identifier)
-        param_type: (primitive_type))
-      (constvar_param
-        name: (identifier)
-        coerce_type: (cheat_attr)
-        param_type: (primitive_type))
-      (constvar_param
-        bind_to_register: (register_attr)
-        name: (identifier)
-        coerce_type: (cheat_attr)
-        param_type: (primitive_type))
-      (constvar_param
-        by_ref: (var_attr)
-        bind_to_register: (register_attr)
-        name: (identifier)
-        coerce_type: (cheat_attr)
-        param_type: (primitive_type)))
+    (process_header
+      name: (identifier)
+      params: (param_spec
+        (constvar_param
+          name: (identifier)
+          param_type: (primitive_type))
+        (constvar_param
+          bind_to_register: (register_attr)
+          name: (identifier)
+          param_type: (primitive_type))
+        (constvar_param
+          by_ref: (var_attr)
+          bind_to_register: (register_attr)
+          name: (identifier)
+          param_type: (primitive_type))
+        (constvar_param
+          name: (identifier)
+          coerce_type: (cheat_attr)
+          param_type: (primitive_type))
+        (constvar_param
+          bind_to_register: (register_attr)
+          name: (identifier)
+          coerce_type: (cheat_attr)
+          param_type: (primitive_type))
+        (constvar_param
+          by_ref: (var_attr)
+          bind_to_register: (register_attr)
+          name: (identifier)
+          coerce_type: (cheat_attr)
+          param_type: (primitive_type))))
     end_name: (identifier)))
 
 ================================================================================
@@ -1260,10 +1302,11 @@ process withStack() : 1 end withStack
 
 (source_file
   (process_declaration
-    name: (identifier)
-    params: (param_spec)
-    stack_size: (literal_expression
-      (integer_literal))
+    (process_header
+      name: (identifier)
+      params: (param_spec)
+      stack_size: (literal_expression
+        (integer_literal)))
     end_name: (identifier)))
 
 ================================================================================
@@ -1276,7 +1319,8 @@ process noParams end noParams
 
 (source_file
   (process_declaration
-    name: (identifier)
+    (process_header
+      name: (identifier))
     end_name: (identifier)))
 
 ================================================================================
@@ -1362,13 +1406,15 @@ external fcn someFn() : int
 
 (source_file
   (external_declaration
-    name: (identifier)
-    params: (param_spec)
-    result_type: (primitive_type))
+    (function_header
+      name: (identifier)
+      params: (param_spec)
+      result_type: (primitive_type)))
   (external_declaration
-    name: (identifier)
-    params: (param_spec)
-    result_type: (primitive_type)))
+    (function_header
+      name: (identifier)
+      params: (param_spec)
+      result_type: (primitive_type))))
 
 ================================================================================
 external declaration - external function with name spec
@@ -1384,16 +1430,18 @@ external "someFn" fcn someFn() : int
     external_spec: (literal_expression
       (string_literal
         (string_content)))
-    name: (identifier)
-    params: (param_spec)
-    result_type: (primitive_type))
+    (function_header
+      name: (identifier)
+      params: (param_spec)
+      result_type: (primitive_type)))
   (external_declaration
     external_spec: (literal_expression
       (string_literal
         (string_content)))
-    name: (identifier)
-    params: (param_spec)
-    result_type: (primitive_type)))
+    (function_header
+      name: (identifier)
+      params: (param_spec)
+      result_type: (primitive_type))))
 
 ================================================================================
 external declaration - external procedure
@@ -1406,11 +1454,13 @@ external proc someProc()
 
 (source_file
   (external_declaration
-    name: (identifier)
-    params: (param_spec))
+    (procedure_header
+      name: (identifier)
+      params: (param_spec)))
   (external_declaration
-    name: (identifier)
-    params: (param_spec)))
+    (procedure_header
+      name: (identifier)
+      params: (param_spec))))
 
 ================================================================================
 external declaration - external procedure with name spec
@@ -1426,14 +1476,16 @@ external "someProc" proc someProc()
     external_spec: (literal_expression
       (string_literal
         (string_content)))
-    name: (identifier)
-    params: (param_spec))
+    (procedure_header
+      name: (identifier)
+      params: (param_spec)))
   (external_declaration
     external_spec: (literal_expression
       (string_literal
         (string_content)))
-    name: (identifier)
-    params: (param_spec)))
+    (procedure_header
+      name: (identifier)
+      params: (param_spec))))
 
 ================================================================================
 forward declaration - forward function
@@ -1446,13 +1498,15 @@ forward fcn someFn() : int
 
 (source_file
   (forward_declaration
-    name: (identifier)
-    params: (param_spec)
-    result_type: (primitive_type))
+    (function_header
+      name: (identifier)
+      params: (param_spec)
+      result_type: (primitive_type)))
   (forward_declaration
-    name: (identifier)
-    params: (param_spec)
-    result_type: (primitive_type)))
+    (function_header
+      name: (identifier)
+      params: (param_spec)
+      result_type: (primitive_type))))
 
 ================================================================================
 forward declaration - forward function with imports
@@ -1464,9 +1518,10 @@ forward function someFn() : int import var a, const b
 
 (source_file
   (forward_declaration
-    name: (identifier)
-    params: (param_spec)
-    result_type: (primitive_type)
+    (function_header
+      name: (identifier)
+      params: (param_spec)
+      result_type: (primitive_type))
     (import_item
       (var_attr)
       (external_item
@@ -1487,11 +1542,13 @@ forward proc someProc()
 
 (source_file
   (forward_declaration
-    name: (identifier)
-    params: (param_spec))
+    (procedure_header
+      name: (identifier)
+      params: (param_spec)))
   (forward_declaration
-    name: (identifier)
-    params: (param_spec)))
+    (procedure_header
+      name: (identifier)
+      params: (param_spec))))
 
 ================================================================================
 forward declaration - forward procedure with imports
@@ -1503,8 +1560,9 @@ forward procedure someProc() import var a, const b
 
 (source_file
   (forward_declaration
-    name: (identifier)
-    params: (param_spec)
+    (procedure_header
+      name: (identifier)
+      params: (param_spec))
     (import_item
       (var_attr)
       (external_item
@@ -1525,13 +1583,15 @@ deferred fcn someFn() : int
 
 (source_file
   (deferred_declaration
-    name: (identifier)
-    params: (param_spec)
-    result_type: (primitive_type))
+    (function_header
+      name: (identifier)
+      params: (param_spec)
+      result_type: (primitive_type)))
   (deferred_declaration
-    name: (identifier)
-    params: (param_spec)
-    result_type: (primitive_type)))
+    (function_header
+      name: (identifier)
+      params: (param_spec)
+      result_type: (primitive_type))))
 
 ================================================================================
 deferred declaration - procedure
@@ -1544,11 +1604,13 @@ deferred proc someProc()
 
 (source_file
   (deferred_declaration
-    name: (identifier)
-    params: (param_spec))
+    (procedure_header
+      name: (identifier)
+      params: (param_spec)))
   (deferred_declaration
-    name: (identifier)
-    params: (param_spec)))
+    (procedure_header
+      name: (identifier)
+      params: (param_spec))))
 
 ================================================================================
 module declaration - standard
@@ -1851,7 +1913,7 @@ var a := 1
   (constvar_declaration
     (identifier)
     (literal_expression
-      (integer_literal))
+      (integer_literal))))
 
 ================================================================================
 loop statement - with endloop
@@ -3136,7 +3198,8 @@ end something
 
 (source_file
   (body_declaration
-    name: (identifier)
+    (plain_header
+      name: (identifier))
     (block_statement)
     end_name: (identifier)))
 
@@ -3152,22 +3215,23 @@ end something
 
 (source_file
   (body_declaration
-    name: (identifier)
-    params: (param_spec
-      (constvar_param
-        name: (identifier)
-        name: (identifier)
-        param_type: (primitive_type))
-      (function_type
-        name: (identifier)
-        params: (param_spec)
-        result_type: (primitive_type))
-      (function_type
-        result_type: (primitive_type))
-      (procedure_type
-        name: (identifier)
-        params: (param_spec))
-      (procedure_type))
+    (plain_header
+      name: (identifier)
+      params: (param_spec
+        (constvar_param
+          name: (identifier)
+          name: (identifier)
+          param_type: (primitive_type))
+        (function_type
+          name: (identifier)
+          params: (param_spec)
+          result_type: (primitive_type))
+        (function_type
+          result_type: (primitive_type))
+        (procedure_type
+          name: (identifier)
+          params: (param_spec))
+        (procedure_type)))
     (block_statement)
     end_name: (identifier)))
 
@@ -3183,8 +3247,9 @@ end something
 
 (source_file
   (body_declaration
-    name: (identifier)
-    result_type: (primitive_type)
+    (plain_header
+      name: (identifier)
+      result_type: (primitive_type))
     (block_statement)
     end_name: (identifier)))
 
@@ -3200,9 +3265,10 @@ end something
 
 (source_file
   (body_declaration
-    name: (identifier)
-    result_name: (identifier)
-    result_type: (primitive_type)
+    (plain_header
+      name: (identifier)
+      result_name: (identifier)
+      result_type: (primitive_type))
     (block_statement)
     end_name: (identifier)))
 
@@ -3218,24 +3284,25 @@ end something
 
 (source_file
   (body_declaration
-    name: (identifier)
-    params: (param_spec
-      (constvar_param
-        name: (identifier)
-        name: (identifier)
-        param_type: (primitive_type))
-      (function_type
-        name: (identifier)
-        params: (param_spec)
-        result_type: (primitive_type))
-      (function_type
-        result_type: (primitive_type))
-      (procedure_type
-        name: (identifier)
-        params: (param_spec))
-      (procedure_type))
-    result_name: (identifier)
-    result_type: (primitive_type)
+    (plain_header
+      name: (identifier)
+      params: (param_spec
+        (constvar_param
+          name: (identifier)
+          name: (identifier)
+          param_type: (primitive_type))
+        (function_type
+          name: (identifier)
+          params: (param_spec)
+          result_type: (primitive_type))
+        (function_type
+          result_type: (primitive_type))
+        (procedure_type
+          name: (identifier)
+          params: (param_spec))
+        (procedure_type))
+      result_name: (identifier)
+      result_type: (primitive_type))
     (block_statement)
     end_name: (identifier)))
 
@@ -3254,25 +3321,27 @@ end something
 
 (source_file
   (body_declaration
-    name: (identifier)
-    params: (param_spec
-      (constvar_param
-        name: (identifier)
-        name: (identifier)
-        param_type: (primitive_type)))
-    result_name: (identifier)
-    result_type: (primitive_type)
+    (function_header
+      name: (identifier)
+      params: (param_spec
+        (constvar_param
+          name: (identifier)
+          name: (identifier)
+          param_type: (primitive_type)))
+      result_name: (identifier)
+      result_type: (primitive_type))
     (block_statement)
     end_name: (identifier))
   (body_declaration
-    name: (identifier)
-    params: (param_spec
-      (constvar_param
-        name: (identifier)
-        name: (identifier)
-        param_type: (primitive_type)))
-    result_name: (identifier)
-    result_type: (primitive_type)
+    (function_header
+      name: (identifier)
+      params: (param_spec
+        (constvar_param
+          name: (identifier)
+          name: (identifier)
+          param_type: (primitive_type)))
+      result_name: (identifier)
+      result_type: (primitive_type))
     (block_statement)
     end_name: (identifier)))
 
@@ -3291,25 +3360,27 @@ end something
 
 (source_file
   (body_declaration
-    name: (identifier)
-    params: (param_spec
-      (constvar_param
-        name: (identifier)
-        name: (identifier)
-        param_type: (primitive_type)))
-    device_spec: (literal_expression
-      (integer_literal))
+    (procedure_header
+      name: (identifier)
+      params: (param_spec
+        (constvar_param
+          name: (identifier)
+          name: (identifier)
+          param_type: (primitive_type)))
+      device_spec: (literal_expression
+        (integer_literal)))
     (block_statement)
     end_name: (identifier))
   (body_declaration
-    name: (identifier)
-    params: (param_spec
-      (constvar_param
-        name: (identifier)
-        name: (identifier)
-        param_type: (primitive_type)))
-    device_spec: (literal_expression
-      (integer_literal))
+    (procedure_header
+      name: (identifier)
+      params: (param_spec
+        (constvar_param
+          name: (identifier)
+          name: (identifier)
+          param_type: (primitive_type)))
+      device_spec: (literal_expression
+        (integer_literal)))
     (block_statement)
     end_name: (identifier)))
 
@@ -3325,7 +3396,8 @@ end nothing
 
 (source_file
   (body_declaration
-    name: (identifier)
+    (plain_header
+      name: (identifier))
     end_name: (identifier))
   (call_statement
     left: (nameref_expression
