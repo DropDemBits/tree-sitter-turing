@@ -54,13 +54,14 @@
 
 
 (all_expression) @keyword
+(all_item) @keyword
 "array" @keyword
 ; "asm" @keyword
 "assert" @keyword
 "begin" @keyword
 "bind" @keyword
 "bits" @keyword
-; "body" @keyword
+"body" @keyword
 ; "break" @keyword
 "by" @keyword
 "case" @keyword
@@ -87,16 +88,16 @@
 "endunion" @keyword
 "enum" @keyword
 "exit" @keyword
-; "export" @keyword
+"export" @keyword
 "external" @keyword
-; "flexible" @keyword todo!
+(flexible_attr) @keyword
 "for" @keyword
 ; "fork" @keyword
 "forward" @keyword
 ; "free" @keyword
 "fcn" @keyword
 "function" @keyword
-; "get" @keyword
+"get" @keyword
 ; "handler" @keyword
 "if" @keyword
 "implement" @keyword
@@ -113,12 +114,12 @@
 ; "new" @keyword
 "objectclass" @keyword
 "of" @keyword
-; "opaque" @keyword
+(opaque_attr) @keyword
 "open" @keyword
 "or" @keyword
 (packed_attr) @keyword
 ; "pause" @keyword
-"pervasive" @keyword
+(pervasive_attr) @keyword
 "pointer" @keyword
 ; "post" @keyword
 ; "pre" @keyword
@@ -135,12 +136,12 @@
 (return_statement) @keyword
 "seek" @keyword
 (self_expression) @variable.builtin
-; "set" @keyword
+"set" @keyword
 ; "signal" @keyword
 "sizeof" @keyword
-; "skip" @keyword
+(skip_item) @keyword
 ; "tag" @keyword
-; "tell" @keyword
+"tell" @keyword
 "then" @keyword
 "timeout" @keyword
 "to" @keyword
@@ -148,7 +149,8 @@
 (unchecked_attr) @keyword
 "union" @keyword
 "unit" @keyword
-; "unqualified" @keyword
+(unqualified_attr) @keyword
+ @keyword
 "var" @keyword
 ; "wait" @keyword
 "when" @keyword
